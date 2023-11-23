@@ -10,7 +10,7 @@ public class Main {
 
     /**
      * 메인 메소드
-     * @param args
+     * @param args 파라미터는 일반 설정
      */
     public static void main(String[] args) {  new MainPanel();  }
 }

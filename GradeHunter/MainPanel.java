@@ -47,11 +47,9 @@ public class MainPanel extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         Toolkit kit = Toolkit.getDefaultToolkit();
-        Dimension screenSize = kit.getScreenSize();
 
-        Image img = kit.getImage("images\\Gradcap.png");
+        Image img = kit.getImage(Main.class.getResource("images/Gradcap.png"));
         setIconImage(img);
-
 
         drawback mainpanel = new drawback();
         startButton.setBounds(360,500,360,80);
