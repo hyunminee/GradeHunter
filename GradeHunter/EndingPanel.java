@@ -21,7 +21,7 @@ public class EndingPanel extends JPanel {
     public EndingPanel(JFrame frame){
         this.frame = frame;
         try {
-            backgroundImage = ImageIO.read(getClass().getResource("images/select.png")); // 이미지 파일 경로에 따라 수정
+            backgroundImage = ImageIO.read(getClass().getResource("images/end_m.png")); // 이미지 파일 경로에 따라 수정
         } catch (IOException e) {
             e.printStackTrace();
         }

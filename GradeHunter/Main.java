@@ -12,7 +12,5 @@ public class Main {
      * 메인 메소드
      * @param args
      */
-    public static void main(String[] args) {
-        new MainPanel();
-    }
+    public static void main(String[] args) {  new MainPanel();  }
 }

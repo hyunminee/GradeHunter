@@ -19,7 +19,7 @@ public class Panel_t{
             JFrame frame = new JFrame("Grade Hunter");
             frame.setSize(1080, 720);
 
-            Image img = kit.getImage("images\\Gradcap.png");
+            Image img = kit.getImage("images/Gradcap.png");
             frame.setIconImage(img);
 
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
