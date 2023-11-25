@@ -198,10 +198,10 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         drawGameStatus(g);
 
         // 밀리초 단위 타이머 그리기
+        g.setColor(Color.BLACK); // 타이머 텍스트 색상 설정
+        g.setFont(new Font("SansSerif", Font.BOLD, 28)); // 폰트와 크기 설정
         String timeLeftFormatted = formatTime(gameLogic.getTimeLeft()); // 밀리초 단위 반환 가정
-        g.drawString(timeLeftFormatted, getWidth() - 130, 105); // 위치 지정
-        g.setColor(Color.BLACK);
-        g.setFont(new Font("SansSerif", Font.BOLD, 30));
+        g.drawString(timeLeftFormatted, getWidth() - 126, 105); // 위치 지정
     }
 
     private void drawGameStatus(Graphics g) {
@@ -218,22 +218,6 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
             item.draw(g);
         }
 
-        // 게이지 및 타이머 그리기 로직
-        // 예: 게이지 바, 타이머 표시 등
-        // 게이지 바 그리기
-//        int gaugeBarWidth = (int) ((double) gaugeValue / maxGaugeValue * getWidth());
-//        g.setColor(Color.GREEN);
-//        g.fillRect(300, 88, gaugeBarWidth, 30); // 게이지 바 그리기(x, y, width, height)
-//
-//        // 게이지 바 테두리 그리기
-//        g.setColor(Color.BLACK);
-//        g.drawRect(300, 88, getWidth() - 490, 30);
-
-//        // 밀리초 단위 타이머 그리기
-//        String timeLeftFormatted = formatTime(gameLogic.getTimeLeft()); // 밀리초 단위 반환 가정
-//        g.drawString(timeLeftFormatted, getWidth() - 130, 105); // 위치 지정
-//        g.setColor(Color.BLACK);
-//        g.setFont(new Font("SansSerif", Font.BOLD, 30));
     }
     // 게이지 값을 업데이트하는 메소드
     public void updateGaugeBar(int value)

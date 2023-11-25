@@ -26,7 +26,7 @@ public class GameLogic {
     public GameLogic(Player character, List<Item> items, JPanel parentPanel, int initialTime, int panelWidth, int itemWidth, GamePlayPanel panel) {
         this.character = character;
         this.items = items;
-        this.currentStage = 1; // 현재 스테이지
+        this.currentStage = 6; // 현재 스테이지
         this.MAX_STAGE=8;
         this.PANEL_WIDTH = panelWidth;
         this.ITEM_WIDTH = itemWidth;
@@ -140,7 +140,7 @@ public class GameLogic {
         // 아이템의 효과를 적용하는 로직
         // TARDY 아이템의 경우 시간 감소, 그 외에는 게이지 증가/감소
         if (item.getType() == ItemType.TARDY) {
-            stageTime = Math.max(0, stageTime - Math.abs(item.getEffectValue()));
+            timerLabel.decreaseTime(Math.abs(item.getEffectValue())*1000); // TARDY 아이템의 effectValue만큼 시간 감소
         } else {
             // 아이템이 게이지를 증가시키는 경우 최대값을 초과하지 않도록 한다.
             if (item.getEffectValue() > 0) {
@@ -219,7 +219,10 @@ public class GameLogic {
         public TimerNum(int seconds) {
             this.milliseconds = seconds*1000; // 초를 밀리초로 변환
         }
-
+        public void decreaseTime(long millis)
+        {
+            this.milliseconds = Math.max(0, this.milliseconds-millis); // 시간 감소
+        }
         @Override
         public void run() {
             while (milliseconds > 0) {
