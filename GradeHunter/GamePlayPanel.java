@@ -32,7 +32,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
 //    private Timer timer;
 //    //private Player character; // 게임 내 플레이어 캐릭터 객체
 //    //private List<Item> items; // 화면에 표시될 아이템들을 저장하는 리스트
-    private int stage = 1; // 현재 게임의 스테이지 번호
+    private int stage; // 현재 게임의 스테이지 번호
     //    private int itemFallSpeed; // 아이템이 떨어지는 속도 (밀리초 단위)
 //    private double stageTime = 60000; // 각 스테이지의 지속 시간 (초)
     private int gaugeValue = 0; // 현재 게이지 값
@@ -96,6 +96,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
 
 
     private void initGame() {
+//        stage=1;
         character = new Player(540,500); // 캐릭터 위치 설정 초기화
         items = new ArrayList<>();
         gameLogic = new GameLogic(character, items, this, 60, 1080, 50, this);
@@ -104,62 +105,62 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         }
         gameUpdateTimer = new Timer(DELAY, this); // 새 타이머 설정 및 시작
         gameUpdateTimer.start();
-        showStagePopup();
+//        showStagePopup();
         gameLogic.updateGame();
         // 게임 로직 중 스테이지별 아이템 추가 부분이 원래 이 부분에 들어갔었음
     }
 
     // 스테이지 정보를 보여주는 팝업창을 표시하는 메소드
-    public void showStagePopup() {
-
-        setLayout(null);    //레이아웃 관리자를 사용하지 않음
-
-        ImageIcon stageImage = null;
-        if (stage == 1)
-            stageImage = stage1Popup;
-        else if(stage == 2)
-            stageImage = stage2Popup;
-        else if(stage == 3)
-            stageImage = stage3Popup;
-        else if(stage == 4)
-            stageImage = stage4Popup;
-        else if(stage == 5)
-            stageImage = stage5Popup;
-        else if(stage == 6)
-            stageImage = stage6Popup;
-        else if(stage == 7)
-            stageImage = stage7Popup;
-        else if(stage == 8)
-            stageImage = stage8Popup;
-
-        JLabel stage1popup = new JLabel(stageImage);
-        stage1popup.setBounds(290, 160, stageImage.getIconWidth(), stageImage.getIconHeight()); // x, y 위치와 너비, 높이 설정
-        add(stage1popup);
-
-        //!!!여기부터 오버레이
-        blackOverlay = new JPanel();
-        blackOverlay.setBackground(new Color(0, 0, 0, 200));    // 검정색 오버레이창 투명도 설정
-        blackOverlay.setBounds(0, 0, 1080, 720);
-        blackOverlay.setVisible(false);
-        add(blackOverlay);
-
-        //Timer를 설정하여 지정된 시간 후에 레이블을 패널에서 제거
-        Timer timer = new Timer(3000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                remove(stage1popup);
-                blackOverlay.setVisible(false);    // 검은색 패널 비활성화
-                removeKeyListener(keyBlocker);     // 키 이벤트 리스너 제거
-                revalidate();
-                repaint();
-            }
-        });
-        timer.setRepeats(false);    //한 번만 실행
-        addKeyListener(keyBlocker); //타이머 시작전 키 이벤트 리스너 추가
-        setFocusable(true);         // 패널이 키 이벤트를 받을 수 있도록 설정
-        timer.start();
-        blackOverlay.setVisible(true);      // 검은색 오버레이 패널 활성화하여 팝업과 함께 표시
-    }
+//    public void showStagePopup() {
+//
+//        setLayout(null);    //레이아웃 관리자를 사용하지 않음
+//
+//        ImageIcon stageImage = null;
+//        if (stage == 1)
+//            stageImage = stage1Popup;
+//        else if(stage == 2)
+//            stageImage = stage2Popup;
+//        else if(stage == 3)
+//            stageImage = stage3Popup;
+//        else if(stage == 4)
+//            stageImage = stage4Popup;
+//        else if(stage == 5)
+//            stageImage = stage5Popup;
+//        else if(stage == 6)
+//            stageImage = stage6Popup;
+//        else if(stage == 7)
+//            stageImage = stage7Popup;
+//        else if(stage == 8)
+//            stageImage = stage8Popup;
+//
+//        JLabel stage1popup = new JLabel(stageImage);
+//        stage1popup.setBounds(290, 160, stageImage.getIconWidth(), stageImage.getIconHeight()); // x, y 위치와 너비, 높이 설정
+//        add(stage1popup);
+//
+//        //!!!여기부터 오버레이
+//        blackOverlay = new JPanel();
+//        blackOverlay.setBackground(new Color(0, 0, 0, 200));    // 검정색 오버레이창 투명도 설정
+//        blackOverlay.setBounds(0, 0, 1080, 720);
+//        blackOverlay.setVisible(false);
+//        add(blackOverlay);
+//
+//        //Timer를 설정하여 지정된 시간 후에 레이블을 패널에서 제거
+//        Timer timer = new Timer(3000, new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                remove(stage1popup);
+//                blackOverlay.setVisible(false);    // 검은색 패널 비활성화
+//                removeKeyListener(keyBlocker);     // 키 이벤트 리스너 제거
+//                revalidate();
+//                repaint();
+//            }
+//        });
+//        timer.setRepeats(false);    //한 번만 실행
+//        addKeyListener(keyBlocker); //타이머 시작전 키 이벤트 리스너 추가
+//        setFocusable(true);         // 패널이 키 이벤트를 받을 수 있도록 설정
+//        timer.start();
+//        blackOverlay.setVisible(true);      // 검은색 오버레이 패널 활성화하여 팝업과 함께 표시
+//    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -225,7 +226,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
 
     private String formatTime(long millis) {
         long seconds = millis / 1000;
-        long remainingMillis = millis % 1000;
+        long remainingMillis = (millis % 1000)/10;
         return String.format("%02d:%02d", seconds, remainingMillis);
     }
 

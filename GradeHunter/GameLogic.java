@@ -1,10 +1,8 @@
 package GradeHunter;
 
 import javax.swing.*;
-import java.awt.*;
-import java.util.Iterator;
+import java.util.*;
 import java.util.List;
-import java.util.Random;
 
 public class GameLogic {
     private List<Item> items; // 게임 아이템 리스트
@@ -16,18 +14,18 @@ public class GameLogic {
     private int gaugeValue = 0; // 현재 게이지 값
     private final int GAUGE_PER_STAGE = 50; // 스테이지 당 필요한 게이지 증가량
     private int maxGaugeValue= currentStage * GAUGE_PER_STAGE; // 최대 게이지 값 (스테이지에 따라 변함)
-    private int itemFallSpeed; // 아이템 하강 속도
+    private int itemFallSpeed=2; // 아이템 하강 속도
     private final int PANEL_WIDTH; // 게임 패널의 너비
     private final int ITEM_WIDTH;  // 아이템의 너비
     protected Random rand; // 랜덤 이벤트 및 아이템 위치 생성에 사용될 Random 객체
-    private static final int MAX_ITEMS = 20; // 화면에 표시될 수 있는 최대 아이템 수
+    private static final int MAX_ITEMS = 10; // 화면에 표시될 수 있는 최대 아이템 수
     private GamePlayPanel gamePlayPanel; // GamePlayPanel 참조
 
 
     public GameLogic(Player character, List<Item> items, JPanel parentPanel, int initialTime, int panelWidth, int itemWidth, GamePlayPanel panel) {
         this.character = character;
         this.items = items;
-        this.currentStage = 1;
+        this.currentStage = 1; // 현재 스테이지
         this.MAX_STAGE=8;
         this.PANEL_WIDTH = panelWidth;
         this.ITEM_WIDTH = itemWidth;
@@ -74,7 +72,7 @@ public class GameLogic {
     }
     // 아이템 생성 및 관리 메소드
     private void manageItems() {
-        if (items.size() < MAX_ITEMS) { // MAX_ITEMS: 동시에 화면에 표시될 수 있는 최대 아이템 수
+        if ((timerLabel.getMilliSeconds()>0)&&(items.size() < MAX_ITEMS)) { // MAX_ITEMS: 동시에 화면에 표시될 수 있는 최대 아이템 수
             // 아이템 생성 로직
             createRandomItem();
         }
@@ -91,17 +89,30 @@ public class GameLogic {
     }
 
     private void createRandomItem() {
+
         int x; // 아이템이 화면 밖으로 나가지 않도록 계산
+        int y = 0; // 화면 상단에서 시작
+
         boolean positionOverlap;
         do {
             x = rand.nextInt(PANEL_WIDTH - ITEM_WIDTH); // 아이템이 화면 밖으로 나가지 않도록 계산
             positionOverlap = checkPositionOverlap(x);
         } while (positionOverlap);
-        int y = 0; // 화면 상단에서 시작
+
 
         // 아이템 타입 결정 로직
         ItemType[] types = ItemType.values();
-        ItemType type = types[rand.nextInt(types.length)];
+        ItemType type;
+        if (currentStage <= 4) {
+            // 스테이지 1~4: BLUE, GREEN, YELLOW, RED 아이템만 나옴
+            List<ItemType> allowedTypes = new ArrayList<>(Arrays.asList(types));
+            allowedTypes.remove(ItemType.TARDY);
+            allowedTypes.remove(ItemType.PRESENTATION);
+            type = allowedTypes.get(rand.nextInt(allowedTypes.size()));
+        } else {
+            // 스테이지 5~8: 모든 아이템이 나옴
+            type = types[rand.nextInt(types.length)];
+        }
 
         // 아이템 생성
         Item newItem = new Item(type.getImagePath(), x, y, type, itemFallSpeed);
@@ -136,53 +147,53 @@ public class GameLogic {
     }
 
     private void manageStages() {
+        System.out.println("현재 스테이지="+currentStage);
         // 예: 스테이지 종료 조건 확인 및 다음 스테이지로 이동
+        maxGaugeValue = currentStage * GAUGE_PER_STAGE; // 최대 게이지 값 업데이트
+
+        // 스테이지 종료 조건 확인 및 다음 스테이지로 이동
         if (stageTime <= 0 && gaugeValue != maxGaugeValue) {
             gameOver();
         }
-        if (currentStage==MAX_STAGE && gaugeValue>=maxGaugeValue)
-        {
+        if (currentStage == MAX_STAGE && gaugeValue >= maxGaugeValue) {
             gameClear();
-        }
-        else if (gaugeValue>=maxGaugeValue)
-        {
+        } else if (gaugeValue >= maxGaugeValue) {
             currentStage++;
-            gamePlayPanel.showStagePopup();
+            gaugeValue = 0; // 게이지 초기화
+//            gamePlayPanel.showStagePopup();
             goToNextStage(currentStage);
         }
 
 
     }
 
-    private ItemType goToNextStage(int currentStage) {
+    private void goToNextStage(int currentStage) {
+        System.out.println("현재 스테이지의 아이템 하강속도="+itemFallSpeed);
         switch (currentStage) {
             case 1:
             case 2:
-                itemFallSpeed = 100;
+                itemFallSpeed = 2;
                 break;
             case 3:
             case 4:
-                itemFallSpeed = 150;
-                break;
             case 5:
             case 6:
-                itemFallSpeed = 170;
+                itemFallSpeed = 4;
                 break;
             case 7:
             case 8:
-                itemFallSpeed = 200;
+                itemFallSpeed = 5;
                 break;
         }
 
-        ItemType itemType;
-        if (currentStage <= 4) {
-            // 스테이지 1~4: BLUE, GREEN, YELLOW, RED 아이템만 나옴
-            itemType = ItemType.values()[rand.nextInt(4)]; // BLUE, GREEN, YELLOW, RED 중 하나를 랜덤으로 선택
-        } else {
-            // 스테이지 5~8: 모든 아이템이 나옴
-            itemType = ItemType.values()[rand.nextInt(ItemType.values().length)]; // 모든 ItemType 중 하나를 랜덤으로 선택
-        }
-        return itemType;
+//        ItemType itemType;
+//        if (currentStage <= 4) {
+//            // 스테이지 1~4: BLUE, GREEN, YELLOW, RED 아이템만 나옴
+//            itemType = ItemType.values()[rand.nextInt(4)]; // BLUE, GREEN, YELLOW, RED 중 하나를 랜덤으로 선택
+//        } else {
+//            // 스테이지 5~8: 모든 아이템이 나옴
+//            itemType = ItemType.values()[rand.nextInt(ItemType.values().length)]; // 모든 ItemType 중 하나를 랜덤으로 선택
+//        }
     }
 
     // 타이머 시간 가져오기
