@@ -14,12 +14,13 @@ public class GameLogic {
     private int gaugeValue = 0; // 현재 게이지 값
     private final int GAUGE_PER_STAGE = 50; // 스테이지 당 필요한 게이지 증가량
     private int maxGaugeValue= currentStage * GAUGE_PER_STAGE; // 최대 게이지 값 (스테이지에 따라 변함)
-    private int itemFallSpeed=2; // 아이템 하강 속도
+    private int itemFallSpeed=1; // 아이템 하강 속도
     private final int PANEL_WIDTH; // 게임 패널의 너비
     private final int ITEM_WIDTH;  // 아이템의 너비
     protected Random rand; // 랜덤 이벤트 및 아이템 위치 생성에 사용될 Random 객체
     private static final int MAX_ITEMS = 10; // 화면에 표시될 수 있는 최대 아이템 수
     private GamePlayPanel gamePlayPanel; // GamePlayPanel 참조
+    private int lastStage=0; // 이전 스테이지 번호를 추적하기 위한 변수
 
 
     public GameLogic(Player character, List<Item> items, JPanel parentPanel, int initialTime, int panelWidth, int itemWidth, GamePlayPanel panel) {
@@ -67,6 +68,10 @@ public class GameLogic {
         character.update();
         // 아이템 생성 및 관리
         manageItems();
+        // 게이지 값이 변경될 때마다 GamePlayPanel의 게이지 바 업데이트
+        SwingUtilities.invokeLater(()->{
+            gamePlayPanel.updateGaugeBar(gaugeValue);
+        });
         // 스테이지 관리 로직
         manageStages();
     }
@@ -131,6 +136,7 @@ public class GameLogic {
 
     // 아이템에 따른 추가 처리 (예: 점수 추가, 효과 적용 등)
     private void processItemEffect(Item item) {
+        System.out.println("현재 게이지 = "+ gaugeValue);
         // 아이템의 효과를 적용하는 로직
         // TARDY 아이템의 경우 시간 감소, 그 외에는 게이지 증가/감소
         if (item.getType() == ItemType.TARDY) {
@@ -149,7 +155,13 @@ public class GameLogic {
     private void manageStages() {
         System.out.println("현재 스테이지="+currentStage);
         // 예: 스테이지 종료 조건 확인 및 다음 스테이지로 이동
-        maxGaugeValue = currentStage * GAUGE_PER_STAGE; // 최대 게이지 값 업데이트
+        boolean newStageStarted = currentStage != lastStage;
+        // 새 스테이지가 시작될 때 게이지 바 최대값 및 현재 값 업데이트
+        if (newStageStarted) {
+            maxGaugeValue = currentStage*GAUGE_PER_STAGE;
+            gamePlayPanel.setMaxGaugeValue(maxGaugeValue);
+            gamePlayPanel.updateGaugeBar(0);
+        }
 
         // 스테이지 종료 조건 확인 및 다음 스테이지로 이동
         if (stageTime <= 0 && gaugeValue != maxGaugeValue) {
@@ -168,21 +180,20 @@ public class GameLogic {
     }
 
     private void goToNextStage(int currentStage) {
-        System.out.println("현재 스테이지의 아이템 하강속도="+itemFallSpeed);
         switch (currentStage) {
             case 1:
             case 2:
-                itemFallSpeed = 2;
-                break;
             case 3:
             case 4:
+                itemFallSpeed = 1;
+                break;
             case 5:
             case 6:
-                itemFallSpeed = 4;
+                itemFallSpeed = 2;
                 break;
             case 7:
             case 8:
-                itemFallSpeed = 5;
+                itemFallSpeed = 3;
                 break;
         }
 

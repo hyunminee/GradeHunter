@@ -27,6 +27,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
     private ImageIcon[] stagePopups; // 스테이지 팝업 이미지
     private boolean showPopup; // 팝업 표시 여부
     private int currentStage; // 현재 스테이지
+    private JProgressBar gaugeBar;
 
     ////////////////////////////
 //    private Timer timer;
@@ -36,9 +37,8 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
     //    private int itemFallSpeed; // 아이템이 떨어지는 속도 (밀리초 단위)
 //    private double stageTime = 60000; // 각 스테이지의 지속 시간 (초)
     private int gaugeValue = 0; // 현재 게이지 값
-    private final int GAUGE_PER_STAGE = 50; // 스테이지 당 필요한 게이지 증가량
     private final int MAX_STAGE = 8; // 최대 스테이지 번호
-    private int maxGaugeValue; // 최대 게이지 값 (스테이지에 따라 변함)
+    private final int maxGaugeValue = 100; // 최대 게이지 값
     public ImageIcon stage1Popup = new ImageIcon(("images/popup/popup_1.png"));
     public ImageIcon stage2Popup = new ImageIcon(("images/popup/popup_2.png"));
     public ImageIcon stage3Popup = new ImageIcon(("images/popup/popup_3.png"));
@@ -57,6 +57,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
     };
 
     public GamePlayPanel() {
+        setLayout(null); // 레이아웃 관리자 비활성화
         // 배경 이미지 로드
         try {
             backgroundImage = ImageIO.read(new File("images/bg_gameplay.png")); // 이미지 파일 경로 지정
@@ -81,6 +82,24 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
             gameLogic.updateGame();
             repaint(); // 화면 다시 그리기
         });
+
+        // JProgressBar 초기화
+        gaugeBar = new JProgressBar();
+        gaugeBar.setMinimum(0); // 최소값 설정
+        gaugeBar.setMaximum(100); // 최대값 설정 (초기값)
+        gaugeBar.setValue(0); // 초기 게이지 값 설정
+        gaugeBar.setForeground(Color.ORANGE); // 게이지 바 색상 설정
+        add(gaugeBar); // GamePlayPanel에 추가
+        // 컴포넌트 리스너 추가
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                // 패널 크기가 변경될 때마다 JProgressBar 위치 및 크기 재설정
+                gaugeBar.setBounds(300, 88, getWidth() - 490, 25);
+                System.out.println("JProgressBar 위치 및 크기 설정: " + gaugeBar.getBounds());
+            }
+        });
+
         gameUpdateTimer.start();
     }
 
@@ -178,14 +197,6 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         character.draw(g);
         drawGameStatus(g);
 
-        int gaugeWidth = (int) ((double) gaugeValue / maxGaugeValue * getWidth());
-        g.setColor(Color.GREEN);
-        g.fillRect(10, 10, gaugeWidth, 20);
-
-        // 게이지 바 테두리 그리기
-        g.setColor(Color.BLACK);
-        g.drawRect(300, 88, getWidth() - 490, 30);
-
         // 밀리초 단위 타이머 그리기
         String timeLeftFormatted = formatTime(gameLogic.getTimeLeft()); // 밀리초 단위 반환 가정
         g.drawString(timeLeftFormatted, getWidth() - 130, 105); // 위치 지정
@@ -209,21 +220,31 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
 
         // 게이지 및 타이머 그리기 로직
         // 예: 게이지 바, 타이머 표시 등
-        int gaugeWidth = (int) ((double) gaugeValue / maxGaugeValue * getWidth());
-        g.setColor(Color.GREEN);
-        g.fillRect(10, 10, gaugeWidth, 20);
+        // 게이지 바 그리기
+//        int gaugeBarWidth = (int) ((double) gaugeValue / maxGaugeValue * getWidth());
+//        g.setColor(Color.GREEN);
+//        g.fillRect(300, 88, gaugeBarWidth, 30); // 게이지 바 그리기(x, y, width, height)
+//
+//        // 게이지 바 테두리 그리기
+//        g.setColor(Color.BLACK);
+//        g.drawRect(300, 88, getWidth() - 490, 30);
 
-        // 게이지 바 테두리 그리기
-        g.setColor(Color.BLACK);
-        g.drawRect(300, 88, getWidth() - 490, 30);
-
-        // 밀리초 단위 타이머 그리기
-        String timeLeftFormatted = formatTime(gameLogic.getTimeLeft()); // 밀리초 단위 반환 가정
-        g.drawString(timeLeftFormatted, getWidth() - 130, 105); // 위치 지정
-        g.setColor(Color.BLACK);
-        g.setFont(new Font("SansSerif", Font.BOLD, 30));
+//        // 밀리초 단위 타이머 그리기
+//        String timeLeftFormatted = formatTime(gameLogic.getTimeLeft()); // 밀리초 단위 반환 가정
+//        g.drawString(timeLeftFormatted, getWidth() - 130, 105); // 위치 지정
+//        g.setColor(Color.BLACK);
+//        g.setFont(new Font("SansSerif", Font.BOLD, 30));
     }
-
+    // 게이지 값을 업데이트하는 메소드
+    public void updateGaugeBar(int value)
+    {
+        gaugeBar.setValue(value);
+    }
+    // 최대 게이지 값을 설정하는 메소드
+    public void setMaxGaugeValue(int maxGaugeValue)
+    {
+        gaugeBar.setMaximum(maxGaugeValue);
+    }
     private String formatTime(long millis) {
         long seconds = millis / 1000;
         long remainingMillis = (millis % 1000)/10;
