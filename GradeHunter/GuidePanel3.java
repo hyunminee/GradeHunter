@@ -10,10 +10,10 @@ import java.awt.*;
 public class GuidePanel3 extends JPanel {
     public GuidePanel3(GuideFrame frame) {
         setLayout(new BorderLayout());
-        ImagePanel imgPanel = new ImagePanel(new ImageIcon("images\\bg_gp_3.png").getImage());
+        ImagePanel1 imgPanel = new ImagePanel1(new ImageIcon("GradeHunter/images/bg_gp_3.png").getImage());
         add(imgPanel, BorderLayout.CENTER);
 
-        ImageIcon leftIcon = new ImageIcon("images\\bt_start.png");
+        ImageIcon leftIcon = new ImageIcon("GradeHunter/images/bt_start.png");
         JButton startButton = new JButton(leftIcon);
 
 

@@ -10,11 +10,11 @@ import java.awt.*;
 public class GuidePanel2 extends JPanel {
     public GuidePanel2(GuideFrame frame) {
         setLayout(new BorderLayout());
-        ImagePanel imgPanel = new ImagePanel(new ImageIcon("images\\bg_gp_2.png").getImage());
+        ImagePanel1 imgPanel = new ImagePanel1(new ImageIcon("GradeHunter/images/bg_gp_2.png").getImage());
         add(imgPanel, BorderLayout.CENTER);
 
-        ImageIcon leftIcon = new ImageIcon("images\\key_left.png");
-        ImageIcon rightIcon = new ImageIcon("images\\key_right.png");
+        ImageIcon leftIcon = new ImageIcon("GradeHunter/images/key_left.png");
+        ImageIcon rightIcon = new ImageIcon("GradeHunter/images/key_right.png");
         JButton leftButton = new JButton(leftIcon);
         JButton rightButton = new JButton(rightIcon);
 
