@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 
 public class GameOver extends JPanel{
 
+    //테스트중
     public ImageIcon stage1Image = new ImageIcon(GameOver.class.getResource("images/stage/s_1.png")); // 이미지 아이콘 로드
     public ImageIcon gradeAImage = new ImageIcon(GameOver.class.getResource("images/grade/g_a.png"));
     public ImageIcon gameoverImage = new ImageIcon(GameOver.class.getResource("images/gameover.png"));
