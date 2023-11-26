@@ -27,16 +27,20 @@ public class MainPanel extends JFrame{
     public JCheckBox mCheckBox = new JCheckBox("");
     public JCheckBox fCheckBox = new JCheckBox("");
 
-    private static final String INFO_FILE_PATH = "info.txt";
     public static final int SCREEN_WIDTH = 1080;
     public static final int SCREEN_HEIGHT = 720;
 
     public static Image background = new ImageIcon(Main.class.getResource("images/bg.png")).getImage();
 
     public Container cPane;
+    public JTextField studentID;
+    public JButton saveButton;
+    public String savedText;
 
     public static JFrame guide;
     public static JFrame rank;
+
+    public static JFrame qspanel;
 
     public MainPanel(){
         cPane = getContentPane();
@@ -83,6 +87,11 @@ public class MainPanel extends JFrame{
                 cPane.add(guidepanel);
                 guidepanel.setVisible(true);
                 guidepanel.repaint();*/
+                /*JPanel quizselectpanel = new QuizSelectPanel(qspanel);
+                quizselectpanel.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+                cPane.add(quizselectpanel);
+                quizselectpanel.setVisible(true);
+                quizselectpanel.repaint();*/
             }
 
         });
@@ -134,15 +143,26 @@ public class MainPanel extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 AbstractButton abstractButton = (AbstractButton)e.getSource();
                 boolean selected = abstractButton.getModel().isSelected();
-                String logMessage = abstractButton.getText();
-                logToFile(logMessage);
+
             }
         };
 
         mCheckBox.addActionListener(checkBoxListener);
         fCheckBox.addActionListener(checkBoxListener);
 
-
+        studentID = new JTextField();
+        studentID.setBounds(500,300,80,50);
+        // 저장 버튼 초기화
+        saveButton = new JButton("Save");
+        saveButton.setBounds(700,600,20,10);
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 텍스트 필드의 내용을 변수에 저장
+                savedText = studentID.getText();
+                JOptionPane.showMessageDialog(MainPanel.this, "Text saved: " + savedText);
+            }
+        });
 
 
         cPane.add(mainpanel);
@@ -152,28 +172,16 @@ public class MainPanel extends JFrame{
         mainpanel.add(rankButton);
         mainpanel.add(mCheckBox);
         mainpanel.add(fCheckBox);
+        mainpanel.add(studentID);
+        mainpanel.add(saveButton);
         setVisible(true);
 
-        // 프로그램 종료 이벤트를 감지하여 파일에 대한 작업을 마무리
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            closeFile();
-        }));
     }
     /**
      * cPane에  이미지를 그려주는 메소드 입니다.
      */
-    private static void logToFile(String logMessage){
-        try(PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(INFO_FILE_PATH, true)))){
-            writer.println(logMessage);
-            writer.flush();
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-    private static void closeFile() {
-        // 파일에 대한 작업을 마무리
-        logToFile(""); // 빈 문자열을 쓰는 것으로 버퍼 비우기
-    }
+
+
     class drawback extends JPanel{
         @Override
         public void paintComponent(Graphics graphics){

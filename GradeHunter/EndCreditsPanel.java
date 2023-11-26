@@ -23,7 +23,7 @@ public class EndCreditsPanel extends JPanel{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        /*
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -32,7 +32,7 @@ public class EndCreditsPanel extends JPanel{
                 frame.revalidate();
                 frame.repaint();
             }
-        });
+        });*/
     }
 
     @Override

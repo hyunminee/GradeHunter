@@ -8,23 +8,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Quiz_1 extends JFrame implements Quiz{
+public class Quiz_1 extends JPanel implements Quiz{
 
     private List<TestItem> quizzes;
     private int currentQuizIndex;
     private JLabel imageLabel;
     private JTextField answerField;
     private Timer timer;
+    public JFrame quiz_1f;
 
     private JLabel timerLabel;
 
-    public Quiz_1() {
+    public Quiz_1(JFrame frame) {
+        this.quiz_1f = frame;
         quizzes = initializeQuizzes();
         currentQuizIndex = 0;
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        quiz_1f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1080, 720);
-        setTitle("Quiz Game");
 
         setupUI();
         showNextQuiz();
@@ -140,11 +141,6 @@ public class Quiz_1 extends JFrame implements Quiz{
         }
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new Quiz_1().setVisible(true);
-        });
-    }
 }
 
 class TestItem {
