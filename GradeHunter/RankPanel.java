@@ -24,7 +24,7 @@ public class RankPanel {
 
         ImagePanel imgPanel = new ImagePanel(new ImageIcon("images/bg_rank.png").getImage());
         frame.setContentPane(imgPanel);
-/////asdfsadasfa
+
         // ... 기타 버튼 및 컴포넌트 초기화 코드 ...
 
         SortedDataFileReader fileReader = new SortedDataFileReader();

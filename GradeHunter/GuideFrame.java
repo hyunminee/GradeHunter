@@ -41,7 +41,6 @@ public class GuideFrame extends JFrame {
         setContentPane(cardPanel);
         setVisible(true);
     }
-    //adfasfdafd
 
     class ImagePanel extends JPanel {
         private Image image;
