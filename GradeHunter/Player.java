@@ -55,7 +55,7 @@ public class Player {
     // 캐릭터 이미지를 로드
     private void loadImage() {
         try {
-            image = ImageIO.read(new File("images/player_f.png")); // 이미지 파일 경로
+            image = ImageIO.read(new File("GradeHunter/images/player_m.png")); // 이미지 파일 경로
         } catch (IOException e) {
             e.printStackTrace();
             image = null;
