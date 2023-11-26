@@ -6,11 +6,11 @@ import java.awt.*;
 public class GuidePanel1 extends JPanel {
     public GuidePanel1(GuideFrame frame) {
         setLayout(new BorderLayout());
-        ImagePanel imgPanel = new ImagePanel(new ImageIcon("images\\bg_gp_1.png").getImage());
+        ImagePanel imgPanel = new ImagePanel(new ImageIcon("images/bg_gp_1.png").getImage());
         add(imgPanel, BorderLayout.CENTER);
 
-        ImageIcon leftIcon = new ImageIcon("images\\key_left.png");
-        ImageIcon rightIcon = new ImageIcon("images\\key_right.png");
+        ImageIcon leftIcon = new ImageIcon("images/key_left.png");
+        ImageIcon rightIcon = new ImageIcon("images/key_right.png");
         JButton leftButton = new JButton(leftIcon);
         JButton rightButton = new JButton(rightIcon);
 

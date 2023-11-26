@@ -20,7 +20,7 @@ public class GuideFrame extends JFrame {
 
         Dimension screenSize = kit.getScreenSize();
 
-        Image img = kit.getImage("images\\Gradcap.png");
+        Image img = kit.getImage("images/Gradcap.png");
         setIconImage(img);
     }
 
