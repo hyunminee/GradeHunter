@@ -4,12 +4,12 @@ package GradeHunter;
 
 /** 각 아이템 타입과 이에 해당하는 이미지 경로 및 효과 값을 정의 */
 public enum ItemType {
-    BLUE("hw_b.png", 10),
-    GREEN("hw_g.png", 5),
-    YELLOW("hw_y.png", -3),
-    RED("hw_r.png", -5),
-    TARDY("timer.png", -3), // 시간 감소 효과
-    PRESENTATION("ppt.png", 15);
+    BLUE("images/hw_b.png", 10),
+    GREEN("images/hw_g.png", 5),
+    YELLOW("images/hw_y.png", -3),
+    RED("images/hw_r.png", -5),
+    TARDY("images/timer.png", -3), // 시간 감소 효과
+    PRESENTATION("images/ppt.png", 15);
 
     private final String imagePath; // 아이템 이미지 경로
     private final int effectValue; // 아이템의 효과 값
