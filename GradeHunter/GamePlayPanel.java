@@ -60,7 +60,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         setLayout(null); // 레이아웃 관리자 비활성화
         // 배경 이미지 로드
         try {
-            backgroundImage = ImageIO.read(new File("images/bg_gameplay.png")); // 이미지 파일 경로 지정
+            backgroundImage = ImageIO.read(new File("GradeHunter/images/bg_playing.png")); // 이미지 파일 경로 지정
         } catch (IOException e) {
             e.printStackTrace();
             backgroundImage = null;
@@ -198,7 +198,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         drawGameStatus(g);
 
         // 밀리초 단위 타이머 그리기
-        g.setColor(Color.BLACK); // 타이머 텍스트 색상 설정
+        g.setColor(Color.WHITE); // 타이머 텍스트 색상 설정
         g.setFont(new Font("SansSerif", Font.BOLD, 28)); // 폰트와 크기 설정
         String timeLeftFormatted = formatTime(gameLogic.getTimeLeft()); // 밀리초 단위 반환 가정
         g.drawString(timeLeftFormatted, getWidth() - 126, 105); // 위치 지정
