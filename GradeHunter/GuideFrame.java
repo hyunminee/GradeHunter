@@ -56,6 +56,7 @@ public class GuideFrame extends JFrame {
             g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), this); // 이미지를 패널 크기에 맞춰 그립니다.
         }
     }
+    //asdfffffffff
 
     // 특정 패널로 전환하는 메소드
     public void showPanel(String card) {
