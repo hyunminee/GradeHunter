@@ -88,7 +88,7 @@ public class QuizSelectPanel extends JPanel {
             public void mousePressed(MouseEvent e){
                 remove(quizselectpanel);
                 repaint();
-                JPanel quiz_1panel = new Quiz_1(quiz_1);
+                Quiz_1 quiz_1panel = new Quiz_1(quiz_1);
                 quiz_1panel.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
                 cPane.add(quiz_1panel);
                 quiz_1panel.setVisible(true);

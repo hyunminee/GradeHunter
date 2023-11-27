@@ -21,16 +21,25 @@ public class MainPanel extends JFrame{
     public ImageIcon rankButtonImage = new ImageIcon(Main.class.getResource("images/bt_rank.png"));
     public ImageIcon rankButtonEnteredImage = new ImageIcon(Main.class.getResource("images/bt_rank_entered.png"));
 
+    public ImageIcon mCheckImage = new ImageIcon("GradeHunter/images/check_m.png");
+    public ImageIcon fCheckImage = new ImageIcon("GradeHunter/images/check_f.png");
+    public ImageIcon mCheckEnteredImage = new ImageIcon("GradeHunter/images/check_entered_m.png");
+    public ImageIcon fCheckEnteredImage = new ImageIcon("GradeHunter/images/check_entered_f.png");
+
     public JButton startButton = new JButton(startButtonImage);
     public JButton rankButton = new JButton(rankButtonImage);
 
-    public JCheckBox mCheckBox = new JCheckBox("");
-    public JCheckBox fCheckBox = new JCheckBox("");
+    public JButton mCheckButton = new JButton(mCheckImage);
+
+    public JButton fCheckButton = new JButton(fCheckImage);
+
+    /*public JCheckBox mCheckBox = new JCheckBox("");
+    public JCheckBox fCheckBox = new JCheckBox("");*/
 
     public static final int SCREEN_WIDTH = 1080;
     public static final int SCREEN_HEIGHT = 720;
 
-    public static Image background = new ImageIcon(Main.class.getResource("images/bg.png")).getImage();
+    public static Image background = new ImageIcon(Main.class.getResource("images/bg_main.png")).getImage();
 
     public Container cPane;
     public JTextField studentID;
@@ -128,33 +137,99 @@ public class MainPanel extends JFrame{
             }
         });
 
+        ButtonGroup checkGroup = new ButtonGroup();
+        checkGroup.add(mCheckButton);
+        checkGroup.add(fCheckButton);
 
-        ButtonGroup genderGroup = new ButtonGroup();
+        mCheckButton.setBounds(370,405,50,60);
+        mCheckButton.setBorderPainted(false);
+        mCheckButton.setContentAreaFilled(false);
+        mCheckButton.setFocusPainted(false);
+        mCheckButton.addMouseListener(new MouseAdapter() {
+            /**
+             * 마우스가 남자 체크 버튼에 올라갈 경우 커서모양을 바꿔주는 메소드입니다.
+             */
+            @Override
+            public void mouseEntered(MouseEvent e){
+                mCheckButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+            /**
+             * 마우스가 역대졸업생 버튼 범위에서 벗어났을 경우 원래 커서로 바꿔주는 메소드입니다.
+             */
+
+            public void mouseExited(MouseEvent e){
+                mCheckButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+
+            /**
+             * 마우스로 클릭했을 때, 체크 되었다는 표시와 성별 정보를 저장합니다.
+             */
+            public void mousePressed(MouseEvent e){
+                mCheckButton.setIcon(mCheckEnteredImage);
+                fCheckButton.setIcon(fCheckImage);
+            }
+        });
+        fCheckButton.setBounds(570,405,50,60);
+        fCheckButton.setBorderPainted(false);
+        fCheckButton.setContentAreaFilled(false);
+        fCheckButton.setFocusPainted(false);
+        fCheckButton.addMouseListener(new MouseAdapter() {
+            /**
+             * 마우스가 남자 체크 버튼에 올라갈 경우 커서모양을 바꿔주는 메소드입니다.
+             */
+            @Override
+            public void mouseEntered(MouseEvent e){
+                fCheckButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+            /**
+             * 마우스가 역대졸업생 버튼 범위에서 벗어났을 경우 원래 커서로 바꿔주는 메소드입니다.
+             */
+
+            public void mouseExited(MouseEvent e){
+                fCheckButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+
+            /**
+             * 마우스로 클릭했을 때, 체크 되었다는 표시와 성별 정보를 저장합니다.
+             */
+            public void mousePressed(MouseEvent e){
+                fCheckButton.setIcon(fCheckEnteredImage);
+                mCheckButton.setIcon(mCheckImage);
+
+            }
+        });
+
+       /* ButtonGroup genderGroup = new ButtonGroup();
         genderGroup.add(mCheckBox);
         genderGroup.add(fCheckBox);
 
         mCheckBox.setBounds(388,438,15,15);
         fCheckBox.setBounds(588,438,15,15);
         mCheckBox.setOpaque(false);
-        fCheckBox.setOpaque(false);
+        fCheckBox.setOpaque(false);*/
 
-        ActionListener checkBoxListener = new ActionListener() {
+        /*ActionListener checkBoxListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AbstractButton abstractButton = (AbstractButton)e.getSource();
                 boolean selected = abstractButton.getModel().isSelected();
 
             }
-        };
+        };*/
 
-        mCheckBox.addActionListener(checkBoxListener);
-        fCheckBox.addActionListener(checkBoxListener);
+        /*mCheckBox.addActionListener(checkBoxListener);
+        fCheckBox.addActionListener(checkBoxListener);*/
 
         studentID = new JTextField();
-        studentID.setBounds(500,300,80,50);
+        studentID.setBounds(450,350,200,50);
+        studentID.setOpaque(false);
+        studentID.setBorder(null);
+        studentID.setForeground(Color.WHITE);
+        Font font = new Font("SansSerif", Font.PLAIN, 30);
+        studentID.setFont(font);
         // 저장 버튼 초기화
         saveButton = new JButton("Save");
-        saveButton.setBounds(700,600,20,10);
+        saveButton.setBounds(720,360,50,30);
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -170,8 +245,10 @@ public class MainPanel extends JFrame{
         mainpanel.setSize(SCREEN_WIDTH,SCREEN_HEIGHT);
         mainpanel.add(startButton);
         mainpanel.add(rankButton);
-        mainpanel.add(mCheckBox);
-        mainpanel.add(fCheckBox);
+        mainpanel.add(mCheckButton);
+        mainpanel.add(fCheckButton);
+        /*mainpanel.add(mCheckBox);
+        mainpanel.add(fCheckBox);*/
         mainpanel.add(studentID);
         mainpanel.add(saveButton);
         setVisible(true);

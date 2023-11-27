@@ -15,17 +15,19 @@ public class Quiz_1 extends JPanel implements Quiz{
     private JLabel imageLabel;
     private JTextField answerField;
     private Timer timer;
-    public JFrame quiz_1f;
+    private final JFrame quiz_1f;
+    private Image backgroundImage;
 
     private JLabel timerLabel;
 
     public Quiz_1(JFrame frame) {
+
         this.quiz_1f = frame;
         quizzes = initializeQuizzes();
         currentQuizIndex = 0;
 
         quiz_1f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1080, 720);
+        quiz_1f.setSize(1080, 720);
 
         setupUI();
         showNextQuiz();
@@ -33,12 +35,12 @@ public class Quiz_1 extends JPanel implements Quiz{
 
     private List<TestItem> initializeQuizzes() {
         List<TestItem> quizzes = new ArrayList<>();
-        quizzes.add(new TestItem("images/quiz_4/1.png", "2"));
-        quizzes.add(new TestItem("images/quiz_4/2.png", "2"));
-        quizzes.add(new TestItem("images/quiz_4/3.png", "2"));
-        quizzes.add(new TestItem("images/quiz_4/4.png", "1"));
-        quizzes.add(new TestItem("images/quiz_4/5.png", "1"));
-        quizzes.add(new TestItem("images/quiz_4/6.png", "1"));
+        quizzes.add(new TestItem("images/quiz_4/1.png", "1"));
+        quizzes.add(new TestItem("images/quiz_4/2.png", "1"));
+        quizzes.add(new TestItem("images/quiz_4/3.png", "1"));
+        quizzes.add(new TestItem("images/quiz_4/4.png", "2"));
+        quizzes.add(new TestItem("images/quiz_4/5.png", "2"));
+        quizzes.add(new TestItem("images/quiz_4/6.png", "2"));
         quizzes.add(new TestItem("images/quiz_4/7.png", "3"));
         quizzes.add(new TestItem("images/quiz_4/8.png", "3"));
         quizzes.add(new TestItem("images/quiz_4/9.png", "3"));
@@ -66,6 +68,7 @@ public class Quiz_1 extends JPanel implements Quiz{
 
         timer = new Timer(10000, new ActionListener() {
             int remainingSeconds = 10;
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 remainingSeconds--;
@@ -86,7 +89,7 @@ public class Quiz_1 extends JPanel implements Quiz{
     // 타이머 레이블을 업데이트하는 메서드
     private void updateTimerLabel() {
         SwingUtilities.invokeLater(() -> {
-            timerLabel.setText(Integer.toString(timer.getDelay() / 1000)); // 초 단위로 표시
+            timerLabel.setText(Integer.toString(timer.getDelay() / 1000));
         });
     }
 
