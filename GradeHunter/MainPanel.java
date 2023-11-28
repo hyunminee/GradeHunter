@@ -15,7 +15,7 @@ import javax.swing.*;
  * @author 서보경
  */
 public class MainPanel extends JFrame{
-    public static JPanel mainpanel;
+    public JPanel mainpanel;
     public ImageIcon startButtonImage = new ImageIcon(Main.class.getResource("images/bt_guide.png"));
     public ImageIcon startButtonEnteredImage = new ImageIcon(Main.class.getResource("images/bt_guide_entered.png"));
     public ImageIcon rankButtonImage = new ImageIcon(Main.class.getResource("images/bt_rank.png"));
@@ -77,8 +77,10 @@ public class MainPanel extends JFrame{
         Image img = kit.getImage(Main.class.getResource("images/Gradcap.png"));
         setIconImage(img);
 
+        //=========================================================================================
+        //drawback mainpanel = new drawback(); ----->  mainpanel = new drawback();
 
-        drawback mainpanel = new drawback();
+        mainpanel = new drawback();
         startButton.setBounds(360,500,360,80);
         startButton.setBorderPainted(false);
         startButton.setContentAreaFilled(false);
