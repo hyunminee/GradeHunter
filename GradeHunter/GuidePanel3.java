@@ -3,30 +3,31 @@ package GradeHunter;
 import javax.swing.*;
 import java.awt.*;
 
-/***
- * 게임설명서(입학안내서)3 클래스입니다.
- * @author 김봄
- */
 public class GuidePanel3 extends JPanel {
-    public GuidePanel3(GuideFrame frame) {
-        setLayout(new BorderLayout());
-        ImagePanel1 imgPanel = new ImagePanel1(new ImageIcon("GradeHunter/images/bg_gp_3.png").getImage());
-        add(imgPanel, BorderLayout.CENTER);
+    private Image backgroundImage;
 
-        ImageIcon leftIcon = new ImageIcon("GradeHunter/images/bt_start.png");
-        JButton startButton = new JButton(leftIcon);
+    public GuidePanel3(MainPanel mainPanel) {
+        setLayout(null); // 널 레이아웃 사용
+        backgroundImage = new ImageIcon("GradeHunter/images/bg_gp_3.png").getImage();
 
+        ImageIcon startIcon = new ImageIcon("GradeHunter/images/bt_start.png");
+        JButton startButton = new JButton(startIcon);
+        startButton.setBounds(860, 390, startIcon.getIconWidth(), startIcon.getIconHeight());
 
-
-        startButton.setBounds(860, 390, leftIcon.getIconWidth(), leftIcon.getIconHeight());
-        imgPanel.add(startButton);
-
-
-        //startButton.setOpaque(false);
         startButton.setContentAreaFilled(false);
         startButton.setBorderPainted(false);
 
-        // 이벤트 리스너 설정
-        startButton.addActionListener(e -> frame.showPanel("Home"));
+        // 시작 버튼 이벤트 리스너
+        startButton.addActionListener(e -> {
+            mainPanel.setShape((Shape) mainPanel.getRootPane()); // 메인 화면으로 돌아가기
+        });
+
+        add(startButton);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
     }
 }
