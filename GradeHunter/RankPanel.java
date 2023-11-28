@@ -15,18 +15,20 @@ import java.util.List;
 public class RankPanel extends JPanel {
 
     private Image backgroundImage;
+    private MainPanel mainPanel;
 
-    public RankPanel(JFrame frame) {
+    public RankPanel(MainPanel mainPanel) {
+        this.mainPanel = mainPanel;
         setLayout(null); // 널 레이아웃 사용
         setBackground(Color.BLACK); // 배경색 설정
 
         Toolkit kit = Toolkit.getDefaultToolkit();
         Image img = kit.getImage("GradeHunter/images/Gradcap.png");
-        frame.setIconImage(img);
+        mainPanel.setIconImage(img);
 
         // 배경 이미지 로드
         backgroundImage = new ImageIcon("GradeHunter/images/bg_rank.png").getImage();
-        setBounds(0, 0, frame.getWidth(), frame.getHeight());
+        setBounds(0, 0, mainPanel.getWidth(), mainPanel.getHeight());
 
         ImageIcon imgIcon = new ImageIcon("GradeHunter/images/bt_home.png");
         JButton button = new JButton(imgIcon);
@@ -34,6 +36,14 @@ public class RankPanel extends JPanel {
         add(button);
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);
+
+
+
+        button.addActionListener(e -> {
+            // MainPanel의 메인 콘텐츠 패널로 돌아가기
+            this.mainPanel.switchPanel(this.mainPanel.getMainContentPanel());
+        });
+
 
         SortedDataFileReader fileReader = new SortedDataFileReader();
         List<Record> records = fileReader.readFileAndSort("GradeHunter/data.txt");

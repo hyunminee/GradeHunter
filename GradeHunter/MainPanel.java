@@ -16,6 +16,7 @@ import javax.swing.*;
  */
 public class MainPanel extends JFrame{
     public JPanel mainpanel;
+    RankPanel rankPanel = new RankPanel(this); // MainPanel 인스턴스를 RankPanel에 전달
     public ImageIcon startButtonImage = new ImageIcon(Main.class.getResource("images/bt_guide.png"));
     public ImageIcon startButtonEnteredImage = new ImageIcon(Main.class.getResource("images/bt_guide_entered.png"));
     public ImageIcon rankButtonImage = new ImageIcon(Main.class.getResource("images/bt_rank.png"));
