@@ -86,14 +86,17 @@ public class QuizSelectPanel extends JPanel {
             }
 
             public void mousePressed(MouseEvent e){
-                remove(quizselectpanel);
-                repaint();
-                Quiz_1 quiz_1panel = new Quiz_1(quiz_1);
-                quiz_1panel.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-                cPane.add(quiz_1panel);
-                quiz_1panel.setVisible(true);
-                quiz_1panel.revalidate();
-                quiz_1panel.repaint();
+                SwingUtilities.invokeLater(() -> {
+                    remove(quizselectpanel);
+                    repaint();
+                    JFrame quiz_1frame = new JFrame();
+                    Quiz_1 quiz_1panel = new Quiz_1(quiz_1frame);
+                    quiz_1panel.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+                    cPane.add(quiz_1panel);
+                    quiz_1panel.setVisible(true);
+                    quiz_1panel.revalidate();
+                    quiz_1panel.repaint();
+                });
             }
 
         });

@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -16,7 +17,7 @@ public class Quiz_1 extends JPanel implements Quiz{
     private JTextField answerField;
     private Timer timer;
     private final JFrame quiz_1f;
-    private Image backgroundImage;
+    //private Image backgroundImage;
 
     private JLabel timerLabel;
 
@@ -45,7 +46,10 @@ public class Quiz_1 extends JPanel implements Quiz{
         quizzes.add(new TestItem("images/quiz_4/8.png", "3"));
         quizzes.add(new TestItem("images/quiz_4/9.png", "3"));
         quizzes.add(new TestItem("images/quiz_4/10.png", "3"));
-        return quizzes;
+
+        // 랜덤으로 5개 선택
+        Collections.shuffle(quizzes);
+        return quizzes.subList(0,5);
     }
 
     @Override
@@ -58,7 +62,7 @@ public class Quiz_1 extends JPanel implements Quiz{
         add(imagePanel, BorderLayout.CENTER);
 
         answerField = new JTextField();
-        add(answerField, BorderLayout.SOUTH);
+        add(answerField);
 
         timerLabel = new JLabel("10"); // 초기값은 10초
         timerLabel.setFont(new Font("Arial", Font.BOLD, 24));
