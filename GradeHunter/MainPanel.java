@@ -44,7 +44,8 @@ public class MainPanel extends JFrame{
     public Container cPane;
     public JTextField studentID;
     public JButton saveButton;
-    public String savedText;
+    public static String savedText;
+    public static int gen = 0;
 
     public static JFrame guide;
     public static JFrame rank;
@@ -167,6 +168,7 @@ public class MainPanel extends JFrame{
             public void mousePressed(MouseEvent e){
                 mCheckButton.setIcon(mCheckEnteredImage);
                 fCheckButton.setIcon(fCheckImage);
+                gen = 0;
             }
         });
         fCheckButton.setBounds(570,405,50,60);
@@ -195,6 +197,7 @@ public class MainPanel extends JFrame{
             public void mousePressed(MouseEvent e){
                 fCheckButton.setIcon(fCheckEnteredImage);
                 mCheckButton.setIcon(mCheckImage);
+                gen = 1;
 
             }
         });

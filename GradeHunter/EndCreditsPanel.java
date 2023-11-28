@@ -23,6 +23,8 @@ public class EndCreditsPanel extends JPanel{
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        System.out.println(MainPanel.savedText);
         /*
         addMouseListener(new MouseAdapter() {
             @Override
