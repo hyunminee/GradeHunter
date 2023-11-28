@@ -50,9 +50,11 @@ public class MainPanel extends JFrame{
     public static JFrame guide;
     public static JFrame rank;
 
+    public static JPanel mainpanel;
     public static JFrame qspanel;
 
     public MainPanel(){
+
         cPane = getContentPane();
         setTitle("Grade Hunter");
         setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -64,6 +66,7 @@ public class MainPanel extends JFrame{
 
         Image img = kit.getImage(Main.class.getResource("images/Gradcap.png"));
         setIconImage(img);
+
 
         drawback mainpanel = new drawback();
         startButton.setBounds(360,500,360,80);
