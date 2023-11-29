@@ -1,5 +1,4 @@
 package GradeHunter;
 
-public class Quiz_5
-{
+public class Quiz_5 {
 }
