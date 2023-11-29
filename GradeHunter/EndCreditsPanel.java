@@ -25,7 +25,7 @@ public class EndCreditsPanel extends JPanel{
         }
 
         System.out.println(MainPanel.savedText);
-        /*
+
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -34,7 +34,7 @@ public class EndCreditsPanel extends JPanel{
                 frame.revalidate();
                 frame.repaint();
             }
-        });*/
+        });
     }
 
     @Override

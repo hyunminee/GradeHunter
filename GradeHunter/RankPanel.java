@@ -40,6 +40,8 @@ public class RankPanel extends JPanel {
 
 
         button.addActionListener(e -> {
+            // MainPanel에서 값 초기화 후 전환
+            this.mainPanel.resetValues();
             // MainPanel의 메인 콘텐츠 패널로 돌아가기
             this.mainPanel.switchPanel(this.mainPanel.getMainContentPanel());
         });

@@ -31,6 +31,10 @@ public class GuidePanel1 extends JPanel {
 
         // 왼쪽 버튼 이벤트 리스너
         leftButton.addActionListener(e -> {
+
+            // MainPanel의 값 초기화 후 전환
+            mainPanel.resetValues();
+
             // MainPanel의 메인 콘텐츠 패널로 돌아가기
             mainPanel.switchPanel(mainPanel.getMainContentPanel());
         });

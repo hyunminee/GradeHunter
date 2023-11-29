@@ -87,8 +87,8 @@ public class QuizSelectPanel extends JPanel {
 
             public void mousePressed(MouseEvent e){
                 SwingUtilities.invokeLater(() -> {
-                    remove(quizselectpanel);
-                    repaint();
+                    frame.remove(quizselectpanel);
+                    frame.repaint();
                     JFrame quiz_1frame = new JFrame();
                     Quiz_1 quiz_1panel = new Quiz_1(quiz_1frame);
                     quiz_1panel.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
