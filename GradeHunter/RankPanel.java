@@ -9,76 +9,64 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-
-class ImagePanel1 extends JPanel {
-    private Image img;
-
-    public ImagePanel1(Image img) {
-        this.img = img;
-        setLayout(null); // 널 레이아웃 사용
-    }
-
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
-    }
-}
-
-/***
+/**
  * 게임 랭킹 전체를 담당하는 클래스입니다.
- * @author 김봄
  */
+public class RankPanel extends JPanel {
 
-public class RankPanel {
+    private Image backgroundImage;
+    private MainPanel mainPanel;
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Grade Hunter");
-        frame.setSize(1080, 720);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
+    public RankPanel(MainPanel mainPanel) {
+        this.mainPanel = mainPanel;
+        setLayout(null); // 널 레이아웃 사용
+        setBackground(Color.BLACK); // 배경색 설정
 
         Toolkit kit = Toolkit.getDefaultToolkit();
-
-        Dimension screenSize = kit.getScreenSize();
-
         Image img = kit.getImage("GradeHunter/images/Gradcap.png");
-        frame.setIconImage(img);
+        mainPanel.setIconImage(img);
 
-        ImagePanel1 imgpanel = new ImagePanel1(new ImageIcon("GradeHunter/images/bg_rank.png").getImage());
-        frame.setContentPane(imgpanel);
+        // 배경 이미지 로드
+        backgroundImage = new ImageIcon("GradeHunter/images/bg_rank.png").getImage();
+        setBounds(0, 0, mainPanel.getWidth(), mainPanel.getHeight());
 
         ImageIcon imgIcon = new ImageIcon("GradeHunter/images/bt_home.png");
         JButton button = new JButton(imgIcon);
         button.setBounds(40, 35, imgIcon.getIconWidth(), imgIcon.getIconHeight());
-        imgpanel.add(button);
+        add(button);
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);
 
+
+
+        button.addActionListener(e -> {
+            // MainPanel의 메인 콘텐츠 패널로 돌아가기
+            this.mainPanel.switchPanel(this.mainPanel.getMainContentPanel());
+        });
+
+
         SortedDataFileReader fileReader = new SortedDataFileReader();
-        List<SortedDataFileReader.Record> records = fileReader.readFileAndSort("GradeHunter/data.txt");
+        List<Record> records = fileReader.readFileAndSort("GradeHunter/data.txt");
 
-
-
-// 랭킹 데이터 표시
+        // 랭킹 데이터 표시
         int yPosition = 60; // 랭킹 시작 위치 조정
         for (int i = 0; i < Math.min(records.size(), 10); i++) {
-            //String formattedRank = (i + 1 < 10) ? "0" + (i + 1) : Integer.toString(i + 1); // 한 자리 숫자에 공백 추가
             JLabel rankingLabel = new JLabel("            " + records.get(i).toString(), SwingConstants.LEFT);
             rankingLabel.setForeground(Color.WHITE);
             rankingLabel.setFont(new Font("Malgun Gothic", Font.BOLD, 23));
             rankingLabel.setBounds(130, yPosition, 1000, 378); // y
-            yPosition += 34; // 다음 레코드의 y 위치 증가 위치와 높이 조정
-            imgpanel.add(rankingLabel);
+            yPosition += 34; // 다음 레코드의 y 위치 증가
+            add(rankingLabel);
         }
-
-        frame.setVisible(true);
     }
-}
 
-class SortedDataFileReader {
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+    }
 
-    static class Record {
+    private class Record {
         String id;
         String time;
         String subject;
@@ -95,34 +83,40 @@ class SortedDataFileReader {
         }
     }
 
-    public List<Record> readFileAndSort(String filePath) {
-        List<Record> records = new ArrayList<>();
-        BufferedReader reader = null;
+    private class SortedDataFileReader {
+        public List<Record> readFileAndSort(String filePath) {
+            List<Record> records = new ArrayList<>();
+            BufferedReader reader = null;
 
-        try {
-            reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), StandardCharsets.UTF_8));
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(" ");
-                if (parts.length == 3) {
-                    records.add(new Record(parts[0], parts[1], parts[2]));
-                }
-            }
-
-            Collections.sort(records, Comparator.comparing(r -> r.time));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
             try {
-                if (reader != null) {
-                    reader.close();
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), StandardCharsets.UTF_8));
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    String[] parts = line.split(" "); // 공백을 기준으로 데이터를 분리
+                    if (parts.length >= 3) {
+                        String id = parts[0];
+                        String time = parts[1];
+                        String subject = parts[2];
+                        records.add(new Record(id, time, subject));
+                    }
                 }
-            } catch (IOException ex) {
-                ex.printStackTrace();
+
+                Collections.sort(records, Comparator.comparing(r -> r.time)); // 시간을 기준으로 정렬
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (reader != null) {
+                        reader.close();
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
+            return records;
         }
-        return records; // 정렬된 레코드 목록을 반환합니다.
     }
+
 }

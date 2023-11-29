@@ -15,7 +15,8 @@ import javax.swing.*;
  * @author 서보경
  */
 public class MainPanel extends JFrame{
-
+    public JPanel mainpanel;
+    RankPanel rankPanel = new RankPanel(this); // MainPanel 인스턴스를 RankPanel에 전달
     public ImageIcon startButtonImage = new ImageIcon(Main.class.getResource("images/bt_guide.png"));
     public ImageIcon startButtonEnteredImage = new ImageIcon(Main.class.getResource("images/bt_guide_entered.png"));
     public ImageIcon rankButtonImage = new ImageIcon(Main.class.getResource("images/bt_rank.png"));
@@ -50,8 +51,18 @@ public class MainPanel extends JFrame{
     public static JFrame guide;
     public static JFrame rank;
 
-    public static JPanel mainpanel;
     public static JFrame qspanel;
+
+    public void switchPanel(JPanel panel) {
+        getContentPane().removeAll(); // 기존 패널 제거
+        getContentPane().add(panel); // 새로운 패널 추가
+        getContentPane().revalidate(); // 레이아웃 관리자에게 레이아웃을 다시 계산하도록 지시
+        getContentPane().repaint(); // 화면을 다시 그리도록 지시
+    }
+
+    public JPanel getMainContentPanel() { // 가이드 -> main으로 올 떄 필요함
+        return mainpanel;
+    }
 
     public MainPanel(){
 
@@ -67,8 +78,10 @@ public class MainPanel extends JFrame{
         Image img = kit.getImage(Main.class.getResource("images/Gradcap.png"));
         setIconImage(img);
 
+        //=========================================================================================
+        //drawback mainpanel = new drawback(); ----->  mainpanel = new drawback();
 
-        drawback mainpanel = new drawback();
+        mainpanel = new drawback();
         startButton.setBounds(360,500,360,80);
         startButton.setBorderPainted(false);
         startButton.setContentAreaFilled(false);
@@ -92,19 +105,15 @@ public class MainPanel extends JFrame{
                 startButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
 
-            public void mousePressed(MouseEvent e){
-                remove(mainpanel);
-                repaint();
-                /*JFrame guidepanel = new GuideFrame();
-                guidepanel.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-                cPane.add(guidepanel);
-                guidepanel.setVisible(true);
-                guidepanel.repaint();*/
-                /*JPanel quizselectpanel = new QuizSelectPanel(qspanel);
-                quizselectpanel.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-                cPane.add(quizselectpanel);
-                quizselectpanel.setVisible(true);
-                quizselectpanel.repaint();*/
+            public void mousePressed(MouseEvent e) {
+                // GuidePanel1 인스턴스 생성
+                GuidePanel1 guidePanel = new GuidePanel1(MainPanel.this);
+
+                // 현재 컨텐츠를 GuidePanel1로 교체
+                getContentPane().removeAll();
+                getContentPane().add(guidePanel);
+                getContentPane().revalidate();
+                getContentPane().repaint();
             }
 
         });
@@ -130,14 +139,12 @@ public class MainPanel extends JFrame{
                 rankButton.setIcon(rankButtonImage);
                 rankButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
-            public void mousePressed(MouseEvent e){
-                remove(mainpanel);
+            public void mousePressed(MouseEvent e) {
+                RankPanel rankPanel = new RankPanel(MainPanel.this); // MainPanel의 인스턴스를 인자로 전달
+                getContentPane().removeAll(); // 기존 패널 제거
+                getContentPane().add(rankPanel); // 새로운 랭킹 패널 추가
+                revalidate();
                 repaint();
-                JPanel rankpanel = new EndCreditsPanel(rank);
-                rankpanel.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-                cPane.add(rankpanel);
-                rankpanel.setVisible(true);
-                rankpanel.repaint();
             }
         });
 

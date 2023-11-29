@@ -4,33 +4,45 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GuidePanel1 extends JPanel {
-    public GuidePanel1(GuideFrame frame) {
-        setLayout(new BorderLayout());
-        ImagePanel1 imgPanel = new ImagePanel1(new ImageIcon("GradeHunter/images/bg_gp_1.png").getImage());
-        add(imgPanel, BorderLayout.CENTER);
+    private Image backgroundImage;
+
+    public GuidePanel1(MainPanel mainPanel) {
+        setLayout(null); // 널 레이아웃 사용
+        backgroundImage = new ImageIcon("GradeHunter/images/bg_gp_1.png").getImage();
 
         ImageIcon leftIcon = new ImageIcon("GradeHunter/images/key_left.png");
         ImageIcon rightIcon = new ImageIcon("GradeHunter/images/key_right.png");
         JButton leftButton = new JButton(leftIcon);
         JButton rightButton = new JButton(rightIcon);
 
-
-
         leftButton.setBounds(60, 550, leftIcon.getIconWidth(), leftIcon.getIconHeight());
         rightButton.setBounds(955, 550, rightIcon.getIconWidth(), rightIcon.getIconHeight());
-        imgPanel.add(leftButton);
-        imgPanel.add(rightButton);
 
-
-        //rightButton.setOpaque(false);
         leftButton.setContentAreaFilled(false);
         leftButton.setBorderPainted(false);
-        //rightButton.setOpaque(false);
         rightButton.setContentAreaFilled(false);
         rightButton.setBorderPainted(false);
 
-        // 이벤트 리스너 설정
-        rightButton.addActionListener(e -> frame.showPanel("Guide2"));
-        leftButton.addActionListener(e -> frame.showPanel("Home")); // 'Home' 패널이 있다고 가정할 때
+        // 오른쪽 버튼 이벤트 리스너
+        rightButton.addActionListener(e -> {
+            GuidePanel2 guidePanel2 = new GuidePanel2(mainPanel);
+            mainPanel.switchPanel(guidePanel2);
+        });
+
+        // 왼쪽 버튼 이벤트 리스너
+        leftButton.addActionListener(e -> {
+            // MainPanel의 메인 콘텐츠 패널로 돌아가기
+            mainPanel.switchPanel(mainPanel.getMainContentPanel());
+        });
+
+
+        add(leftButton);
+        add(rightButton);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
     }
 }
