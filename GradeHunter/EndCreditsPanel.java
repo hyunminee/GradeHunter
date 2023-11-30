@@ -13,26 +13,18 @@ import java.io.IOException;
  */
 
 public class EndCreditsPanel extends JPanel{
-    private final JFrame frame;
+
     private Image backgroundImage;
 
-    public EndCreditsPanel(JFrame frame) {
-        this.frame = frame;
-        try {
-            backgroundImage = ImageIO.read(getClass().getResource("images/ecp.png")); // 이미지 파일 경로에 따라 수정
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println(MainPanel.savedText);
+    public EndCreditsPanel(MainPanel mainPanel) {
+        setLayout(null); // 널 레이아웃 사용
+        backgroundImage = new ImageIcon("GradeHunter/images/ecp.png").getImage();
 
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                frame.getContentPane().removeAll();
-                frame.add(new EndingPanel(frame));
-                frame.revalidate();
-                frame.repaint();
+                RankPanel rankPanel = new RankPanel(mainPanel);
+                mainPanel.switchPanel(rankPanel);
             }
         });
     }
@@ -40,9 +32,6 @@ public class EndCreditsPanel extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (backgroundImage != null) {
-            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-        }
+        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
     }
-
 }

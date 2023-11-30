@@ -26,7 +26,11 @@ public class Quiz_3 extends JPanel implements Quiz{
     private JLabel timerLabel;
     private int remainingSeconds = 10;
 
+    private MainPanel mainPanel;
+
     public Quiz_3(MainPanel mainPanel) {
+
+        this.mainPanel = mainPanel;
 
         quizzes = initializeQuizzes();
         currentQuizIndex = 0;
@@ -151,7 +155,11 @@ public class Quiz_3 extends JPanel implements Quiz{
             currentQuizIndex++;
         } else {
             JOptionPane.showMessageDialog(this, "게임 종료!");
-            System.exit(0);
+            SwingUtilities.invokeLater(() -> {
+                EndingPanel endingPanel = new EndingPanel(mainPanel);
+                mainPanel.switchPanel(endingPanel);
+                endingPanel.setVisible(true);
+            });
         }
     }
     @Override

@@ -14,34 +14,39 @@ import java.io.IOException;
  */
 
 public class EndingPanel extends JPanel {
-
-    private final JFrame frame;
+    public static int ending = -1;  // 퀴즈 성공/실패에 따른 교수님 이미지 출력
     private Image backgroundImage;
 
-    public EndingPanel(JFrame frame){
-        this.frame = frame;
-        try {
-            backgroundImage = ImageIO.read(getClass().getResource("images/end_m.png")); // 이미지 파일 경로에 따라 수정
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public EndingPanel(MainPanel mainPanel) {
+        setLayout(null); // 널 레이아웃 사용
 
+        if(ending == 1) backgroundImage = new ImageIcon("GradeHunter/images/pf_re.png").getImage();
+        else backgroundImage = new ImageIcon("GradeHunter/images/pf_be.png").getImage();
 
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                frame.getContentPane().removeAll();
-                frame.add(new EndCreditsPanel(frame));
-                frame.revalidate();
-                frame.repaint();
+        ImageIcon rightIcon = new ImageIcon("GradeHunter/images/key_right.png");
+        JButton rightButton = new JButton(rightIcon);
+        rightButton.setBounds(955, 550, rightIcon.getIconWidth(), rightIcon.getIconHeight());
+        rightButton.setContentAreaFilled(false);
+        rightButton.setBorderPainted(false);
+
+        // 오른쪽 버튼 이벤트 리스너
+        rightButton.addActionListener(e -> {
+            if(ending == 1){
+                EndCreditsPanel endCreditsPanel = new EndCreditsPanel(mainPanel);
+                mainPanel.switchPanel(endCreditsPanel);
+            }
+            else{
+               GameOver gameOver = new GameOver();
+               mainPanel.switchPanel(gameOver);
             }
         });
+
+        add(rightButton);
     }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (backgroundImage != null) {
-            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-        }
+        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
     }
 }

@@ -1,3 +1,4 @@
+/*
 package GradeHunter;
 
 import javax.swing.*;
@@ -7,10 +8,12 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+*/
 /**
  * 엔딩크레딧장면에서 랭크패널로 이동하는 역할을 담당하는 클래스입니다.
  * @author 서보경
- */
+ *//*
+
 public class Panel_t{
     public static void main(String[] args) {
 
@@ -35,3 +38,4 @@ public class Panel_t{
         });
     }
 }
+*/
