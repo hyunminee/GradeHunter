@@ -405,7 +405,7 @@ public class QuizSelectPanel extends JPanel {
             mainPanel.switchPanel(quiz_2); // Quiz_2 생성
         });
 
-/*        btn3.addActionListener(e -> {
+         btn3.addActionListener(e -> {
             Quiz_3 quiz_3 = new Quiz_3(mainPanel);
             mainPanel.switchPanel(quiz_3); // Quiz_3 생성
         });
@@ -416,11 +416,14 @@ public class QuizSelectPanel extends JPanel {
         });
 
         btn5.addActionListener(e -> {
-            Quiz_5 quiz_5 = new Quiz_5(mainPanel);
-            mainPanel.switchPanel(quiz_5); // Quiz_5 생성
+            SwingUtilities.invokeLater(() -> {
+                Quiz_5 quiz_5 = new Quiz_5(mainPanel);
+                mainPanel.switchPanel(quiz_5);
+                quiz_5.setVisible(true);
+            });
         });
-
-        btn1.addActionListener(e -> {
+/*
+        btn6.addActionListener(e -> {
             Quiz_6 quiz_6 = new Quiz_6(mainPanel);
             mainPanel.switchPanel(quiz_6); // Quiz_ 6
         });
