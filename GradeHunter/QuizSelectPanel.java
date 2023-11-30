@@ -422,12 +422,12 @@ public class QuizSelectPanel extends JPanel {
                 quiz_5.setVisible(true);
             });
         });
-/*
+
         btn6.addActionListener(e -> {
             Quiz_6 quiz_6 = new Quiz_6(mainPanel);
             mainPanel.switchPanel(quiz_6); // Quiz_ 6
         });
-        */
+
         add(btn1);
         add(btn2);
         add(btn3);

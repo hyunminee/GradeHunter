@@ -1,9 +1,6 @@
 package GradeHunter;
 
-/**
- * 퀴즈 분야 - 과학 을 담당하는 클래스입니다.
- * @author 서보경
- */
+
 
 
 import javax.swing.*;
@@ -14,6 +11,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * 퀴즈 분야 - 역사 를 담당하는 클래스입니다.
+ * @author 서보경
+ */
 
 public class Quiz_5 extends JPanel{
 
@@ -36,16 +37,16 @@ public class Quiz_5 extends JPanel{
 
     private List<QuizItem> initializeQuizzes() {
         List<QuizItem> quizzes = new ArrayList<>();
-        quizzes.add(new QuizItem("images/quiz_4/1.png", "1", 1080,720));
-        quizzes.add(new QuizItem("images/quiz_4/2.png", "1",1080,720));
-        quizzes.add(new QuizItem("images/quiz_4/3.png", "1",1080,720));
-        quizzes.add(new QuizItem("images/quiz_4/4.png", "2",1080,720));
-        quizzes.add(new QuizItem("images/quiz_4/5.png", "2",1080,720));
-        quizzes.add(new QuizItem("images/quiz_4/6.png", "2",1080,720));
-        quizzes.add(new QuizItem("images/quiz_4/7.png", "3",1080,720));
-        quizzes.add(new QuizItem("images/quiz_4/8.png", "3",1080,720));
-        quizzes.add(new QuizItem("images/quiz_4/9.png", "3",1080,720));
-        quizzes.add(new QuizItem("images/quiz_4/10.png", "3",1080,720));
+        quizzes.add(new QuizItem("images/quiz_5/1.png", "1", 1080,720));
+        quizzes.add(new QuizItem("images/quiz_5/2.png", "2",1080,720));
+        quizzes.add(new QuizItem("images/quiz_5/3.png", "2",1080,720));
+        quizzes.add(new QuizItem("images/quiz_5/4.png", "1",1080,720));
+        quizzes.add(new QuizItem("images/quiz_5/5.png", "2",1080,720));
+        quizzes.add(new QuizItem("images/quiz_5/6.png", "3",1080,720));
+        quizzes.add(new QuizItem("images/quiz_5/7.png", "1",1080,720));
+        quizzes.add(new QuizItem("images/quiz_5/8.png", "3",1080,720));
+        quizzes.add(new QuizItem("images/quiz_5/9.png", "1",1080,720));
+        quizzes.add(new QuizItem("images/quiz_5/10.png", "3",1080,720));
 
         // 랜덤으로 5개 선택
         Collections.shuffle(quizzes);
