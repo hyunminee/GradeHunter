@@ -7,7 +7,10 @@ package GradeHunter;
 
 public interface Quiz {
     void setupUI();
-    void delayImageAndShowNextQuiz(String imagePath, int delayMillis);
+    void updateTimerLabel();
+    void showNextQuiz();
+    void displayImage(String imagePath);
     void startTimer();
+    void checkAnswerAndShowNextQuiz();
     void checkAnswer(String userAnswer);
 }
