@@ -19,7 +19,9 @@ public class GuidePanel3 extends JPanel {
 
         // 시작 버튼 이벤트 리스너
         startButton.addActionListener(e -> {
-            mainPanel.setShape((Shape) mainPanel.getRootPane()); // 메인 화면으로 돌아가기
+            ClearPanel clearPanel = new ClearPanel(mainPanel);
+            mainPanel.switchPanel(clearPanel);
+            //mainPanel.setShape((Shape) mainPanel.getRootPane()); // 메인 화면으로 돌아가기
         });
 
         add(startButton);
