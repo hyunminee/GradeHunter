@@ -62,19 +62,19 @@ public class Quiz_5 extends JPanel implements Quiz{
 
     @Override
     public void setupUI() {
-        //setLayout(new BorderLayout()); // 널 레이아웃 사용
-        setLocation(0,0);
+        setLayout(new BorderLayout());
         setSize(1080,720);
+        setLocation(0,0);
 
         JPanel imagePanel = new JPanel();
+        imagePanel.setLayout(new BorderLayout());
         imageLabel = new JLabel();
         QuizItem firstQuiz = quizzes.get(0);
-        int frameWidth = 1080; // 프레임 너비
-        int frameHeight = 720; // 프레임 높이
-        imagePanel.setBounds(0, 0, frameWidth, frameHeight);
-        imageLabel.setBounds(0, 0, firstQuiz.getImageWidth(), firstQuiz.getImageHeight());
-        add(imagePanel);
-        imagePanel.add(imageLabel);
+        imageLabel.setIcon(new ImageIcon(Main.class.getResource(firstQuiz.getImagePath())));
+        imageLabel.setHorizontalAlignment(JLabel.CENTER);
+        imageLabel.setVerticalAlignment(JLabel.CENTER);
+        add(imagePanel, BorderLayout.NORTH);
+        imagePanel.add(imageLabel, BorderLayout.NORTH);
 
         answerField = new JTextField();
         answerField.setBounds(450, 560, 200, 50);
@@ -112,7 +112,7 @@ public class Quiz_5 extends JPanel implements Quiz{
         timerLabel = new JLabel("10"); // 초기값은 10초
         timerLabel.setFont(new Font("Arial", Font.BOLD, 48));
         timerLabel.setForeground(Color.WHITE); // 텍스트 색상을 흰색으로 설정
-        timerLabel.setBounds(960, 40, 100, 100);
+        timerLabel.setBounds(980, 30, 100, 100);
         imageLabel.add(timerLabel);
 
         timer = new Timer(1000, new ActionListener() {
