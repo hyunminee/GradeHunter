@@ -29,7 +29,7 @@ public class GameOver extends JPanel{
         setLayout(null);    //레이아웃 관리자를 사용하지 않음
         setBackground(Color.BLACK);
 
-
+        // image를 JLable로 추가
 
         JLabel stageimage = new JLabel(stage1Image);
         stageimage.setBounds(325, 125, stage1Image.getIconWidth(), stage1Image.getIconHeight()); // x, y 위치와 너비, 높이 설정
@@ -69,7 +69,6 @@ public class GameOver extends JPanel{
         add(mainbutton);
 
 
-
         JButton restartbutton = new JButton(restartButtonImage);
         restartbutton.setContentAreaFilled(false); // 배경을 투명하게 설정
         restartbutton.setBorderPainted(false); // 테두리를 그리지 않도록 설정
@@ -99,6 +98,5 @@ public class GameOver extends JPanel{
         add(restartbutton);
 
     }
-
 
 }
