@@ -26,11 +26,12 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
     private Random rand; // 랜덤 아이템 생성에 사용될 객체
     private ImageIcon[] stagePopups; // 스테이지 팝업 이미지
     private boolean showPopup; // 팝업 표시 여부
-    private int currentStage; // 현재 스테이지
+    private int currentStage = 1; // 현재 스테이지
     private JProgressBar gaugeBar;
+    ImageIcon stageImage;
 
     ////////////////////////////
-//    private Timer timer;
+    //private Timer timer;
 //    //private Player character; // 게임 내 플레이어 캐릭터 객체
 //    //private List<Item> items; // 화면에 표시될 아이템들을 저장하는 리스트
     private int stage; // 현재 게임의 스테이지 번호
@@ -39,14 +40,14 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
     private int gaugeValue = 0; // 현재 게이지 값
     private final int MAX_STAGE = 8; // 최대 스테이지 번호
     private final int maxGaugeValue = 100; // 최대 게이지 값
-    public ImageIcon stage1Popup = new ImageIcon(("images/popup/popup_1.png"));
-    public ImageIcon stage2Popup = new ImageIcon(("images/popup/popup_2.png"));
-    public ImageIcon stage3Popup = new ImageIcon(("images/popup/popup_3.png"));
-    public ImageIcon stage4Popup = new ImageIcon(("images/popup/popup_4.png"));
-    public ImageIcon stage5Popup = new ImageIcon(("images/popup/popup_5.png"));
-    public ImageIcon stage6Popup = new ImageIcon(("images/popup/popup_6.png"));
-    public ImageIcon stage7Popup = new ImageIcon(("images/popup/popup_7.png"));
-    public ImageIcon stage8Popup = new ImageIcon(("images/popup/popup_8.png"));
+    public ImageIcon stage1Popup = new ImageIcon(("GradeHunter/images/popup/popup_1.png"));
+    public ImageIcon stage2Popup = new ImageIcon(("GradeHunter/images/popup/popup_2.png"));
+    public ImageIcon stage3Popup = new ImageIcon(("GradeHunter/images/popup/popup_3.png"));
+    public ImageIcon stage4Popup = new ImageIcon(("GradeHunter/images/popup/popup_4.png"));
+    public ImageIcon stage5Popup = new ImageIcon(("GradeHunter/images/popup/popup_5.png"));
+    public ImageIcon stage6Popup = new ImageIcon(("GradeHunter//popup/popup_6.png"));
+    public ImageIcon stage7Popup = new ImageIcon(("GradeHunter/images/popup/popup_7.png"));
+    public ImageIcon stage8Popup = new ImageIcon(("GradeHunter/images/popup/popup_8.png"));
 
     private JPanel blackOverlay;
     private KeyAdapter keyBlocker = new KeyAdapter() {
@@ -58,6 +59,9 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
 
     public GamePlayPanel() {
         setLayout(null); // 레이아웃 관리자 비활성화
+
+        showStagePopup();
+
         // 배경 이미지 로드
         try {
             backgroundImage = ImageIO.read(new File("GradeHunter/images/bg_playing.png")); // 이미지 파일 경로 지정
@@ -101,6 +105,9 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         });
 
         gameUpdateTimer.start();
+
+
+
     }
 
     // 컴포넌트가 화면에 추가된 후에 호출될 메서드
@@ -124,7 +131,6 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         }
         gameUpdateTimer = new Timer(DELAY, this); // 새 타이머 설정 및 시작
         gameUpdateTimer.start();
-        showStagePopup();
         gameLogic.updateGame();
         // 게임 로직 중 스테이지별 아이템 추가 부분이 원래 이 부분에 들어갔었음
     }
@@ -132,53 +138,51 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
     // 스테이지 정보를 보여주는 팝업창을 표시하는 메소드
     public void showStagePopup() {
 
-        setLayout(null);    //레이아웃 관리자를 사용하지 않음
-
-        ImageIcon stageImage = null;
-        if (stage == 1)
+        if (currentStage == 1)
             stageImage = stage1Popup;
-        else if(stage == 2)
+        else if(currentStage == 2)
             stageImage = stage2Popup;
-        else if(stage == 3)
+        else if(currentStage == 3)
             stageImage = stage3Popup;
-        else if(stage == 4)
+        else if(currentStage == 4)
             stageImage = stage4Popup;
-        else if(stage == 5)
+        else if(currentStage == 5)
             stageImage = stage5Popup;
-        else if(stage == 6)
+        else if(currentStage == 6)
             stageImage = stage6Popup;
-        else if(stage == 7)
+        else if(currentStage == 7)
             stageImage = stage7Popup;
-        else if(stage == 8)
+        else if(currentStage == 8)
             stageImage = stage8Popup;
+        else
+            return;
 
-        JLabel stage1popup = new JLabel(stageImage);
-        stage1popup.setBounds(290, 160, stageImage.getIconWidth(), stageImage.getIconHeight()); // x, y 위치와 너비, 높이 설정
-        add(stage1popup);
+        //add(blackOverlay);
+        JLabel stagePopup = new JLabel(stageImage);
+        stagePopup.setBounds(290, 160, stageImage.getIconWidth(), stageImage.getIconHeight()); // x, y 위치와 너비, 높이 설정
+        add(stagePopup);
 
         //!!!여기부터 오버레이
-        blackOverlay = new JPanel();
-        blackOverlay.setBackground(new Color(0, 0, 0, 200));    // 검정색 오버레이창 투명도 설정
+        JPanel blackOverlay = new JPanel();
+        blackOverlay.setBackground(new Color(0, 0, 0, 10));    // 검정색 오버레이창 투명도 설정
         blackOverlay.setBounds(0, 0, 1080, 720);
-        blackOverlay.setVisible(false);
-        add(blackOverlay);
+        //blackOverlay.setVisible(false);
+        //add(blackOverlay);
+
+
 
         //Timer를 설정하여 지정된 시간 후에 레이블을 패널에서 제거
-        Timer timer = new Timer(3000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                remove(stage1popup);
-                blackOverlay.setVisible(false);    // 검은색 패널 비활성화
-                removeKeyListener(keyBlocker);     // 키 이벤트 리스너 제거
-                revalidate();
-                repaint();
-            }
+        Timer timer = new Timer(3000, e-> {
+            remove(stagePopup);
+            remove(blackOverlay);
+            revalidate();
+            repaint();
         });
-        timer.setRepeats(false);    //한 번만 실행
-        addKeyListener(keyBlocker); //타이머 시작전 키 이벤트 리스너 추가
-        setFocusable(true);         // 패널이 키 이벤트를 받을 수 있도록 설정
+        timer.setRepeats(false);
         timer.start();
-        blackOverlay.setVisible(true);      // 검은색 오버레이 패널 활성화하여 팝업과 함께 표시
+
+
+        //blackOverlay.setVisible(true);      // 검은색 오버레이 패널 활성화하여 팝업과 함께 표시
     }
 
     @Override
