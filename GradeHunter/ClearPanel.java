@@ -54,18 +54,12 @@ public class ClearPanel extends JPanel {
 
     public ClearPanel(MainPanel mainPanel) {
         setLayout(null); // 널 레이아웃 사용
-        backgroundImage = new ImageIcon("GradeHunter/images/bg_gp_1.png").getImage();
+        backgroundImage = new ImageIcon("GradeHunter/images/pf_c.png").getImage();
 
-        ImageIcon leftIcon = new ImageIcon("GradeHunter/images/key_left.png");
+
         ImageIcon rightIcon = new ImageIcon("GradeHunter/images/key_right.png");
-        JButton leftButton = new JButton(leftIcon);
         JButton rightButton = new JButton(rightIcon);
-
-        leftButton.setBounds(60, 550, leftIcon.getIconWidth(), leftIcon.getIconHeight());
         rightButton.setBounds(955, 550, rightIcon.getIconWidth(), rightIcon.getIconHeight());
-
-        leftButton.setContentAreaFilled(false);
-        leftButton.setBorderPainted(false);
         rightButton.setContentAreaFilled(false);
         rightButton.setBorderPainted(false);
 
@@ -75,18 +69,6 @@ public class ClearPanel extends JPanel {
             mainPanel.switchPanel(quizSelectPanel);
         });
 
-        // 왼쪽 버튼 이벤트 리스너
-        leftButton.addActionListener(e -> {
-
-            // MainPanel의 값 초기화 후 전환
-            mainPanel.resetValues();
-
-            // MainPanel의 메인 콘텐츠 패널로 돌아가기
-            mainPanel.switchPanel(mainPanel.getMainContentPanel());
-        });
-
-
-        add(leftButton);
         add(rightButton);
     }
 
