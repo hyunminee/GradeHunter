@@ -45,7 +45,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
     public ImageIcon stage3Popup = new ImageIcon(("GradeHunter/images/popup/popup_3.png"));
     public ImageIcon stage4Popup = new ImageIcon(("GradeHunter/images/popup/popup_4.png"));
     public ImageIcon stage5Popup = new ImageIcon(("GradeHunter/images/popup/popup_5.png"));
-    public ImageIcon stage6Popup = new ImageIcon(("GradeHunter//popup/popup_6.png"));
+    public ImageIcon stage6Popup = new ImageIcon(("GradeHunter/images/popup/popup_6.png"));
     public ImageIcon stage7Popup = new ImageIcon(("GradeHunter/images/popup/popup_7.png"));
     public ImageIcon stage8Popup = new ImageIcon(("GradeHunter/images/popup/popup_8.png"));
 
