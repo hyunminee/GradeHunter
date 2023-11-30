@@ -5,6 +5,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,7 +16,7 @@ import java.util.List;
  * @author 서보경
  */
 
-public class Quiz_3 extends JPanel{
+public class Quiz_3 extends JPanel implements Quiz{
 
     private List<QuizItem> quizzes;
     private int currentQuizIndex;
@@ -51,56 +53,73 @@ public class Quiz_3 extends JPanel{
         return quizzes.subList(0,5);
     }
 
-
+    @Override
     public void setupUI() {
-        setLayout(null); // 널 레이아웃 사용
+        //setLayout(new BorderLayout()); // 널 레이아웃 사용
+        setLocation(0,0);
+        setSize(1080,720);
 
         JPanel imagePanel = new JPanel();
         imageLabel = new JLabel();
         QuizItem firstQuiz = quizzes.get(0);
-        imagePanel.setBounds(0,0, firstQuiz.getImageWidth(), firstQuiz.getImageHeight());
-        imageLabel.setBounds(0,0, firstQuiz.getImageWidth(), firstQuiz.getImageHeight());
+        int frameWidth = 1080; // 프레임 너비
+        int frameHeight = 720; // 프레임 높이
+        imagePanel.setBounds(0, 0, frameWidth, frameHeight);
+        imageLabel.setBounds(0, 0, firstQuiz.getImageWidth(), firstQuiz.getImageHeight());
         add(imagePanel);
         imagePanel.add(imageLabel);
 
-
         answerField = new JTextField();
-        answerField.setBounds(450,560,200,50);
+        answerField.setBounds(450, 560, 200, 50);
         answerField.setOpaque(false);
         answerField.setBorder(null);
         answerField.setForeground(Color.WHITE);
         Font font = new Font("SansSerif", Font.PLAIN, 50);
         answerField.setFont(font);
         imageLabel.add(answerField);
-        answerField.addActionListener(new ActionListener() {
+
+        // KeyListener 추가
+        answerField.addKeyListener(new KeyListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                // 엔터 키가 눌렸을 때의 동작
-                if (!answerField.getText().isEmpty()) {
-                    timer.stop();
-                    checkAnswer(answerField.getText());
-                    showNextQuiz();
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (c != '1' && c != '2' && c != '3') {
+                    e.consume(); // 1, 2, 3 이외의 입력은 무시
                 }
+            }
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    if (!answerField.getText().isEmpty()) {
+                        checkAnswerAndShowNextQuiz();
+                    }
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                // 필요에 따라 구현
             }
         });
 
         timerLabel = new JLabel("10"); // 초기값은 10초
         timerLabel.setFont(new Font("Arial", Font.BOLD, 48));
         timerLabel.setForeground(Color.WHITE); // 텍스트 색상을 흰색으로 설정
-        timerLabel.setBounds(960,40,100, 100);
+        timerLabel.setBounds(960, 40, 100, 100);
         imageLabel.add(timerLabel);
 
-        timer = new Timer(10000, new ActionListener() {
-
+        timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 remainingSeconds--;
                 updateTimerLabel();
 
-                if (remainingSeconds <= 0) {
+                if (remainingSeconds == 0) {
                     timer.stop();
                     checkAnswer(answerField.getText());
+                    answerField.setText(""); // 텍스트 필드 비우기
                     showNextQuiz();
+                    answerField.requestFocusInWindow();
                 }
             }
         });
@@ -110,51 +129,40 @@ public class Quiz_3 extends JPanel{
     }
 
     // 타이머 레이블을 업데이트하는 메서드
-    private void updateTimerLabel() {
+    @Override
+    public void updateTimerLabel() {
         SwingUtilities.invokeLater(() -> {
             timerLabel.setText(Integer.toString(remainingSeconds)); // 초 단위로 표시
         });
     }
-
-    private void displayImage(String imagePath) {
+    @Override
+    public void displayImage(String imagePath) {
         ImageIcon imageIcon = new ImageIcon(Main.class.getResource(imagePath));
         Image image = imageIcon.getImage();
         imageLabel.setIcon(new ImageIcon(image));
     }
-
-
-    public void delayImageAndShowNextQuiz(String imagePath, int delayMillis) {
-
-        //timer.stop();
-
-        displayImage(imagePath);
-        Timer delayTimer = new Timer(delayMillis, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //timer.stop();
-                checkAnswer(answerField.getText());
-                showNextQuiz();
-            }
-        });
-
-        delayTimer.setRepeats(false);
-        delayTimer.start();
-    }
-
+    @Override
     public void showNextQuiz() {
         if (currentQuizIndex < quizzes.size()) {
             QuizItem quiz = quizzes.get(currentQuizIndex);
             timer.stop();
-            delayImageAndShowNextQuiz(quiz.getImagePath(), 10000);
-            answerField.setText("");
+            displayImage(quiz.getImagePath());
+            startTimer(); // 다음 퀴즈를 보여주기 전에 타이머 재시작
             currentQuizIndex++;
-            startTimer();
         } else {
             JOptionPane.showMessageDialog(this, "게임 종료!");
             System.exit(0);
         }
     }
-
+    @Override
+    public void checkAnswerAndShowNextQuiz() {
+        timer.stop();
+        checkAnswer(answerField.getText());
+        answerField.setText(""); // 텍스트 필드 비우기
+        showNextQuiz();
+        answerField.requestFocusInWindow();
+    }
+    @Override
     public void startTimer() {
         timer.stop();
         timer.setInitialDelay(0);
@@ -163,17 +171,17 @@ public class Quiz_3 extends JPanel{
         remainingSeconds = 10;
     }
 
+    @Override
     public void checkAnswer(String userAnswer) {
         QuizItem quizItem = quizzes.get(currentQuizIndex - 1);
         String correctAnswer = quizItem.getAnswer();
 
         if (userAnswer.equalsIgnoreCase(correctAnswer)) {
-            JOptionPane.showMessageDialog(this, "정답입니다!");
+            JOptionPane.showMessageDialog(this, "정답입니다!", "정답", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "틀렸습니다. 정답은 " + correctAnswer + "입니다.");
+            JOptionPane.showMessageDialog(this, "틀렸습니다. 정답은 " + correctAnswer + "입니다.", "틀림", JOptionPane.ERROR_MESSAGE);
         }
     }
-
 }
 
 

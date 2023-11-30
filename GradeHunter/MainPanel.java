@@ -202,18 +202,22 @@ public class MainPanel extends JFrame{
              */
 
             public void mousePressed(MouseEvent e) {
+                if (studentID.getText().isEmpty() || gen == -1) {
+                    JOptionPane.showMessageDialog(MainPanel.this, "학번과 성별을 확인할 수 없습니다.", "", JOptionPane.WARNING_MESSAGE);
+                }
+                else {
+                    // 학번과 성별 저장
+                    saveText();
 
-                // 학번과 성별 저장
-                saveText();
+                    // GuidePanel1 인스턴스 생성
+                    GuidePanel1 guidePanel = new GuidePanel1(MainPanel.this);
 
-                // GuidePanel1 인스턴스 생성
-                GuidePanel1 guidePanel = new GuidePanel1(MainPanel.this);
-
-                // 현재 컨텐츠를 GuidePanel1로 교체
-                getContentPane().removeAll();
-                getContentPane().add(guidePanel);
-                getContentPane().revalidate();
-                getContentPane().repaint();
+                    // 현재 컨텐츠를 GuidePanel1로 교체
+                    getContentPane().removeAll();
+                    getContentPane().add(guidePanel);
+                    getContentPane().revalidate();
+                    getContentPane().repaint();
+                }
             }
 
         });
