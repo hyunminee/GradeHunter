@@ -26,6 +26,11 @@ public class Quiz_2 extends JPanel implements Quiz{
     private JLabel timerLabel;
     private int remainingSeconds = 10;
 
+    public ImageIcon oImage = new ImageIcon("GradeHunter/images/o.png");
+    public ImageIcon xImage = new ImageIcon("GradeHunter/images/x.png");
+    public JLabel oPopup = new JLabel(oImage);
+    public JLabel xPopup = new JLabel(xImage);
+
     private MainPanel mainPanel;
 
     public Quiz_2(MainPanel mainPanel) {
@@ -34,6 +39,13 @@ public class Quiz_2 extends JPanel implements Quiz{
 
         quizzes = initializeQuizzes();
         currentQuizIndex = 0;
+
+        oPopup.setBounds(320, 100, 400, 400);
+        oPopup.setVisible(false);
+        add(oPopup);
+        xPopup.setBounds(320, 100, 400, 400);
+        xPopup.setVisible(false);
+        add(xPopup);
 
         setupUI();
         showNextQuiz();
@@ -169,8 +181,17 @@ public class Quiz_2 extends JPanel implements Quiz{
         timer.stop();
         checkAnswer(answerField.getText());
         answerField.setText(""); // 텍스트 필드 비우기
-        showNextQuiz();
-        answerField.requestFocusInWindow();
+
+        // 다음 문제로 넘어가기 전 팝업창에 맞춰 2초간 딜레이
+        Timer delayTimer = new Timer(2000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showNextQuiz();
+                answerField.requestFocusInWindow();
+            }
+        });
+        delayTimer.setRepeats(false); // 타이머가 한 번만 실행되도록 설정
+        delayTimer.start();
     }
 
     @Override
@@ -188,9 +209,26 @@ public class Quiz_2 extends JPanel implements Quiz{
         String correctAnswer = quizItem.getAnswer();
 
         if (userAnswer.equalsIgnoreCase(correctAnswer)) {
-            JOptionPane.showMessageDialog(this, "정답입니다!", "정답", JOptionPane.INFORMATION_MESSAGE);
+            oPopup.setVisible(true);
+            Timer timer = new Timer(2000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    oPopup.setVisible(false);
+                }
+            });
+            timer.start();
+
         } else {
-            JOptionPane.showMessageDialog(this, "틀렸습니다. 정답은 " + correctAnswer + "입니다.", "틀림", JOptionPane.ERROR_MESSAGE);
+            System.out.println("오답 처리 시작"); // 로그 출력
+            xPopup.setVisible(true);
+            Timer timer = new Timer(2000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println("xPopup 숨김 처리"); // 숨김 처리 로그
+                    xPopup.setVisible(false);
+                }
+            });
+            timer.start();
         }
     }
 }
