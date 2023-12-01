@@ -2,9 +2,17 @@ package GradeHunter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class GuidePanel2 extends JPanel {
     private Image backgroundImage;
+    private ImageIcon leftEnteredIcon = new ImageIcon("GradeHunter/images/key_left_entered.png");
+    private ImageIcon rightEnteredIcon = new ImageIcon("GradeHunter/images/key_right_entered.png");
+    private ImageIcon leftIcon = new ImageIcon("GradeHunter/images/key_left.png");
+    private ImageIcon rightIcon = new ImageIcon("GradeHunter/images/key_right.png");
+    private JButton leftButton = new JButton(leftIcon);
+    private JButton rightButton = new JButton(rightIcon);
 
     public GuidePanel2(MainPanel mainPanel) {
         setLayout(null); // 널 레이아웃 사용
@@ -34,6 +42,34 @@ public class GuidePanel2 extends JPanel {
         leftButton.addActionListener(e -> {
             GuidePanel1 guidePanel1 = new GuidePanel1(mainPanel);
             mainPanel.switchPanel(guidePanel1); // 메인 화면으로 돌아가기
+        });
+
+        leftButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                leftButton.setIcon(leftEnteredIcon);
+                leftButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                leftButton.setIcon(leftIcon);
+                leftButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
+
+        rightButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                rightButton.setIcon(rightEnteredIcon);
+                rightButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                rightButton.setIcon(rightIcon);
+                rightButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
         });
 
         add(leftButton);
