@@ -131,11 +131,7 @@ public class Quiz_3 extends JPanel implements Quiz{
                 updateTimerLabel();
 
                 if (remainingSeconds == 0) {
-                    timer.stop();
-                    checkAnswer(answerField.getText());
-                    answerField.setText(""); // 텍스트 필드 비우기
-                    showNextQuiz();
-                    answerField.requestFocusInWindow();
+                    checkAnswerAndShowNextQuiz();
                 }
             }
         });
@@ -217,12 +213,10 @@ public class Quiz_3 extends JPanel implements Quiz{
             timer.start();
 
         } else {
-            System.out.println("오답 처리 시작"); // 로그 출력
             xPopup.setVisible(true);
             Timer timer = new Timer(2000, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    System.out.println("xPopup 숨김 처리"); // 숨김 처리 로그
                     xPopup.setVisible(false);
                 }
             });

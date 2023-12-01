@@ -68,8 +68,6 @@ public class Quiz_1 extends JPanel implements Quiz{
     @Override
     public void setupUI() {
         setLayout(new BorderLayout());
-        setSize(1080,720);
-        setLocation(0,0);
 
         JPanel imagePanel = new JPanel();
         imagePanel.setLayout(new BorderLayout());
@@ -77,10 +75,8 @@ public class Quiz_1 extends JPanel implements Quiz{
         QuizItem firstQuiz = quizzes.get(0);
         imageLabel.setIcon(new ImageIcon(Main.class.getResource(firstQuiz.getImagePath())));
         imageLabel.setHorizontalAlignment(JLabel.CENTER);
-        imageLabel.setVerticalAlignment(JLabel.CENTER);
-        add(imagePanel, BorderLayout.NORTH);
         imagePanel.add(imageLabel, BorderLayout.NORTH);
-
+        add(imagePanel, BorderLayout.CENTER);
         answerField = new JTextField();
         answerField.setBounds(450, 560, 200, 50);
         answerField.setOpaque(false);
@@ -127,11 +123,12 @@ public class Quiz_1 extends JPanel implements Quiz{
                 updateTimerLabel();
 
                 if (remainingSeconds == 0) {
-                    timer.stop();
+                    checkAnswerAndShowNextQuiz();
+                    /*timer.stop();
                     checkAnswer(answerField.getText());
                     answerField.setText(""); // 텍스트 필드 비우기
                     showNextQuiz();
-                    answerField.requestFocusInWindow();
+                    answerField.requestFocusInWindow();*/
                 }
             }
         });
@@ -213,12 +210,12 @@ public class Quiz_1 extends JPanel implements Quiz{
             timer.start();
 
         } else {
-            System.out.println("오답 처리 시작"); // 로그 출력
+            //System.out.println("오답 처리 시작"); // 로그 출력
             xPopup.setVisible(true);
             Timer timer = new Timer(2000, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    System.out.println("xPopup 숨김 처리"); // 숨김 처리 로그
+                    //System.out.println("xPopup 숨김 처리"); // 숨김 처리 로그
                     xPopup.setVisible(false);
                 }
             });
