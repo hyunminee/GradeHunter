@@ -25,7 +25,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
     private final int DELAY = 16; // 약 60 FPS에 해당하는 간격
     private Random rand; // 랜덤 아이템 생성에 사용될 객체
     private ImageIcon[] stagePopups; // 스테이지 팝업 이미지
-    private boolean showPopup; // 팝업 표시 여부
+    private boolean isPopupActive; // 팝업이 활성화되어 있는지 여부
     private int currentStage = 1; // 현재 스테이지
     private JProgressBar gaugeBar;
     ImageIcon stageImage;
@@ -59,7 +59,6 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
 
     public GamePlayPanel() {
         setLayout(null); // 레이아웃 관리자 비활성화
-
         showStagePopup();
 
         // 배경 이미지 로드
@@ -100,13 +99,10 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
             public void componentResized(ComponentEvent e) {
                 // 패널 크기가 변경될 때마다 JProgressBar 위치 및 크기 재설정
                 gaugeBar.setBounds(300, 88, getWidth() - 490, 25);
-                System.out.println("JProgressBar 위치 및 크기 설정: " + gaugeBar.getBounds());
             }
         });
 
-        gameUpdateTimer.start();
-
-
+        isPopupActive = true; // 초기 상태에서 팝업 활성화
 
     }
 
@@ -137,7 +133,13 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
 
     // 스테이지 정보를 보여주는 팝업창을 표시하는 메소드
     public void showStagePopup() {
+        isPopupActive = true; // 팝업 활성화됨
+        // items 리스트가 초기화되었는지 확인하고 초기화된 경우에만 clear() 호출
+        if (items != null) {
+            items.clear();
+        }
 
+        // 팝업이 활성화될 때 아이템 목록 초기화
         if (currentStage == 1)
             stageImage = stage1Popup;
         else if(currentStage == 2)
@@ -177,6 +179,11 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
             remove(blackOverlay);
             revalidate();
             repaint();
+
+            isPopupActive = false; // 팝업 비활성화
+
+            // GameLogic의 타이머를 시작하는 로직
+            gameLogic.startGameTimer();
         });
         timer.setRepeats(false);
         timer.start();
@@ -184,11 +191,15 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
 
         //blackOverlay.setVisible(true);      // 검은색 오버레이 패널 활성화하여 팝업과 함께 표시
     }
+    // 팝업 상태를 확인하는 메소드
+    public boolean isPopupActive() {
+        return isPopupActive;
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
+        // 추가해야 되는 코드 (삭제XX!!!!)
 //        // 학번 그리기
 //        g.setColor(Color.BLACK);
 //        g.setFont(new Font("SansSerif", Font.BOLD, 28)); // 폰트 설정
@@ -210,9 +221,11 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         if (backgroundImage != null) {
             g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
         }
-        // 아이템 그리기
-        for (Item item : items) {
-            item.draw(g);
+        // 팝업이 활성화되어 있지 않을 때만 아이템을 그림
+        if (!isPopupActive) {
+            for (Item item : items) {
+                item.draw(g);
+            }
         }
         // 플레이어 캐릭터 그리기
         character.draw(g);
