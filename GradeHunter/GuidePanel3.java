@@ -19,9 +19,12 @@ public class GuidePanel3 extends JPanel {
 
         // 시작 버튼 이벤트 리스너
         startButton.addActionListener(e -> {
-            ClearPanel clearPanel = new ClearPanel(mainPanel);
-            mainPanel.switchPanel(clearPanel);
-            //mainPanel.setShape((Shape) mainPanel.getRootPane()); // 메인 화면으로 돌아가기
+            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this); // 현재 패널의 부모 프레임을 가져옴
+            GamePlayPanel gameplayPanel = new GamePlayPanel(); // GamePlayPanel의 새 인스턴스를 생성
+
+            frame.setContentPane(gameplayPanel); // 새 패널을 내용 패널로 설정
+            frame.validate(); // 프레임을 변경 후 유효성 검사
+            frame.repaint(); // 프레임을 다시 그려 새 내용을 표시
         });
 
         add(startButton);

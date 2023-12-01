@@ -30,13 +30,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
     private JProgressBar gaugeBar;
     ImageIcon stageImage;
 
-    ////////////////////////////
-    //private Timer timer;
-//    //private Player character; // 게임 내 플레이어 캐릭터 객체
-//    //private List<Item> items; // 화면에 표시될 아이템들을 저장하는 리스트
     private int stage; // 현재 게임의 스테이지 번호
-    //    private int itemFallSpeed; // 아이템이 떨어지는 속도 (밀리초 단위)
-//    private double stageTime = 60000; // 각 스테이지의 지속 시간 (초)
     private int gaugeValue = 0; // 현재 게이지 값
     private final int MAX_STAGE = 8; // 최대 스테이지 번호
     private final int maxGaugeValue = 100; // 최대 게이지 값
@@ -72,6 +66,20 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         addKeyListener(this);
         setFocusable(true);
         setPreferredSize((new Dimension(1080, 720))); // 화면 크기 설정
+
+        // 포커스 리스너
+        addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                // 포커스를 얻었을 때 수행할 작업 (필요한 경우)
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                // 포커스를 잃었을 때, 필요하다면 다시 포커스를 요청
+                GamePlayPanel.this.requestFocusInWindow();
+            }
+        });
 
         // 캐릭터 및 아이템 초기화
         character = new Player(500,500);
@@ -114,6 +122,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         character = new Player(getWidth() / 2 - 60, getHeight() - 120); // 캐릭터 생성
         character.setScreenWidth(getWidth()); // 캐릭터가 화면 너비를 인식하도록 설정
         initGame(); // 스테이지 초기화
+        requestFocusInWindow();
     }
 
 
