@@ -26,7 +26,6 @@ public class GameLogic {
     public GameLogic(Player character, List<Item> items, JPanel parentPanel, int initialTime, int panelWidth, int itemWidth, GamePlayPanel panel) {
         this.character = character;
         this.items = items;
-//        this.currentStage = 1; // 현재 스테이지
         this.MAX_STAGE=8;
         this.PANEL_WIDTH = panelWidth;
         this.ITEM_WIDTH = itemWidth;
@@ -105,6 +104,36 @@ public class GameLogic {
     }
 
     private void createRandomItem() {
+        // 아이템 타입 결정 로직
+        ItemType[] types = ItemType.values();
+        List<ItemType> weightedList = new ArrayList<>(); // 가중치 리스트 생성
+        List<ItemType> allowedTypes;
+
+        if (currentStage <= 4) {
+            // 1~4 stage : RED, YELLOW, GREEN, BLUE 아이템
+            allowedTypes = Arrays.asList(ItemType.RED, ItemType.YELLOW, ItemType.GREEN, ItemType.BLUE);
+        } else {
+            // 5~8 stage : 모든 아이템 타입
+            allowedTypes = Arrays.asList(types);
+        }
+
+        for (ItemType type : allowedTypes) {
+            int weight = 1; // 기본 가중치
+
+            // 파란색 아이템에 높은 가중치 부여
+            if (type == ItemType.BLUE || type == ItemType.YELLOW) {
+                weight = 3; // 1~8 stage : BLUE 가중치
+            } else if ((currentStage >= 5 && currentStage<= 8) && (type==ItemType.GREEN || type==ItemType.PRESENTATION || type==ItemType.RED)) {
+                weight = 3; // 5~8 stage : GREEN, PRESENTATION 가중치
+            }
+
+            // 가중치에 따라 아이템 목록에 추가
+            for (int i=0; i<weight; i++) {
+                weightedList.add(type);
+            }
+        }
+        // 가중치 목록에서 무작위로 아이템 선택
+        ItemType selectedType = weightedList.get(rand.nextInt(weightedList.size()));
 
         int x; // 아이템이 화면 밖으로 나가지 않도록 계산
         int y = 0; // 화면 상단에서 시작
@@ -115,25 +144,10 @@ public class GameLogic {
             positionOverlap = checkPositionOverlap(x);
         } while (positionOverlap);
 
-
-        // 아이템 타입 결정 로직
-        ItemType[] types = ItemType.values();
-        ItemType type;
-        if (currentStage <= 4) {
-            // 스테이지 1~4: BLUE, GREEN, YELLOW, RED 아이템만 나옴
-            List<ItemType> allowedTypes = new ArrayList<>(Arrays.asList(types));
-            allowedTypes.remove(ItemType.TARDY);
-            allowedTypes.remove(ItemType.PRESENTATION);
-            type = allowedTypes.get(rand.nextInt(allowedTypes.size()));
-        } else {
-            // 스테이지 5~8: 모든 아이템이 나옴
-            type = types[rand.nextInt(types.length)];
-        }
-
-        // 아이템 생성
-        Item newItem = new Item(type.getImagePath(), x, y, type, itemFallSpeed);
+        Item newItem = new Item(selectedType.getImagePath(), x, y, selectedType, itemFallSpeed);
         items.add(newItem);
     }
+
     // 위치 겹침 확인 메소드
     private boolean checkPositionOverlap(int x) {
         for (Item existingItem : items) {
@@ -212,7 +226,7 @@ public class GameLogic {
             case 7:
             case 8:
                 itemFallSpeed = 2;
-                MAX_ITEMS = 15;
+                MAX_ITEMS = 14;
                 break;
 
         }
