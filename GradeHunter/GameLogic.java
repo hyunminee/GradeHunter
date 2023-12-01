@@ -14,7 +14,7 @@ public class GameLogic {
     public int gaugeValue = 0; // 현재 게이지 값
     private final int GAUGE_PER_STAGE = 50; // 스테이지 당 필요한 게이지 증가량
     public int maxGaugeValue = currentStage * GAUGE_PER_STAGE; // 최대 게이지 값 (스테이지에 따라 변함)
-    private int itemFallSpeed = 1; // 아이템 하강 속도
+    private double itemFallSpeed = 1; // 아이템 하강 속도
     private final int PANEL_WIDTH; // 게임 패널의 너비
     private final int ITEM_WIDTH;  // 아이템의 너비
     protected Random rand; // 랜덤 이벤트 및 아이템 위치 생성에 사용될 Random 객체
@@ -33,41 +33,50 @@ public class GameLogic {
         rand = new Random();
         this.gamePlayPanel = panel;
 
-        // TimerNum 인스턴스 생성 및 스레드 시작
+        // TimerNum 인스턴스 생성
         timerLabel = new TimerNum(initialTime);
-        Thread timerThread = new Thread(timerLabel);
-        timerThread.start();
+
+    }
+    // 게임 타이머를 시작하는 메소드
+    public void startGameTimer() {
+        if (timerLabel != null){
+            timerLabel.resetAndStart(60 * 1000); // 60초를 밀리초로 변환
+        }
     }
 
     // 게임 업데이트 로직
     public void updateGame() {
         // 아이템과 플레이어의 충돌 처리, 게임 상태 업데이트 등
-        Iterator<Item> itemIterator = items.iterator();
-        while (itemIterator.hasNext()) {
-            Item item = itemIterator.next();
+        // 팝업이 활성화되어 있지 않을 때만 아이템 관리 및 업데이트 수행
+        if (!gamePlayPanel.isPopupActive()) {
+            Iterator<Item> itemIterator = items.iterator();
+            while (itemIterator.hasNext()) {
+                Item item = itemIterator.next();
 
-            // 아이템과 플레이어의 충돌 처리
-            if (character.collidesWith(item)) {
-                // 아이템에 따른 추가 처리 (예: 점수 추가, 효과 적용 등)
-                processItemEffect(item);
+                // 아이템과 플레이어의 충돌 처리
+                if (character.collidesWith(item)) {
+                    // 아이템에 따른 추가 처리 (예: 점수 추가, 효과 적용 등)
+                    processItemEffect(item);
 
-                // 충돌 후 아이템 제거
-                itemIterator.remove();
-            } else {
-                // 아이템이 충돌하지 않은 경우
-                // 아이템 상태 업데이트 (예: 위치 이동 등)
-                item.move();
+                    // 충돌 후 아이템 제거
+                    itemIterator.remove();
+                } else {
+                    // 아이템이 충돌하지 않은 경우
+                    // 아이템 상태 업데이트 (예: 위치 이동 등)
+                    item.move();
+                }
             }
-
-
+            manageItems();
         }
         // 아이템과 플레이어의 충돌 처리 및 상태 업데이트 후 GamePlayPanel의 화면을 갱신
         gamePlayPanel.repaint();
         // 캐릭터 상태 업데이트 (예: 이동, 애니메이션 상태 변경 등)
         // 매 프레임마다 캐릭터의 상태를 업데이트
         character.update();
-        // 아이템 생성 및 관리
-        manageItems();
+        // 팝업이 활성화되어 있지 않을 때만 아이템 관리 및 업데이트 수행
+        if (!gamePlayPanel.isPopupActive()) {
+            manageItems();
+        }
         // 게이지 값이 변경될 때마다 GamePlayPanel의 게이지 바 업데이트
         SwingUtilities.invokeLater(()->{
             gamePlayPanel.updateGaugeBar(gaugeValue);
@@ -77,9 +86,11 @@ public class GameLogic {
     }
     // 아이템 생성 및 관리 메소드
     private void manageItems() {
-        if ((timerLabel.getMilliSeconds()>0)&&(items.size() < MAX_ITEMS)) { // MAX_ITEMS: 동시에 화면에 표시될 수 있는 최대 아이템 수
-            // 아이템 생성 로직
-            createRandomItem();
+        if (!gamePlayPanel.isPopupActive()) {
+            if (timerLabel.getMilliSeconds()>0 && items.size()<MAX_ITEMS) {
+                // 아이템 생성 로직
+                createRandomItem();
+            }
         }
 
         // 아이템 하강 로직
@@ -136,7 +147,6 @@ public class GameLogic {
 
     // 아이템에 따른 추가 처리 (예: 점수 추가, 효과 적용 등)
     private void processItemEffect(Item item) {
-        System.out.println("현재 게이지 = "+ gaugeValue);
         // 아이템의 효과를 적용하는 로직
         // TARDY 아이템의 경우 시간 감소, 그 외에는 게이지 증가/감소
         if (item.getType() == ItemType.TARDY) {
@@ -153,7 +163,6 @@ public class GameLogic {
     }
 
     private void manageStages() {
-        System.out.println("현재 스테이지="+currentStage);
         // 예: 스테이지 종료 조건 확인 및 다음 스테이지로 이동
         boolean newStageStarted = currentStage != lastStage;
 
@@ -162,6 +171,10 @@ public class GameLogic {
             maxGaugeValue = currentStage*GAUGE_PER_STAGE;
             gamePlayPanel.setMaxGaugeValue(maxGaugeValue);
             gamePlayPanel.updateGaugeBar(0);
+        }
+        // 게이지 값이 최대치에 도달했을 경우 타이머 멈춤
+        if (gaugeValue >= maxGaugeValue) {
+            timerLabel.stopTimer();
         }
 
         // 스테이지 종료 조건 확인 및 다음 스테이지로 이동
@@ -184,12 +197,18 @@ public class GameLogic {
         switch (currentStage) {
             case 1:
             case 2:
+                itemFallSpeed=1;
+                break;
             case 3:
             case 4:
-                itemFallSpeed = 1;
+                itemFallSpeed = 1.5;
+                MAX_ITEMS = 13;
                 break;
             case 5:
             case 6:
+                itemFallSpeed = 1.8;
+                MAX_ITEMS = 14;
+                break;
             case 7:
             case 8:
                 itemFallSpeed = 2;
@@ -197,6 +216,8 @@ public class GameLogic {
                 break;
 
         }
+        // 새 스테이지 팝업 표시
+        gamePlayPanel.showStagePopup();
     }
 
     // 타이머 시간 가져오기
@@ -207,24 +228,46 @@ public class GameLogic {
     // TimerNum 클래스 정의
     class TimerNum implements Runnable {
         long milliseconds;
+        boolean running = false; // 타이머 실행 상태
 
         public TimerNum(int seconds) {
-            this.milliseconds = seconds*1000; // 초를 밀리초로 변환
+            this.milliseconds = seconds * 1000; // 초를 밀리초로 변환
         }
+        public void setMilliseconds(long millis) {
+            this.milliseconds = millis;
+        }
+        public synchronized void resetAndStart(long millis) {
+            this.milliseconds = millis;
+            if (!running) {
+                running = true;
+                new Thread(this).start();
+            }
+        }
+        // 타이머를 멈추는 메서드
+        public synchronized void stopTimer() {
+            running = false;
+        }
+
         public void decreaseTime(long millis)
         {
             this.milliseconds = Math.max(0, this.milliseconds-millis); // 시간 감소
         }
+        // 타이머가 실행 중인지 확인하는 메소드
+        public boolean isRunning() {
+            return milliseconds > 0;
+        }
         @Override
         public void run() {
-            while (milliseconds > 0) {
+            while (milliseconds > 0 && running) {
                 try {
                     Thread.sleep(10); // 10 밀리초마다 갱신
                     milliseconds -= 10; // 시간 감소
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
+                    running = false; // 인터럽트 발생 시 중단
                 }
             }
+            running = false; // 타이머 종료
         }
 
         public long getMilliSeconds() {

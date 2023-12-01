@@ -10,12 +10,12 @@ import java.net.URL;
 public class Item {
     private Image image; // 아이템의 이미지를 나타내는 객체
     private int x, y; // 아이템의 화면 내 위치 (x, y 좌표)
-    private int deltaY; // 아이템의 Y축 이동 속도 (하강 속도)
+    private double deltaY; // 아이템의 Y축 이동 속도 (하강 속도)
     private int effectValue; // 아이템의 효과 값 (게이지 증가/감소, 시간 조절 등)
     private final ItemType type; // 아이템의 타입 (BLUE, GREEN 등)
 
     /** 아이템 객체 생성자 */
-    public Item(String imagePath, int x, int y, ItemType type, int speed) {
+    public Item(String imagePath, int x, int y, ItemType type, double speed) {
         this.x = x;
         this.y = y;
         this.type = type;
