@@ -19,6 +19,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
     private GameLogic gameLogic;
     private List<Item> items;
     private Player character;
+    private static MainPanel mainPanel;
 
     private BufferedImage backgroundImage;
     private Timer gameUpdateTimer;
@@ -51,7 +52,10 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         }
     };
 
-    public GamePlayPanel() {
+    public GamePlayPanel(MainPanel mainPanel) {
+
+        this.mainPanel = mainPanel;
+
         setLayout(null); // 레이아웃 관리자 비활성화
         showStagePopup();
 
@@ -86,7 +90,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         items = new ArrayList<>(); // 아이템 리스트 초기화
 
         // GameLogic 인스턴스 생성
-        gameLogic = new GameLogic(character, items, this, 60, 1080, 50, this); // 60초로 초기화
+        gameLogic = new GameLogic(character, items, this, 60, 1080, 50, this, mainPanel); // 60초로 초기화
 
         // 주기적인 게임 업데이트 처리
         Timer gameUpdateTimer = new Timer(DELAY, e -> { // 60 FPS에 해당하는 간격 (약 16ms)
@@ -130,7 +134,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
 //        stage=1;
         character = new Player(540,500); // 캐릭터 위치 설정 초기화
         items = new ArrayList<>();
-        gameLogic = new GameLogic(character, items, this, 60, 1080, 50, this);
+        gameLogic = new GameLogic(character, items, this, 60, 1080, 50, this, mainPanel);
         if (gameUpdateTimer != null) {
             gameUpdateTimer.stop(); // 이전 타이머가 있으면 정지
         }

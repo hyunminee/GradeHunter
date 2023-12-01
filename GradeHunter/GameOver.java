@@ -16,10 +16,23 @@ public class GameOver extends JPanel{
 
     //테스트중
     public ImageIcon stage1Image = new ImageIcon(GameOver.class.getResource("images/stage/s_1.png")); // 이미지 아이콘 로드
+    public ImageIcon stage2Image = new ImageIcon(GameOver.class.getResource("images/stage/s_2.png"));
+    public ImageIcon stage3Image = new ImageIcon(GameOver.class.getResource("images/stage/s_3.png"));
+    public ImageIcon stage4Image = new ImageIcon(GameOver.class.getResource("images/stage/s_4.png"));
+    public ImageIcon stage5Image = new ImageIcon(GameOver.class.getResource("images/stage/s_5.png"));
+    public ImageIcon stage6Image = new ImageIcon(GameOver.class.getResource("images/stage/s_6.png"));
+    public ImageIcon stage7Image = new ImageIcon(GameOver.class.getResource("images/stage/s_7.png"));
+    public ImageIcon stage8Image = new ImageIcon(GameOver.class.getResource("images/stage/s_8.png"));
     public ImageIcon gradeAImage = new ImageIcon(GameOver.class.getResource("images/grade/g_a.png"));
+    public ImageIcon gradeBImage = new ImageIcon(GameOver.class.getResource("images/grade/g_b.png"));
+    public ImageIcon gradeCImage = new ImageIcon(GameOver.class.getResource("images/grade/g_c.png"));
+    public ImageIcon gradeDImage = new ImageIcon(GameOver.class.getResource("images/grade/g_d.png"));
+    public ImageIcon gradeFImage = new ImageIcon(GameOver.class.getResource("images/grade/g_f.png"));
     public ImageIcon gameoverImage = new ImageIcon(GameOver.class.getResource("images/gameover.png"));
     public ImageIcon mainButtonImage = new ImageIcon(GameOver.class.getResource("images/bt_main.png"));
     public ImageIcon restartButtonImage = new ImageIcon(GameOver.class.getResource("images/bt_restart.png"));
+    public ImageIcon stageImage;
+    public ImageIcon gradeImage;
 
     public GameOver(MainPanel mainPanel){
 
@@ -29,13 +42,8 @@ public class GameOver extends JPanel{
         setLayout(null);    //레이아웃 관리자를 사용하지 않음
         setBackground(Color.BLACK);
 
-        JLabel stageimage = new JLabel(stage1Image);
-        stageimage.setBounds(325, 125, stage1Image.getIconWidth(), stage1Image.getIconHeight()); // x, y 위치와 너비, 높이 설정
-        add(stageimage);
-
-        JLabel gradeimage = new JLabel(gradeAImage);
-        gradeimage.setBounds(170, 260, gradeAImage.getIconWidth(), gradeAImage.getIconHeight()); // x, y 위치와 너비, 높이 설정
-        add(gradeimage);
+        checkStage();
+        checkGrade();
 
         JLabel gameoverimage = new JLabel(gameoverImage);
         gameoverimage.setBounds(50, 460, gameoverImage.getIconWidth(), gameoverImage.getIconHeight()); // x, y 위치와 너비, 높이 설정
@@ -80,7 +88,7 @@ public class GameOver extends JPanel{
 
                 // "처음으로" 버튼 클릭시 GamePlay 패널로 전환
                 JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(GameOver.this);
-                topFrame.setContentPane(new GamePlayPanel());
+                topFrame.setContentPane(new GamePlayPanel(mainPanel));
                 topFrame.revalidate();
                 topFrame.repaint();
 
@@ -89,4 +97,49 @@ public class GameOver extends JPanel{
         add(restartbutton);
 
     }
+
+    public void checkStage() {
+        if (GameLogic.currentStage == 1)
+            stageImage = stage1Image;
+        else if (GameLogic.currentStage == 2)
+            stageImage = stage2Image;
+        else if (GameLogic.currentStage == 3)
+            stageImage = stage3Image;
+        else if (GameLogic.currentStage == 4)
+            stageImage = stage4Image;
+        else if (GameLogic.currentStage == 5)
+            stageImage = stage5Image;
+        else if (GameLogic.currentStage == 6)
+            stageImage = stage6Image;
+        else if (GameLogic.currentStage == 7)
+            stageImage = stage7Image;
+        else if (GameLogic.currentStage == 8)
+            stageImage = stage8Image;
+        else
+            return;
+
+        JLabel stageimage = new JLabel(stageImage);
+        stageimage.setBounds(325, 125, stageImage.getIconWidth(), stageImage.getIconHeight()); // x, y 위치와 너비, 높이 설정
+        add(stageimage);
+    }
+
+    public void checkGrade() {
+        int gradeScore = (GameLogic.gaugeValue * 100) / GameLogic.maxGaugeValue;
+        System.out.println("GradeScore = " + gradeScore);
+        if (gradeScore >= 80)
+            gradeImage = gradeAImage;
+        else if (gradeScore >= 60 && gradeScore < 80)
+            gradeImage = gradeBImage;
+        else if (gradeScore >= 40 && gradeScore < 60)
+            gradeImage = gradeCImage;
+        else if (gradeScore >= 20 && gradeScore < 40)
+            gradeImage = gradeDImage;
+        else
+            gradeImage = gradeFImage;
+
+        JLabel gradeimage = new JLabel(gradeImage);
+        gradeimage.setBounds(170, 260, gradeAImage.getIconWidth(), gradeAImage.getIconHeight()); // x, y 위치와 너비, 높이 설정
+        add(gradeimage);
+    }
+
 }
