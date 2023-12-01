@@ -51,11 +51,13 @@ public class ClearPanel extends JPanel {
 
 public class ClearPanel extends JPanel {
     private Image backgroundImage;
+    private MainPanel mainPanel;
 
     public ClearPanel(MainPanel mainPanel) {
         setLayout(null); // 널 레이아웃 사용
         backgroundImage = new ImageIcon("GradeHunter/images/pf_c.png").getImage();
 
+        this.mainPanel = mainPanel;
 
         ImageIcon rightIcon = new ImageIcon("GradeHunter/images/key_right.png");
         JButton rightButton = new JButton(rightIcon);

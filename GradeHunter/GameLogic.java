@@ -1,6 +1,7 @@
 package GradeHunter;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -11,27 +12,28 @@ public class GameLogic {
     public static int currentStage = 1; // 현재 게임의 스테이지 번호
     private final int MAX_STAGE; // 최대 스테이지 번호
     private double stageTime = 60000; // 각 스테이지의 지속 시간 (초)
-    public int gaugeValue = 0; // 현재 게이지 값
-    private final int GAUGE_PER_STAGE = 50; // 스테이지 당 필요한 게이지 증가량
-    public int maxGaugeValue = currentStage * GAUGE_PER_STAGE; // 최대 게이지 값 (스테이지에 따라 변함)
+    public static int gaugeValue = 0; // 현재 게이지 값
+    private static final int GAUGE_PER_STAGE = 50; // 스테이지 당 필요한 게이지 증가량
+    public static int maxGaugeValue = currentStage * GAUGE_PER_STAGE; // 최대 게이지 값 (스테이지에 따라 변함)
     private double itemFallSpeed = 1; // 아이템 하강 속도
     private final int PANEL_WIDTH; // 게임 패널의 너비
     private final int ITEM_WIDTH;  // 아이템의 너비
     protected Random rand; // 랜덤 이벤트 및 아이템 위치 생성에 사용될 Random 객체
     private static int MAX_ITEMS = 10; // 화면에 표시될 수 있는 최대 아이템 수
     private GamePlayPanel gamePlayPanel; // GamePlayPanel 참조
-    private int lastStage=0; // 이전 스테이지 번호를 추적하기 위한 변수
+    private int lastStage = 0; // 이전 스테이지 번호를 추적하기 위한 변수
+    private MainPanel mainPanel;
 
 
-    public GameLogic(Player character, List<Item> items, JPanel parentPanel, int initialTime, int panelWidth, int itemWidth, GamePlayPanel panel) {
+    public GameLogic(Player character, List<Item> items, JPanel parentPanel, int initialTime, int panelWidth, int itemWidth, GamePlayPanel panel, MainPanel mainPanel) {
         this.character = character;
         this.items = items;
+        this.mainPanel = mainPanel;
         this.MAX_STAGE=8;
         this.PANEL_WIDTH = panelWidth;
         this.ITEM_WIDTH = itemWidth;
         rand = new Random();
         this.gamePlayPanel = panel;
-
         // TimerNum 인스턴스 생성
         timerLabel = new TimerNum(initialTime);
 
@@ -290,8 +292,30 @@ public class GameLogic {
     }
     /** 게임 오버 메소드 */
     private void gameOver() {
+        System.out.println("gameover 패널로 전환");
+        JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(gamePlayPanel);
+        topFrame.getContentPane().removeAll();
+        topFrame.setContentPane(new GameOver(mainPanel));
+        topFrame.revalidate();
+        topFrame.repaint();
     }
     /** 게임 클리어 메소드 */
     private void gameClear() {
+        System.out.println("gameclear 패널로 전환");
+        JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(gamePlayPanel);
+        topFrame.getContentPane().removeAll();
+        topFrame.setContentPane(new ClearPanel(mainPanel));
+        topFrame.revalidate();
+        topFrame.repaint();
+
     }
+//    private void gameClear() {
+//        System.out.println("gameclear 패널로 전환");
+////        QuizSelectPanel quizSelectPanel = new QuizSelectPanel(mainPanel);
+////        mainPanel.switchPanel(clearPanel);
+//        JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(gamePlayPanel); // QuizSelectPanel 사용
+//        topFrame.setContentPane(new ClearPanel(mainPanel));
+//        topFrame.revalidate();
+//        topFrame.repaint();
+//    }
 }
