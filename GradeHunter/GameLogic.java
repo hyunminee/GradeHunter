@@ -178,7 +178,7 @@ public class GameLogic {
         }
 
         // 스테이지 종료 조건 확인 및 다음 스테이지로 이동
-        if (stageTime <= 0 && gaugeValue != maxGaugeValue) {
+        if (!timerLabel.isRunning() && gaugeValue != maxGaugeValue) {
             gameOver();
         }
         if (currentStage == MAX_STAGE && gaugeValue >= maxGaugeValue) {

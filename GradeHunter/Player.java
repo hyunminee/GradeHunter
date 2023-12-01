@@ -23,7 +23,7 @@ public class Player {
     /** 캐릭터 생성자(위치를 지정하여 생성) */
     public Player(int x, int y) {
         this.x = screenWidth/2 - this.width/2;
-        this.y = screenHeight - this.height;
+        this.y = screenHeight - (this.height+15);
         loadImage();
     }
 
@@ -58,7 +58,7 @@ public class Player {
             if (MainPanel.gen == 0) {
                 image = ImageIO.read(new File("GradeHunter/images/player_m.png"));
             } else if (MainPanel.gen == 1) {
-                image = ImageIO.read(new File("GradeHunter/images/player_m.png"));// 이미지 파일 경로
+                image = ImageIO.read(new File("GradeHunter/images/player_f.png"));// 이미지 파일 경로
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -79,14 +79,18 @@ public class Player {
         int deltaX = Math.abs(x - item.getX());
         int deltaY = Math.abs(y - item.getY());
 
+        int collisionWidth = (3*width)/4;
+        int collisionHeight = (3*height)/4;
+
         // 캐릭터와 아이템이 충분히 가까울 때만 충돌 검사 수행
-        if (deltaX < width && deltaY < height) {
-            Rectangle characterBounds = new Rectangle(x, y, width, height);
-            Rectangle itemBounds = new Rectangle(item.getX(), item.getY(), width, height);
+        if (deltaX < collisionWidth && deltaY < collisionHeight) {
+            Rectangle characterBounds = new Rectangle(x, y, collisionWidth, collisionHeight);
+            Rectangle itemBounds = new Rectangle(item.getX(), item.getY(), collisionWidth, collisionHeight);
             return characterBounds.intersects(itemBounds);
         }
         return false;
     }
+
 
 
 
