@@ -36,7 +36,7 @@ public class EndingPanel extends JPanel {
                 mainPanel.switchPanel(endCreditsPanel);
             }
             else{
-               GameOver gameOver = new GameOver();
+               GameOver gameOver = new GameOver(mainPanel);
                mainPanel.switchPanel(gameOver);
             }
         });
