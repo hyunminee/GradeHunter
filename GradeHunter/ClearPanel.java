@@ -67,8 +67,12 @@ public class ClearPanel extends JPanel {
 
         // 오른쪽 버튼 이벤트 리스너
         rightButton.addActionListener(e -> {
-            QuizSelectPanel quizSelectPanel = new QuizSelectPanel(mainPanel);
-            mainPanel.switchPanel(quizSelectPanel);
+            JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(ClearPanel.this);
+            topFrame.setContentPane(new QuizSelectPanel(mainPanel));
+            topFrame.revalidate();
+            topFrame.repaint();
+            /*QuizSelectPanel quizSelectPanel = new QuizSelectPanel(mainPanel);
+            mainPanel.switchPanel(quizSelectPanel);*/
         });
 
         add(rightButton);

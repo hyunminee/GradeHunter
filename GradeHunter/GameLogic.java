@@ -305,8 +305,8 @@ public class GameLogic {
         JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(gamePlayPanel);
         topFrame.getContentPane().removeAll();
         topFrame.setContentPane(new ClearPanel(mainPanel));
-        topFrame.revalidate();
-        topFrame.repaint();
+        topFrame.getContentPane().revalidate();
+        topFrame.getContentPane().repaint();
 
     }
 //    private void gameClear() {

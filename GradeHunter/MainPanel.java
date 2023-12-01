@@ -6,6 +6,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
+
 /**
  * 메인 화면을 담당하는 클래스입니다.
  * @author 서보경
@@ -104,6 +108,9 @@ public class MainPanel extends JFrame{
         studentID.setForeground(Color.WHITE);
         Font font = new Font("SansSerif", Font.PLAIN, 30);
         studentID.setFont(font);
+
+        // PlainDocument를 사용하여 입력 제한
+        studentID.setDocument(new JTextFieldLimit(9));
 
         // 성별을 선택받아 저장
         ButtonGroup checkGroup = new ButtonGroup();
@@ -284,6 +291,28 @@ public class MainPanel extends JFrame{
             graphics.drawImage(background,0,0, getWidth(), getHeight(),this );
         }
 
+    }
+
+    class JTextFieldLimit extends PlainDocument {
+        private int limit;
+
+        JTextFieldLimit(int limit) {
+            super();
+            this.limit = limit;
+        }
+
+        @Override
+        public void insertString(int offset, String str, AttributeSet attr) throws BadLocationException {
+            if (str == null) return;
+
+            // 숫자만 입력 가능하도록 함
+            if (!str.matches("\\d+")) return;
+
+            // 최대 길이 제한
+            if ((getLength() + str.length()) <= limit) {
+                super.insertString(offset, str, attr);
+            }
+        }
     }
 
 }
