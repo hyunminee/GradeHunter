@@ -211,24 +211,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // 추가해야 되는 코드 (삭제XX!!!!)
-//        // 학번 그리기
-//        g.setColor(Color.BLACK);
-//        g.setFont(new Font("SansSerif", Font.BOLD, 28)); // 폰트 설정
-//        g.drawString(MainPanel.savedText, getWidth()-1500, 200); // 텍스트 그리기
-//
-//        // 캐릭터 상태 이미지 그리기
-//        try {
-//            BufferedImage characterImage;
-//            if (MainPanel.gen == 0) {
-//                characterImage = ImageIO.read(new File("GradeHunter/images/status_p_m.png"));
-//            } else {
-//                characterImage = ImageIO.read(new File("GradeHunter/images/status_p_f.png"));
-//            }
-//            g.drawImage(characterImage, 100, 50, this); // 경로 임시로 해둠(고쳐야 됌)
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+
         // 배경 이미지 그리기
         if (backgroundImage != null) {
             g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
@@ -243,16 +226,36 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         character.draw(g);
         drawGameStatus(g);
 
+        // 학번 그리기
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("SansSerif", Font.PLAIN, 28)); // 폰트 설정
+        g.drawString(MainPanel.savedText, 150, 100); // 텍스트 그리기
+
+        // 캐릭터 상태 이미지 그리기
+        try {
+            BufferedImage characterImage;
+            if (MainPanel.gen == 0) {
+                characterImage = ImageIO.read(new File("GradeHunter/images/status_p_m.png"));
+                g.drawImage(characterImage, 6, 5,120, 118, this);
+            } else if (MainPanel.gen == 1){
+                characterImage = ImageIO.read(new File("GradeHunter/images/status_p_f.png"));
+                g.drawImage(characterImage, 6, 5,120, 118, this);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         // 밀리초 단위 타이머 그리기
         g.setColor(Color.WHITE); // 타이머 텍스트 색상 설정
         g.setFont(new Font("SansSerif", Font.BOLD, 28)); // 폰트와 크기 설정
         String timeLeftFormatted = formatTime(gameLogic.getTimeLeft()); // 밀리초 단위 반환 가정
-        g.drawString(timeLeftFormatted, getWidth() - 126, 105); // 위치 지정
+        g.drawString(timeLeftFormatted, getWidth() - 120, 105); // 위치 지정
     }
 
     private void drawGameStatus(Graphics g) {
         // 부모 클래스의 paintComponent() 호출로 기본 패널 그리기를 수행
-        super.paintComponent(g);
+//        super.paintComponent(g);
         // 배경 이미지 그리기
         if (backgroundImage != null) {
             g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
@@ -278,7 +281,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
     private String formatTime(long millis) {
         long seconds = millis / 1000;
         long remainingMillis = (millis % 1000)/10;
-        return String.format("%02d:%02d", seconds, remainingMillis);
+        return String.format("%02d", seconds);
     }
 
     @Override
