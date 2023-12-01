@@ -21,15 +21,13 @@ public class GameOver extends JPanel{
     public ImageIcon mainButtonImage = new ImageIcon(GameOver.class.getResource("images/bt_main.png"));
     public ImageIcon restartButtonImage = new ImageIcon(GameOver.class.getResource("images/bt_restart.png"));
 
-    public GameOver(){
+    public GameOver(MainPanel mainPanel){
 
         /**
          * GameOver 클래스에 대한 기본 생성자입니다.
          */
         setLayout(null);    //레이아웃 관리자를 사용하지 않음
         setBackground(Color.BLACK);
-
-        // image를 JLable로 추가
 
         JLabel stageimage = new JLabel(stage1Image);
         stageimage.setBounds(325, 125, stage1Image.getIconWidth(), stage1Image.getIconHeight()); // x, y 위치와 너비, 높이 설정
@@ -52,18 +50,15 @@ public class GameOver extends JPanel{
 
             @Override
             public void mouseEntered(MouseEvent e) {
-
                 mainbutton.setCursor(new Cursor(Cursor.HAND_CURSOR));   // 커서를 손 모양으로 변경
-
             }
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(GameOver.this);
-                //topFrame.getContentPane().removeAll();
-                topFrame.setContentPane(new MainPanel());
-                topFrame.revalidate();
-                topFrame.repaint();
+                // MainPanel의 값 초기화 후 전환
+                mainPanel.resetValues();
+                // MainPanel의 메인 콘텐츠 패널로 돌아가기
+                mainPanel.switchPanel(mainPanel.getMainContentPanel());
             }
         });
         add(mainbutton);
@@ -77,9 +72,7 @@ public class GameOver extends JPanel{
         restartbutton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-
                 restartbutton.setCursor(new Cursor(Cursor.HAND_CURSOR));   // 커서를 손 모양으로 변경
-
             }
 
             @Override
@@ -87,16 +80,13 @@ public class GameOver extends JPanel{
 
                 // "처음으로" 버튼 클릭시 GamePlay 패널로 전환
                 JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(GameOver.this);
-                //topFrame.getContentPane().removeAll();
                 topFrame.setContentPane(new GamePlayPanel());
                 topFrame.revalidate();
                 topFrame.repaint();
-
 
             }
         });
         add(restartbutton);
 
     }
-
 }
