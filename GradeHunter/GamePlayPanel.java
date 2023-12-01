@@ -26,7 +26,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
     private Random rand; // 랜덤 아이템 생성에 사용될 객체
     private ImageIcon[] stagePopups; // 스테이지 팝업 이미지
     private boolean isPopupActive; // 팝업이 활성화되어 있는지 여부
-    private int currentStage = 1; // 현재 스테이지
+    private int currentStage = GameLogic.currentStage; // 현재 스테이지
     private JProgressBar gaugeBar;
     ImageIcon stageImage;
 
