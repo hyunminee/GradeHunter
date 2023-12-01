@@ -148,6 +148,9 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
             items.clear();
         }
 
+        // GameLogic의 현재 스테이지 값 다시 할당 (currentStage++이 일어났으므로)
+        currentStage = GameLogic.currentStage;
+
         // 팝업이 활성화될 때 아이템 목록 초기화
         if (currentStage == 1)
             stageImage = stage1Popup;
