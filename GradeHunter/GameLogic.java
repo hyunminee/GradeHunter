@@ -8,7 +8,7 @@ public class GameLogic {
     private List<Item> items; // 게임 아이템 리스트
     private Player character; // 게임 플레이어 캐릭터
     private TimerNum timerLabel; // 타이머 라벨
-    private int currentStage; // 현재 게임의 스테이지 번호
+    private int currentStage=1; // 현재 게임의 스테이지 번호
     private final int MAX_STAGE; // 최대 스테이지 번호
     private double stageTime = 60000; // 각 스테이지의 지속 시간 (초)
     public int gaugeValue = 0; // 현재 게이지 값
@@ -26,7 +26,7 @@ public class GameLogic {
     public GameLogic(Player character, List<Item> items, JPanel parentPanel, int initialTime, int panelWidth, int itemWidth, GamePlayPanel panel) {
         this.character = character;
         this.items = items;
-        this.currentStage = 1; // 현재 스테이지
+//        this.currentStage = 1; // 현재 스테이지
         this.MAX_STAGE=8;
         this.PANEL_WIDTH = panelWidth;
         this.ITEM_WIDTH = itemWidth;
