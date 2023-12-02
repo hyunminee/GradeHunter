@@ -61,12 +61,6 @@ public class Quiz_1 extends JPanel implements Quiz{
 
     @Override
     public void setupUI() {
-        setLayout(new BorderLayout());
-
-        JPanel imagePanel = new JPanel();
-        imagePanel.setLayout(new BorderLayout());
-        imageLabel = new JLabel();
-
         oPopup.setBounds(320, 150, 400, 400);
         oPopup.setVisible(false);
         add(oPopup);
@@ -74,6 +68,11 @@ public class Quiz_1 extends JPanel implements Quiz{
         xPopup.setVisible(false);
         add(xPopup);
 
+        setLayout(new BorderLayout());
+
+        JPanel imagePanel = new JPanel();
+        imagePanel.setLayout(new BorderLayout());
+        imageLabel = new JLabel();
         QuizItem firstQuiz = quizzes.get(0);
         imageLabel.setIcon(new ImageIcon(Main.class.getResource(firstQuiz.getImagePath())));
         imageLabel.setHorizontalAlignment(JLabel.CENTER);
