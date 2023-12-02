@@ -29,7 +29,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
     private boolean isPopupActive; // 팝업이 활성화되어 있는지 여부
     private int currentStage = GameLogic.currentStage; // 현재 스테이지
     private JProgressBar gaugeBar;
-    ImageIcon stageImage;
+    public ImageIcon stageImage;
 
     private int stage; // 현재 게임의 스테이지 번호
     private int gaugeValue = 0; // 현재 게이지 값
