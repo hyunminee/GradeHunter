@@ -6,9 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 import java.util.List;
 
 
@@ -32,7 +30,7 @@ public class RankPanel extends JPanel {
 
         // 폰트 로드
         try {
-            customFont = Font.createFont(Font.TRUETYPE_FONT, new File("GradeHunter/보경이추천3.ttf"))
+            customFont = Font.createFont(Font.TRUETYPE_FONT, new File("GradeHunter/THE_Syabeteu.ttf"))
                     .deriveFont(28f); // BOLD 스타일과 30 픽셀 크기로 설정
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(customFont);
@@ -84,7 +82,7 @@ public class RankPanel extends JPanel {
 
 
         SortedDataFileReader fileReader = new SortedDataFileReader();
-        List<Record> records = fileReader.readFileAndSort("GradeHunter/data.txt");
+        List<SortedDataFileReader.Record> records = fileReader.readFileAndSort("GradeHunter/data.txt");
 
         // 랭킹 데이터 표시
         // 랭킹 데이터 화면에 표시
@@ -98,7 +96,7 @@ public class RankPanel extends JPanel {
         int labelWidthSubject = 300; // 과목명 레이블의 너비
 
         for (int i = 0; i < Math.min(records.size(), 10); i++) {
-            Record record = records.get(i);
+            SortedDataFileReader.Record record = records.get(i);
 
             // 학번 레이블
             JLabel idLabel = new JLabel(record.id, SwingConstants.CENTER); // 가운데 정렬로 변경
@@ -136,7 +134,7 @@ public class RankPanel extends JPanel {
         g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
     }
 
-    private class Record {
+    private class Record implements Comparable<Record> {
         String id;
         String time;
         String subject;
@@ -147,11 +145,17 @@ public class RankPanel extends JPanel {
             this.subject = subject;
         }
 
+        @Override
+        public int compareTo(Record other) {
+            return this.time.compareTo(other.time);
+        }
+
+
     }
 
     private class SortedDataFileReader {
         public List<Record> readFileAndSort(String filePath) {
-            List<Record> records = new ArrayList<>();
+            Map<String, Record> fastestRecords = new HashMap<>();
             BufferedReader reader = null;
 
             try {
@@ -159,20 +163,17 @@ public class RankPanel extends JPanel {
                 String line;
 
                 while ((line = reader.readLine()) != null) {
-                    String[] parts = line.split(" "); // 공백을 기준으로 데이터 분리
+                    String[] parts = line.split(" ");
                     if (parts.length >= 3) {
                         String id = parts[0];
                         String time = parts[1];
                         String subject = parts[2];
-                        records.add(new Record(id, time, subject));
+                        Record newRecord = new Record(id, time, subject);
+
+                        // 최소 시간으로 레코드 업데이트
+                        fastestRecords.compute(id, (k, v) -> (v == null || newRecord.compareTo(v) < 0) ? newRecord : v);
                     }
                 }
-
-                // 시간을 기준으로 레코드 정렬
-                Collections.sort(records, Comparator.comparing(r -> r.time));
-
-                // 변경된 데이터를 파일에 다시 쓰기
-                saveSortedDataToFile(records, filePath);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -185,7 +186,12 @@ public class RankPanel extends JPanel {
                     ex.printStackTrace();
                 }
             }
-            return records;
+
+            List<Record> sortedRecords = new ArrayList<>(fastestRecords.values());
+            sortedRecords.sort(Comparator.comparing(r -> r.time));
+            saveSortedDataToFile(sortedRecords, filePath);
+
+            return sortedRecords;
         }
 
         // 정렬된 데이터를 파일에 저장하는 메서드
@@ -209,7 +215,25 @@ public class RankPanel extends JPanel {
                 }
             }
         }
+
+        private class Record implements Comparable<Record> {
+            String id;
+            String time;
+            String subject;
+
+            public Record(String id, String time, String subject) {
+                this.id = id;
+                this.time = time;
+                this.subject = subject;
+            }
+
+            @Override
+            public int compareTo(Record other) {
+                return this.time.compareTo(other.time);
+            }
+        }
     }
+
 
 
 }

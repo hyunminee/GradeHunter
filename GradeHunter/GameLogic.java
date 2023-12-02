@@ -22,6 +22,9 @@ public class GameLogic {
     private GamePlayPanel gamePlayPanel; // GamePlayPanel 참조
     private int lastStage = 0; // 이전 스테이지 번호를 추적하기 위한 변수
     private MainPanel mainPanel;
+    private long gameStartTime;
+    private long gameEndTime;
+    public static String totalTime;
 
 
     public GameLogic(Player character, List<Item> items, JPanel parentPanel, int initialTime, int panelWidth, int itemWidth, GamePlayPanel panel, MainPanel mainPanel) {
@@ -40,6 +43,9 @@ public class GameLogic {
     // 게임 타이머를 시작하는 메소드
     public void startGameTimer() {
         if (timerLabel != null){
+            //=============================================================================================================
+            gameStartTime = System.currentTimeMillis(); // 게임 시작 시간 기록
+            //=============================================================================================================
             timerLabel.resetAndStart(60 * 1000); // 60초를 밀리초로 변환
         }
     }
@@ -213,6 +219,36 @@ public class GameLogic {
         }
 
 
+
+
+
+        //======================================================================================================
+        //======================================================================================================
+        //======================================================================================================
+
+        if (currentStage == MAX_STAGE && gaugeValue >= maxGaugeValue) {
+            gameEndTime = System.currentTimeMillis(); // 게임 종료 시간 기록
+            GamePlayPanel.gameUpdateTimer.stop();
+
+            totalTime = calculateTotalTime(); // 총 클리어 시간 계산
+
+            ClearPanel clearPanel = new ClearPanel(mainPanel);
+            mainPanel.switchPanel(clearPanel);
+        }
+
+        //======================================================================================================
+        //======================================================================================================
+        //======================================================================================================
+    }
+    // 총 클리어 시간을 계산하는 메소드
+    private String calculateTotalTime() {
+        long totalTimeMillis = gameEndTime - gameStartTime;
+        long totalSeconds = totalTimeMillis / 1000;
+        long hours = totalSeconds / 3600;
+        long minutes = (totalSeconds % 3600) / 60;
+        long seconds = totalSeconds % 60;
+
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
 
     private void goToNextStage(int currentStage) {
@@ -306,11 +342,11 @@ public class GameLogic {
         topFrame.setContentPane(new GameOver(mainPanel));
         topFrame.revalidate();
         topFrame.repaint();*/
-   // }
+    // }
     /** 게임 클리어 메소드 */
     //private void gameClear() {
-        //ClearPanel clearPanel = new ClearPanel(mainPanel); // GamePlayPanel의 새 인스턴스를 생성
-        //mainPanel.switchPanel(clearPanel);
+    //ClearPanel clearPanel = new ClearPanel(mainPanel); // GamePlayPanel의 새 인스턴스를 생성
+    //mainPanel.switchPanel(clearPanel);
 
 /*        JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(gamePlayPanel);
         topFrame.getContentPane().removeAll();
@@ -318,7 +354,7 @@ public class GameLogic {
         topFrame.getContentPane().revalidate();
         topFrame.getContentPane().repaint();*/
 
-   // }
+    // }
 //    private void gameClear() {
 //        System.out.println("gameclear 패널로 전환");
 ////        QuizSelectPanel quizSelectPanel = new QuizSelectPanel(mainPanel);
