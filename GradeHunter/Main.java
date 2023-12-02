@@ -1,8 +1,5 @@
 package GradeHunter;
 
-import javax.swing.*;
-import java.awt.*;
-
 /**
  * 메인 클래스 : Grade Hunter를 실행시키는 곳
  * @author 서보경

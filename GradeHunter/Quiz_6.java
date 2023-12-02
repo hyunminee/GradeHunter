@@ -245,7 +245,7 @@ public class Quiz_6 extends JPanel implements Quiz{
     public void checkAnswerAndShowNextQuiz() {
         timer.stop();
         checkAnswer(answerField.getText());
-        answerField.setEnabled(false);; // 텍스트 필드 비활성화
+        answerField.setEnabled(false); // 텍스트 필드 비활성화
 
         // 다음 문제로 넘어가기 전 팝업창에 맞춰 2초간 딜레이
         Timer delayTimer = new Timer(2000, new ActionListener() {

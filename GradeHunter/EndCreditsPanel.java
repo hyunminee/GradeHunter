@@ -1,11 +1,9 @@
 package GradeHunter;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 
 /**
  * 엔딩크레딧을 담당하는 클래스
