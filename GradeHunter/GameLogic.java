@@ -195,11 +195,13 @@ public class GameLogic {
         // 스테이지 종료 조건 확인 및 다음 스테이지로 이동
         if (!timerLabel.isRunning() && gaugeValue != maxGaugeValue) {
 
+            GamePlayPanel.gameUpdateTimer.stop();
             GameOver gameOver = new GameOver(mainPanel);
             mainPanel.switchPanel(gameOver);
         }
         if (currentStage == MAX_STAGE && gaugeValue >= maxGaugeValue) {
 
+            GamePlayPanel.gameUpdateTimer.stop();
             ClearPanel clearPanel = new ClearPanel(mainPanel); // GamePlayPanel의 새 인스턴스를 생성
             mainPanel.switchPanel(clearPanel);
 

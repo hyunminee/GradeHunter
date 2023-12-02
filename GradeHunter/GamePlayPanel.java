@@ -22,7 +22,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
     private static MainPanel mainPanel;
 
     private BufferedImage backgroundImage;
-    private Timer gameUpdateTimer;
+    public static Timer gameUpdateTimer;
     private final int DELAY = 16; // 약 60 FPS에 해당하는 간격
     private Random rand; // 랜덤 아이템 생성에 사용될 객체
     private ImageIcon[] stagePopups; // 스테이지 팝업 이미지
