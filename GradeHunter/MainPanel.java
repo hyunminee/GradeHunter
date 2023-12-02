@@ -41,11 +41,12 @@ public class MainPanel extends JFrame{
 
     public Container cPane;
     public JTextField studentID;
-    public JButton saveButton;
     public static String savedText;
     public static int gen = -1;
 
     public static int ending = -1;  // 퀴즈 성공/실패에 따른 교수님 이미지 출력
+
+    public static int subject = 0;  // 과목 체크
 
     public void resetValues(){
         studentID.setText("");
