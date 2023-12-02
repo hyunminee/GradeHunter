@@ -135,13 +135,16 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         character = new Player(540,500); // 캐릭터 위치 설정 초기화
         items = new ArrayList<>();
         gameLogic = new GameLogic(character, items, this, 60, 1080, 50, this, mainPanel);
+        // 게이지 값을 0으로 초기화
+        GameLogic.gaugeValue = 0;
+        updateGaugeBar(0); // GamePlayPanel의 게이지 바 업데이트 메서드 호출
         if (gameUpdateTimer != null) {
             gameUpdateTimer.stop(); // 이전 타이머가 있으면 정지
         }
         gameUpdateTimer = new Timer(DELAY, this); // 새 타이머 설정 및 시작
         gameUpdateTimer.start();
         gameLogic.updateGame();
-        // 게임 로직 중 스테이지별 아이템 추가 부분이 원래 이 부분에 들어갔었음
+
     }
 
     // 스테이지 정보를 보여주는 팝업창을 표시하는 메소드
