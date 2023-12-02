@@ -31,6 +31,8 @@ public class GameOver extends JPanel{
     public ImageIcon gameoverImage = new ImageIcon(GameOver.class.getResource("images/gameover.png"));
     public ImageIcon mainButtonImage = new ImageIcon(GameOver.class.getResource("images/bt_main.png"));
     public ImageIcon restartButtonImage = new ImageIcon(GameOver.class.getResource("images/bt_restart.png"));
+    public ImageIcon mainButtonEnteredImage = new ImageIcon(GameOver.class.getResource("images/bt_main_entered.png"));
+    public ImageIcon restartButtonEnteredImage = new ImageIcon(GameOver.class.getResource("images/bt_restart_entered.png"));
     public ImageIcon stageImage;
     public ImageIcon gradeImage;
 
@@ -39,6 +41,7 @@ public class GameOver extends JPanel{
         /**
          * GameOver 클래스에 대한 기본 생성자입니다.
          */
+
         setLayout(null);    //레이아웃 관리자를 사용하지 않음
         setBackground(Color.BLACK);
 
@@ -58,9 +61,14 @@ public class GameOver extends JPanel{
 
             @Override
             public void mouseEntered(MouseEvent e) {
+                mainbutton.setIcon(mainButtonEnteredImage);
                 mainbutton.setCursor(new Cursor(Cursor.HAND_CURSOR));   // 커서를 손 모양으로 변경
             }
-
+            @Override
+            public void mouseExited(MouseEvent e){
+                mainbutton.setIcon(mainButtonImage);
+                mainbutton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
             @Override
             public void mouseClicked(MouseEvent e) {
                 // MainPanel의 값 초기화 후 전환
@@ -80,17 +88,25 @@ public class GameOver extends JPanel{
         restartbutton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
+                restartbutton.setIcon(restartButtonEnteredImage);
                 restartbutton.setCursor(new Cursor(Cursor.HAND_CURSOR));   // 커서를 손 모양으로 변경
             }
-
+            @Override
+            public void mouseExited(MouseEvent e){
+                restartbutton.setIcon(restartButtonImage);
+                restartbutton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
             @Override
             public void mouseClicked(MouseEvent e) {
 
-                // "처음으로" 버튼 클릭시 GamePlay 패널로 전환
-                JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(GameOver.this);
-                topFrame.setContentPane(new GamePlayPanel(mainPanel));
-                topFrame.revalidate();
-                topFrame.repaint();
+                GamePlayPanel gameplayPanel = new GamePlayPanel(mainPanel); // GamePlayPanel의 새 인스턴스를 생성
+                mainPanel.switchPanel(gameplayPanel);
+
+//                // "처음으로" 버튼 클릭시 GamePlay 패널로 전환
+//                JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(GameOver.this);
+//                topFrame.setContentPane(new GamePlayPanel(mainPanel));
+//                topFrame.revalidate();
+//                topFrame.repaint();
 
             }
         });

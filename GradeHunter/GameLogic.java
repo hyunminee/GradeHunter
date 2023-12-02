@@ -292,6 +292,9 @@ public class GameLogic {
     /** 게임 오버 메소드 */
     private void gameOver() {
         System.out.println("gameover 패널로 전환");
+//        GameOver gameOver = new GameOver(mainPanel);
+//        mainPanel.switchPanel(gameOver);
+
         JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(gamePlayPanel);
         topFrame.getContentPane().removeAll();
         topFrame.setContentPane(new GameOver(mainPanel));
@@ -301,6 +304,9 @@ public class GameLogic {
     /** 게임 클리어 메소드 */
     private void gameClear() {
         System.out.println("gameclear 패널로 전환");
+//        ClearPanel clearPanel = new ClearPanel(mainPanel); // GamePlayPanel의 새 인스턴스를 생성
+//        mainPanel.switchPanel(clearPanel);
+
         JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(gamePlayPanel);
         topFrame.getContentPane().removeAll();
         topFrame.setContentPane(new ClearPanel(mainPanel));
