@@ -137,7 +137,7 @@ public class GameLogic {
         ItemType selectedType = weightedList.get(rand.nextInt(weightedList.size()));
 
         int x; // 아이템이 화면 밖으로 나가지 않도록 계산
-        int y = 0; // 화면 상단에서 시작
+        int y = 132; // 화면 상단에서 시작
 
         boolean positionOverlap;
         do {
