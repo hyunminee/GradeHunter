@@ -27,6 +27,7 @@ public class Quiz_5 extends JPanel implements Quiz{
     private Timer timer;
     private JLabel timerLabel;
     private int remainingSeconds = 10;
+    public static int ending = -1;
 
     public ImageIcon oImage = new ImageIcon("GradeHunter/images/o.png");
     public ImageIcon xImage = new ImageIcon("GradeHunter/images/x.png");
@@ -206,6 +207,7 @@ public class Quiz_5 extends JPanel implements Quiz{
         String correctAnswer = quizItem.getAnswer();
 
         if (userAnswer.equalsIgnoreCase(correctAnswer)) {
+            ending = 1;
             oPopup.setVisible(true);
             Timer timer = new Timer(2000, new ActionListener() {
                 @Override
@@ -216,6 +218,7 @@ public class Quiz_5 extends JPanel implements Quiz{
             timer.start();
 
         } else {
+            ending = -1;
             xPopup.setVisible(true);
             Timer timer = new Timer(2000, new ActionListener() {
                 @Override

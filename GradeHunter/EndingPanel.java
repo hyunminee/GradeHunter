@@ -14,10 +14,26 @@ import java.io.IOException;
  */
 
 public class EndingPanel extends JPanel {
-    public static int ending = -1;  // 퀴즈 성공/실패에 따른 교수님 이미지 출력
+    public static int ending;  // 퀴즈 성공/실패에 따른 교수님 이미지 출력
     private Image backgroundImage;
 
     public EndingPanel(MainPanel mainPanel) {
+
+        if (QuizSelectPanel.btn == 1)
+            ending = Quiz_1.ending;
+        else if (QuizSelectPanel.btn == 2)
+            ending = Quiz_2.ending;
+        else if (QuizSelectPanel.btn == 3)
+            ending = Quiz_3.ending;
+        else if (QuizSelectPanel.btn == 4)
+            ending = Quiz_4.ending;
+        else if (QuizSelectPanel.btn == 5)
+            ending = Quiz_5.ending;
+        else if (QuizSelectPanel.btn == 6)
+            ending = Quiz_6.ending;
+        else
+            return;
+
         setLayout(null); // 널 레이아웃 사용
 
         if(ending == 1) backgroundImage = new ImageIcon("GradeHunter/images/pf_re.png").getImage();

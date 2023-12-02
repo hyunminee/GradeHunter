@@ -73,8 +73,8 @@ public class QuizSelectPanel extends JPanel {
 
             */
 /**
-             * 마우스가 입학 버튼에 올라갈 경우 이미지와 커서모양을 바꿔주는 메소드입니다.
-             *//*
+ * 마우스가 입학 버튼에 올라갈 경우 이미지와 커서모양을 바꿔주는 메소드입니다.
+ *//*
 
             @Override
             public void mouseEntered(MouseEvent e){
@@ -83,8 +83,8 @@ public class QuizSelectPanel extends JPanel {
             }
             */
 /**
-             * 마우스가 입학 버튼 범위에서 벗어났을 경우 원래 이미지와 커서로 바꿔주는 메소드입니다.
-             *//*
+ * 마우스가 입학 버튼 범위에서 벗어났을 경우 원래 이미지와 커서로 바꿔주는 메소드입니다.
+ *//*
 
 
             public void mouseExited(MouseEvent e){
@@ -117,8 +117,8 @@ public class QuizSelectPanel extends JPanel {
 
             */
 /**
-             * 마우스가 입학 버튼에 올라갈 경우 이미지와 커서모양을 바꿔주는 메소드입니다.
-             *//*
+ * 마우스가 입학 버튼에 올라갈 경우 이미지와 커서모양을 바꿔주는 메소드입니다.
+ *//*
 
             @Override
             public void mouseEntered(MouseEvent e){
@@ -126,8 +126,8 @@ public class QuizSelectPanel extends JPanel {
             }
             */
 /**
-             * 마우스가 입학 버튼 범위에서 벗어났을 경우 원래 이미지와 커서로 바꿔주는 메소드입니다.
-             *//*
+ * 마우스가 입학 버튼 범위에서 벗어났을 경우 원래 이미지와 커서로 바꿔주는 메소드입니다.
+ *//*
 
 
             public void mouseExited(MouseEvent e){
@@ -157,8 +157,8 @@ public class QuizSelectPanel extends JPanel {
 
             */
 /**
-             * 마우스가 입학 버튼에 올라갈 경우 이미지와 커서모양을 바꿔주는 메소드입니다.
-             *//*
+ * 마우스가 입학 버튼에 올라갈 경우 이미지와 커서모양을 바꿔주는 메소드입니다.
+ *//*
 
             @Override
             public void mouseEntered(MouseEvent e){
@@ -166,8 +166,8 @@ public class QuizSelectPanel extends JPanel {
             }
             */
 /**
-             * 마우스가 입학 버튼 범위에서 벗어났을 경우 원래 이미지와 커서로 바꿔주는 메소드입니다.
-             *//*
+ * 마우스가 입학 버튼 범위에서 벗어났을 경우 원래 이미지와 커서로 바꿔주는 메소드입니다.
+ *//*
 
 
             public void mouseExited(MouseEvent e){
@@ -197,8 +197,8 @@ public class QuizSelectPanel extends JPanel {
 
             */
 /**
-             * 마우스가 입학 버튼에 올라갈 경우 이미지와 커서모양을 바꿔주는 메소드입니다.
-             *//*
+ * 마우스가 입학 버튼에 올라갈 경우 이미지와 커서모양을 바꿔주는 메소드입니다.
+ *//*
 
             @Override
             public void mouseEntered(MouseEvent e){
@@ -206,8 +206,8 @@ public class QuizSelectPanel extends JPanel {
             }
             */
 /**
-             * 마우스가 입학 버튼 범위에서 벗어났을 경우 원래 이미지와 커서로 바꿔주는 메소드입니다.
-             *//*
+ * 마우스가 입학 버튼 범위에서 벗어났을 경우 원래 이미지와 커서로 바꿔주는 메소드입니다.
+ *//*
 
 
             public void mouseExited(MouseEvent e){
@@ -237,8 +237,8 @@ public class QuizSelectPanel extends JPanel {
 
             */
 /**
-             * 마우스가 입학 버튼에 올라갈 경우 이미지와 커서모양을 바꿔주는 메소드입니다.
-             *//*
+ * 마우스가 입학 버튼에 올라갈 경우 이미지와 커서모양을 바꿔주는 메소드입니다.
+ *//*
 
             @Override
             public void mouseEntered(MouseEvent e){
@@ -246,8 +246,8 @@ public class QuizSelectPanel extends JPanel {
             }
             */
 /**
-             * 마우스가 입학 버튼 범위에서 벗어났을 경우 원래 이미지와 커서로 바꿔주는 메소드입니다.
-             *//*
+ * 마우스가 입학 버튼 범위에서 벗어났을 경우 원래 이미지와 커서로 바꿔주는 메소드입니다.
+ *//*
 
 
             public void mouseExited(MouseEvent e){
@@ -277,8 +277,8 @@ public class QuizSelectPanel extends JPanel {
 
             */
 /**
-             * 마우스가 입학 버튼에 올라갈 경우 이미지와 커서모양을 바꿔주는 메소드입니다.
-             *//*
+ * 마우스가 입학 버튼에 올라갈 경우 이미지와 커서모양을 바꿔주는 메소드입니다.
+ *//*
 
             @Override
             public void mouseEntered(MouseEvent e){
@@ -286,8 +286,8 @@ public class QuizSelectPanel extends JPanel {
             }
             */
 /**
-             * 마우스가 입학 버튼 범위에서 벗어났을 경우 원래 이미지와 커서로 바꿔주는 메소드입니다.
-             *//*
+ * 마우스가 입학 버튼 범위에서 벗어났을 경우 원래 이미지와 커서로 바꿔주는 메소드입니다.
+ *//*
 
 
             public void mouseExited(MouseEvent e){
@@ -331,9 +331,9 @@ public class QuizSelectPanel extends JPanel {
         public void paintComponent(Graphics graphics){
             */
 /**
-             * cPane에 시작화면을 그려주는 메소드 입니다.
-             * @param graphics
-             *//*
+ * cPane에 시작화면을 그려주는 메소드 입니다.
+ * @param graphics
+ *//*
 
             super.paintComponent(graphics);
 
@@ -356,6 +356,7 @@ import java.awt.*;
 
 public class QuizSelectPanel extends JPanel {
     private Image backgroundImage;
+    public static int btn = -1;
 
     public QuizSelectPanel(MainPanel mainPanel) {
         setLayout(null); // 널 레이아웃 사용
@@ -396,36 +397,66 @@ public class QuizSelectPanel extends JPanel {
         btn6.setBorderPainted(false);
 
         btn1.addActionListener(e -> {
-            Quiz_1 quiz_1 = new Quiz_1(mainPanel);
-            mainPanel.switchPanel(quiz_1); // Quiz_1 생성
+            btn = 1;
+            JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(QuizSelectPanel.this);
+            topFrame.setContentPane(new Quiz_1(mainPanel));
+            topFrame.revalidate();
+            topFrame.repaint();
+//            Quiz_1 quiz_1 = new Quiz_1(mainPanel);
+//            mainPanel.switchPanel(quiz_1); // Quiz_1 생성
         });
 
         btn2.addActionListener(e -> {
-            Quiz_2 quiz_2 = new Quiz_2(mainPanel);
-            mainPanel.switchPanel(quiz_2); // Quiz_2 생성
+            btn = 2;
+            JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(QuizSelectPanel.this);
+            topFrame.setContentPane(new Quiz_2(mainPanel));
+            topFrame.revalidate();
+            topFrame.repaint();
+//            Quiz_2 quiz_2 = new Quiz_2(mainPanel);
+//            mainPanel.switchPanel(quiz_2); // Quiz_2 생성
         });
 
-         btn3.addActionListener(e -> {
-            Quiz_3 quiz_3 = new Quiz_3(mainPanel);
-            mainPanel.switchPanel(quiz_3); // Quiz_3 생성
+        btn3.addActionListener(e -> {
+            btn = 3;
+            JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(QuizSelectPanel.this);
+            topFrame.setContentPane(new Quiz_3(mainPanel));
+            topFrame.revalidate();
+            topFrame.repaint();
+//            Quiz_3 quiz_3 = new Quiz_3(mainPanel);
+//            mainPanel.switchPanel(quiz_3); // Quiz_3 생성
         });
 
         btn4.addActionListener(e -> {
-            Quiz_4 quiz_4 = new Quiz_4(mainPanel);
-            mainPanel.switchPanel(quiz_4); // Quiz_4 생성
+            btn = 4;
+            JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(QuizSelectPanel.this);
+            topFrame.setContentPane(new Quiz_4(mainPanel));
+            topFrame.revalidate();
+            topFrame.repaint();
+//            Quiz_4 quiz_4 = new Quiz_4(mainPanel);
+//            mainPanel.switchPanel(quiz_4); // Quiz_4 생성
         });
 
         btn5.addActionListener(e -> {
+            btn = 5;
             SwingUtilities.invokeLater(() -> {
-                Quiz_5 quiz_5 = new Quiz_5(mainPanel);
-                mainPanel.switchPanel(quiz_5);
-                quiz_5.setVisible(true);
+                JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(QuizSelectPanel.this);
+                topFrame.setContentPane(new Quiz_5(mainPanel));
+                topFrame.revalidate();
+                topFrame.repaint();
+//                Quiz_5 quiz_5 = new Quiz_5(mainPanel);
+//                mainPanel.switchPanel(quiz_5);
+//                quiz_5.setVisible(true);
             });
         });
 
         btn6.addActionListener(e -> {
-            Quiz_6 quiz_6 = new Quiz_6(mainPanel);
-            mainPanel.switchPanel(quiz_6); // Quiz_ 6
+            btn = 6;
+            JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(QuizSelectPanel.this);
+            topFrame.setContentPane(new Quiz_6(mainPanel));
+            topFrame.revalidate();
+            topFrame.repaint();
+//            Quiz_6 quiz_6 = new Quiz_6(mainPanel);
+//            mainPanel.switchPanel(quiz_6); // Quiz_ 6
         });
 
         add(btn1);
@@ -443,4 +474,3 @@ public class QuizSelectPanel extends JPanel {
         g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
     }
 }
-
