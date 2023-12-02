@@ -41,13 +41,6 @@ public class Quiz_2 extends JPanel implements Quiz{
         quizzes = initializeQuizzes();
         currentQuizIndex = 0;
 
-        oPopup.setBounds(320, 100, 400, 400);
-        oPopup.setVisible(false);
-        add(oPopup);
-        xPopup.setBounds(320, 100, 400, 400);
-        xPopup.setVisible(false);
-        add(xPopup);
-
         setupUI();
         showNextQuiz();
     }
@@ -79,6 +72,14 @@ public class Quiz_2 extends JPanel implements Quiz{
         JPanel imagePanel = new JPanel();
         imagePanel.setLayout(new BorderLayout());
         imageLabel = new JLabel();
+
+        oPopup.setBounds(320, 150, 400, 400);
+        oPopup.setVisible(false);
+        add(oPopup);
+        xPopup.setBounds(320, 150, 400, 400);
+        xPopup.setVisible(false);
+        add(xPopup);
+
         QuizItem firstQuiz = quizzes.get(0);
         imageLabel.setIcon(new ImageIcon(Main.class.getResource(firstQuiz.getImagePath())));
         imageLabel.setHorizontalAlignment(JLabel.CENTER);
