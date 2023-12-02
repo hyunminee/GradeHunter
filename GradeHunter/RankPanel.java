@@ -2,6 +2,8 @@ package GradeHunter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -39,12 +41,32 @@ public class RankPanel extends JPanel {
 
 
 
+        ImageIcon imgIconEntered = new ImageIcon("GradeHunter/images/bt_home_entered.png");
+
+        // 버튼 위에 마우스가 올라갔을 때 커서를 손가락 모양으로 변경
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+
+        // 마우스 호버 시 버튼 이미지 변경
+        button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                button.setIcon(imgIconEntered);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                button.setIcon(imgIcon);
+            }
+        });
+
         button.addActionListener(e -> {
             // MainPanel에서 값 초기화 후 전환
             this.mainPanel.resetValues();
             // MainPanel의 메인 콘텐츠 패널로 돌아가기
             this.mainPanel.switchPanel(this.mainPanel.getMainContentPanel());
         });
+
 
 
         SortedDataFileReader fileReader = new SortedDataFileReader();
