@@ -9,7 +9,7 @@ public class GameLogic {
     private List<Item> items; // 게임 아이템 리스트
     private Player character; // 게임 플레이어 캐릭터
     private TimerNum timerLabel; // 타이머 라벨
-    public static int currentStage = 1; // 현재 게임의 스테이지 번호
+    public static int currentStage = 8; // 현재 게임의 스테이지 번호
     private final int MAX_STAGE; // 최대 스테이지 번호
     private double stageTime = 60000; // 각 스테이지의 지속 시간 (초)
     public static int gaugeValue = 0; // 현재 게이지 값

@@ -73,4 +73,32 @@ public class Item {
         return y >= 0 && y < screenHeight; // 아이템이 화면 안에 있는지 확인
 
     }
+
+    public int getWidth() {
+        if (getType() == GradeHunter.ItemType.BLUE ||
+                getType() == GradeHunter.ItemType.GREEN ||
+                getType() == GradeHunter.ItemType.YELLOW ||
+                getType() == GradeHunter.ItemType.RED) {
+            return 48;
+        } else if (getType() == GradeHunter.ItemType.TARDY) {
+            return 39;
+        } else if (getType() == ItemType.PRESENTATION){
+            return 46;
+        }
+        return 0;
+    }
+
+    public int getHeight() {
+        if (getType() == GradeHunter.ItemType.BLUE ||
+                getType() == GradeHunter.ItemType.GREEN ||
+                getType() == GradeHunter.ItemType.YELLOW ||
+                getType() == GradeHunter.ItemType.RED) {
+            return 62;
+        } else if (getType() == GradeHunter.ItemType.TARDY) {
+            return 49;
+        } else if (getType() == ItemType.PRESENTATION){
+            return 50;
+        }
+        return 0;
+    }
 }

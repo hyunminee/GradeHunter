@@ -240,10 +240,10 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
             BufferedImage characterImage;
             if (MainPanel.gen == 0) {
                 characterImage = ImageIO.read(new File("GradeHunter/images/status_p_m.png"));
-                g.drawImage(characterImage, 6, 5,120, 118, this);
+                g.drawImage(characterImage, 5, 3,120, 120, this);
             } else if (MainPanel.gen == 1){
                 characterImage = ImageIO.read(new File("GradeHunter/images/status_p_f.png"));
-                g.drawImage(characterImage, 6, 5,120, 118, this);
+                g.drawImage(characterImage, 5, 3,120, 120, this);
             }
         } catch (IOException e) {
             e.printStackTrace();
