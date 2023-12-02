@@ -136,8 +136,8 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         items = new ArrayList<>();
         gameLogic = new GameLogic(character, items, this, 60, 1080, 50, this, mainPanel);
         // 게이지 값을 0으로 초기화
-        GameLogic.gaugeValue = 0;
-        updateGaugeBar(0); // GamePlayPanel의 게이지 바 업데이트 메서드 호출
+        /**GameLogic.gaugeValue = 0;
+        updateGaugeBar(0); // GamePlayPanel의 게이지 바 업데이트 메서드 호출*/
         if (gameUpdateTimer != null) {
             gameUpdateTimer.stop(); // 이전 타이머가 있으면 정지
         }
