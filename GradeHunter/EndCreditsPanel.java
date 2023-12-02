@@ -8,13 +8,18 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 /**
- * 엔딩크레딧을 담당하는 클래스입니다.
+ * 엔딩크레딧을 담당하는 클래스
  * @author 서보경
  */
 
 public class EndCreditsPanel extends JPanel{
 
     private Image backgroundImage;
+
+    /**
+     * EndCreditsPanel의 생성자 함수 : EndCredits와 클릭 한 번 인식 시, 엔딩크레딧을 패스하고, 랭킹패널로 전환한다.
+     * @param mainPanel switchPanel()을 사용하기 위한 parameter
+     */
 
     public EndCreditsPanel(MainPanel mainPanel) {
         setLayout(null); // 널 레이아웃 사용

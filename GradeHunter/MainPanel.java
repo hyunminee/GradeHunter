@@ -3,51 +3,58 @@ package GradeHunter;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.*;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
 /**
- * 메인 화면을 담당하는 클래스입니다.
+ * 메인 화면을 담당하는 클래스
  * @author 서보경
+ * @version 0.1.2
  */
+
 public class MainPanel extends JFrame{
     public JPanel mainpanel;
     RankPanel rankPanel = new RankPanel(this); // MainPanel 인스턴스를 RankPanel에 전달
+
+    // 각 버튼 이미지아이콘 변수 생성
     public ImageIcon startButtonImage = new ImageIcon(Main.class.getResource("images/bt_guide.png"));
     public ImageIcon startButtonEnteredImage = new ImageIcon(Main.class.getResource("images/bt_guide_entered.png"));
     public ImageIcon rankButtonImage = new ImageIcon(Main.class.getResource("images/bt_rank.png"));
     public ImageIcon rankButtonEnteredImage = new ImageIcon(Main.class.getResource("images/bt_rank_entered.png"));
-
     public ImageIcon mCheckImage = new ImageIcon("GradeHunter/images/check_m.png");
     public ImageIcon fCheckImage = new ImageIcon("GradeHunter/images/check_f.png");
     public ImageIcon mCheckEnteredImage = new ImageIcon("GradeHunter/images/check_entered_m.png");
     public ImageIcon fCheckEnteredImage = new ImageIcon("GradeHunter/images/check_entered_f.png");
 
+    // 각 버튼 JButton 변수 생성
     public JButton startButton = new JButton(startButtonImage);
     public JButton rankButton = new JButton(rankButtonImage);
-
     public JButton mCheckButton = new JButton(mCheckImage);
-
     public JButton fCheckButton = new JButton(fCheckImage);
 
+    // Screen 가로, 세로 길이
     public static final int SCREEN_WIDTH = 1080;
     public static final int SCREEN_HEIGHT = 720;
 
+    // MainPanel 배경 이미지
     public static Image background = new ImageIcon(Main.class.getResource("images/bg_main.png")).getImage();
 
     public Container cPane;
-    public JTextField studentID;
-    public static String savedText;
-    public static int gen = -1;
+    public JTextField studentID;  // 학번을 입력받는 텍스트 필드
 
+    // 다른 클래스에서 이용되는 학번, 성별, 엔딩, 과목 변수
+    public static String savedText;
+    public static int gen = -1;  // 0이면 남자, 1이면 여자
     public static int ending = -1;  // 퀴즈 성공/실패에 따른 교수님 이미지 출력
 
     public static int subject = 0;  // 과목 체크
 
+
+    /**
+     *  학번과 성별 값, 성별 체크 버튼을 초기화 해주는 메소드
+     */
     public void resetValues(){
         studentID.setText("");
         gen = -1;
@@ -56,6 +63,10 @@ public class MainPanel extends JFrame{
 
     }
 
+    /**
+     * 각 클래스 간의 패널 전환을 해주는 메소드
+     * @param panel : mainPanel을 parameter로 이용 / 모든 클래스의 생성자가 mainPanel을 parameter로 가짐
+     */
     public void switchPanel(JPanel panel) {
         getContentPane().removeAll(); // 기존 패널 제거
         getContentPane().add(panel); // 새로운 패널 추가
@@ -67,6 +78,12 @@ public class MainPanel extends JFrame{
         return mainpanel;
     }
 
+    /**
+     * 성별 입력 후, 입학 버튼 클릭 시, 뜨는 알림창에 출력되는 성별 한글화 메소드 (saveText()에 이용)
+     * @param gen 체크한 성별 값
+     * @return 각 성별 값에 따른 한글
+     */
+
     public String genToString(int gen){
         if(gen == 0){
             return "남자";
@@ -77,12 +94,24 @@ public class MainPanel extends JFrame{
             return "오류: 초기값";
     }
 
+    /**
+     *  학번을 저장하고, 입학 버튼 클릭 시, 입력된 정보를 다시 확인시켜주는 메소드
+     */
     public void saveText() {
         savedText = studentID.getText();
 
         JOptionPane.showMessageDialog(MainPanel.this, "저장되었습니다. \n 학번 : " + savedText + "\n 성별 : " + genToString(gen));
     }
 
+
+    /**
+     *  MainPanel의 생성자 함수
+     *  <p>
+     *      Frame의 기본적인 것들을 설정하고, 게임 아이콘을 설정한다.
+     *      MainPanel의 배경을 그리고, 입학버튼, 역대졸업생버튼, 학번 텍스트 필드, 성별 체크 버튼의 설정 후, 패널에 그린다.
+     *      그리고 텍스트 필드에 대한 제한 사항이나 각 버튼의 상호작용을 다룬다.
+     *  </p>
+     */
 
     public MainPanel(){
 
@@ -98,8 +127,7 @@ public class MainPanel extends JFrame{
         Image img = kit.getImage(Main.class.getResource("images/Gradcap.png"));
         setIconImage(img);
 
-        //=========================================================================================
-        //drawback mainpanel = new drawback(); ----->  mainpanel = new drawback();
+// =============================================================================================================
 
         mainpanel = new drawback();
 
@@ -115,35 +143,27 @@ public class MainPanel extends JFrame{
         // PlainDocument를 사용하여 입력 제한
         studentID.setDocument(new JTextFieldLimit(9));
 
-        // 성별을 선택받아 저장
+        // 성별을 선택받아 저장 (그룹으로 묶어 두 개 선택 불가)
         ButtonGroup checkGroup = new ButtonGroup();
         checkGroup.add(mCheckButton);
         checkGroup.add(fCheckButton);
 
+// =============================================================================================================
         // 남 선택 버튼
         mCheckButton.setBounds(370,405,50,60);
         mCheckButton.setBorderPainted(false);
         mCheckButton.setContentAreaFilled(false);
         mCheckButton.setFocusPainted(false);
         mCheckButton.addMouseListener(new MouseAdapter() {
-            /**
-             * 마우스가 남자 체크 버튼에 올라갈 경우 커서모양을 바꿔주는 메소드입니다.
-             */
             @Override
             public void mouseEntered(MouseEvent e){
                 mCheckButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
             }
-            /**
-             * 마우스가 남자 체크 버튼 범위에서 벗어났을 경우 원래 커서로 바꿔주는 메소드입니다.
-             */
-
+            @Override
             public void mouseExited(MouseEvent e){
                 mCheckButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
-
-            /**
-             * 마우스로 클릭했을 때, 체크 되었다는 표시와 성별 정보를 저장합니다.
-             */
+            @Override
             public void mousePressed(MouseEvent e){
                 mCheckButton.setIcon(mCheckEnteredImage);
                 fCheckButton.setIcon(fCheckImage);
@@ -151,30 +171,22 @@ public class MainPanel extends JFrame{
             }
         });
 
+// =============================================================================================================
         // 여 선택 버튼
         fCheckButton.setBounds(570,405,50,60);
         fCheckButton.setBorderPainted(false);
         fCheckButton.setContentAreaFilled(false);
         fCheckButton.setFocusPainted(false);
         fCheckButton.addMouseListener(new MouseAdapter() {
-            /**
-             * 마우스가 여자 체크 버튼에 올라갈 경우 커서모양을 바꿔주는 메소드입니다.
-             */
             @Override
             public void mouseEntered(MouseEvent e){
                 fCheckButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
             }
-            /**
-             * 마우스가 여자 체크 버튼 범위에서 벗어났을 경우 원래 커서로 바꿔주는 메소드입니다.
-             */
-
+            @Override
             public void mouseExited(MouseEvent e){
                 fCheckButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
-
-            /**
-             * 마우스로 클릭했을 때, 체크 되었다는 표시와 성별 정보를 저장합니다.
-             */
+            @Override
             public void mousePressed(MouseEvent e){
                 fCheckButton.setIcon(fCheckEnteredImage);
                 mCheckButton.setIcon(mCheckImage);
@@ -183,6 +195,7 @@ public class MainPanel extends JFrame{
             }
         });
 
+// =============================================================================================================
         // 입학 버튼
         startButton.setBounds(360,500,360,80);
         startButton.setBorderPainted(false);
@@ -190,27 +203,19 @@ public class MainPanel extends JFrame{
         startButton.setFocusPainted(true);
         startButton.addMouseListener(new MouseAdapter() {
 
-            /**
-             * 마우스가 입학 버튼에 올라갈 경우 이미지와 커서모양을 바꿔주는 메소드입니다.
-             */
             @Override
             public void mouseEntered(MouseEvent e){
                 startButton.setIcon(startButtonEnteredImage);
                 startButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
             }
-            /**
-             * 마우스가 입학 버튼 범위에서 벗어났을 경우 원래 이미지와 커서로 바꿔주는 메소드입니다.
-             */
 
+            @Override
             public void mouseExited(MouseEvent e){
                 startButton.setIcon(startButtonImage);
                 startButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
 
-            /**
-             * 입학 버튼 클릭 시, 학번과 성별 정보를 저장하고, 입학 안내서 화면으로 전환됩니다.
-             */
-
+            @Override
             public void mousePressed(MouseEvent e) {
                 if (studentID.getText().isEmpty() || gen == -1) {
                     JOptionPane.showMessageDialog(MainPanel.this, "학번과 성별을 확인할 수 없습니다.", "", JOptionPane.WARNING_MESSAGE);
@@ -232,32 +237,26 @@ public class MainPanel extends JFrame{
 
         });
 
+// =============================================================================================================
         // 역대 졸업생 버튼
         rankButton.setBounds(880,500,140,140);
         rankButton.setBorderPainted(false);
         rankButton.setContentAreaFilled(false);
         rankButton.setFocusPainted(false);
         rankButton.addMouseListener(new MouseAdapter() {
-            /**
-             * 마우스가 역대졸업생 버튼에 올라갈 경우 이미지와 커서모양을 바꿔주는 메소드입니다.
-             */
+
             @Override
             public void mouseEntered(MouseEvent e){
                 rankButton.setIcon(rankButtonEnteredImage);
                 rankButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
             }
-            /**
-             * 마우스가 역대졸업생 버튼 범위에서 벗어났을 경우 원래 이미지와 커서로 바꿔주는 메소드입니다.
-             */
 
+            @Override
             public void mouseExited(MouseEvent e){
                 rankButton.setIcon(rankButtonImage);
                 rankButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
-
-            /**
-             * 역대졸업생 버튼 클릭 시, RankPanel로 화면이 전환됩니다.
-             */
+            @Override
             public void mousePressed(MouseEvent e) {
                 RankPanel rankPanel = new RankPanel(MainPanel.this); // MainPanel의 인스턴스를 인자로 전달
                 getContentPane().removeAll(); // 기존 패널 제거
@@ -267,7 +266,7 @@ public class MainPanel extends JFrame{
             }
         });
 
-
+// =============================================================================================================
 
         // mainpanel UI 그리기
         cPane.add(mainpanel);
@@ -282,10 +281,11 @@ public class MainPanel extends JFrame{
 
     }
 
+    /**
+     * MainPanel의 innerclass : drawback - 배경 이미지를 그려준다.
+     */
+
     class drawback extends JPanel{
-        /**
-         * cPane에  이미지를 그려주는 메소드 입니다.
-         */
         @Override
         public void paintComponent(Graphics graphics){
 
@@ -295,6 +295,10 @@ public class MainPanel extends JFrame{
         }
 
     }
+
+    /**
+     * MainPanel의 innerclass : JTextFieldLimit - 학번 입력을 숫자입력과 9자리로 제한한다.
+     */
 
     class JTextFieldLimit extends PlainDocument {
         private int limit;

@@ -1,23 +1,27 @@
 package GradeHunter;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 
 /**
- * 모든 스테이지를 클리어했을 때 진행되는 스토리를 담당하는 클래스입니다.
+ * 모든 스테이지를 클리어했을 때 진행되는 스토리를 담당하는 클래스
  * @author 서보경
  */
 
 public class ClearPanel extends JPanel {
     private Image backgroundImage;
+    private ImageIcon rightEnteredIcon = new ImageIcon("GradeHunter/images/key_right_entered.png");
+
+    /**
+     * ClearPanel의 생성자 함수 : UI배치와 버튼에 대한 상호작용
+     * @param mainPanel switchPanel()을 사용하기 위한 parameter
+     */
 
     public ClearPanel(MainPanel mainPanel) {
         setLayout(null); // 널 레이아웃 사용
-        backgroundImage = new ImageIcon("GradeHunter/images/pf_c.png").getImage();
+        backgroundImage = new ImageIcon("GradeHunter/images/pf_c.png").getImage(); // 교수님과의 대화장면
 
         ImageIcon rightIcon = new ImageIcon("GradeHunter/images/key_right.png");
         JButton rightButton = new JButton(rightIcon);
@@ -25,14 +29,24 @@ public class ClearPanel extends JPanel {
         rightButton.setContentAreaFilled(false);
         rightButton.setBorderPainted(false);
 
-        // 오른쪽 버튼 이벤트 리스너
+        // 오른쪽 버튼 클릭 시, 화면전환
         rightButton.addActionListener(e -> {
-            /*JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(ClearPanel.this);
-            topFrame.setContentPane(new QuizSelectPanel(mainPanel));
-            topFrame.revalidate();
-            topFrame.repaint();*/
             QuizSelectPanel quizSelectPanel = new QuizSelectPanel(mainPanel);
             mainPanel.switchPanel(quizSelectPanel);
+        });
+
+        rightButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                rightButton.setIcon(rightEnteredIcon);
+                rightButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                rightButton.setIcon(rightIcon);
+                rightButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
         });
 
         add(rightButton);
