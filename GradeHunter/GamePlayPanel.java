@@ -257,7 +257,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         g.setColor(Color.WHITE); // 타이머 텍스트 색상 설정
         g.setFont(new Font("SansSerif", Font.BOLD, 28)); // 폰트와 크기 설정
         String timeLeftFormatted = formatTime(gameLogic.getTimeLeft()); // 밀리초 단위 반환 가정
-        g.drawString(timeLeftFormatted, getWidth() - 120, 105); // 위치 지정
+        g.drawString(timeLeftFormatted, getWidth() - 107, 105); // 위치 지정
     }
 
     private void drawGameStatus(Graphics g) {
