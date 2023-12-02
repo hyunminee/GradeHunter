@@ -25,8 +25,8 @@ public class Quiz_2 extends JPanel implements Quiz{
     private Timer timer;
     private JLabel timerLabel;
     private int remainingSeconds = 10;
-    public static int ending = -1;
 
+    private int cnt = 0;
     public ImageIcon oImage = new ImageIcon("GradeHunter/images/o.png");
     public ImageIcon xImage = new ImageIcon("GradeHunter/images/x.png");
     public JLabel oPopup = new JLabel(oImage);
@@ -65,6 +65,7 @@ public class Quiz_2 extends JPanel implements Quiz{
 
     @Override
     public void setupUI() {
+
         oPopup.setBounds(320, 150, 400, 400);
         oPopup.setVisible(false);
         add(oPopup);
@@ -164,7 +165,14 @@ public class Quiz_2 extends JPanel implements Quiz{
             startTimer(); // 다음 퀴즈를 보여주기 전에 타이머 재시작
             currentQuizIndex++;
         } else {
-            JOptionPane.showMessageDialog(this, "게임 종료!");
+            if(cnt >= 3) {
+                JOptionPane.showMessageDialog(this, "퀴즈 통과!");
+                MainPanel.ending = 1;
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "퀴즈 실패!");
+                MainPanel.ending = 0;
+            }
             SwingUtilities.invokeLater(() -> {
                 EndingPanel endingPanel = new EndingPanel(mainPanel);
                 mainPanel.switchPanel(endingPanel);
@@ -206,8 +214,8 @@ public class Quiz_2 extends JPanel implements Quiz{
         String correctAnswer = quizItem.getAnswer();
 
         if (userAnswer.equalsIgnoreCase(correctAnswer)) {
-            ending = 1;
             oPopup.setVisible(true);
+            cnt += 1;
             Timer timer = new Timer(2000, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -217,7 +225,6 @@ public class Quiz_2 extends JPanel implements Quiz{
             timer.start();
 
         } else {
-            ending = -1;
             xPopup.setVisible(true);
             Timer timer = new Timer(2000, new ActionListener() {
                 @Override

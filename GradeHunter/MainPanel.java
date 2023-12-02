@@ -45,6 +45,8 @@ public class MainPanel extends JFrame{
     public static String savedText;
     public static int gen = -1;
 
+    public static int ending = -1;  // 퀴즈 성공/실패에 따른 교수님 이미지 출력
+
     public void resetValues(){
         studentID.setText("");
         gen = -1;

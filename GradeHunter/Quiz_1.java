@@ -20,7 +20,8 @@ public class Quiz_1 extends JPanel implements Quiz{
     private Timer timer;
     private JLabel timerLabel;
     private int remainingSeconds = 10;
-    public static int ending = -1;
+
+    private int cnt = 0;
 
     public ImageIcon oImage = new ImageIcon("GradeHunter/images/o.png");
     public ImageIcon xImage = new ImageIcon("GradeHunter/images/x.png");
@@ -61,6 +62,8 @@ public class Quiz_1 extends JPanel implements Quiz{
 
     @Override
     public void setupUI() {
+
+        // O,X 팝업
         oPopup.setBounds(320, 150, 400, 400);
         oPopup.setVisible(false);
         add(oPopup);
@@ -70,6 +73,7 @@ public class Quiz_1 extends JPanel implements Quiz{
 
         setLayout(new BorderLayout());
 
+        // 퀴즈 이미지 패널
         JPanel imagePanel = new JPanel();
         imagePanel.setLayout(new BorderLayout());
         imageLabel = new JLabel();
@@ -78,6 +82,8 @@ public class Quiz_1 extends JPanel implements Quiz{
         imageLabel.setHorizontalAlignment(JLabel.CENTER);
         imagePanel.add(imageLabel, BorderLayout.NORTH);
         add(imagePanel, BorderLayout.CENTER);
+
+        // 정답 입력받는 텍스트 필드
         answerField = new JTextField();
         answerField.setBounds(450, 560, 200, 50);
         answerField.setOpaque(false);
@@ -111,6 +117,7 @@ public class Quiz_1 extends JPanel implements Quiz{
             }
         });
 
+        // 타이머 구현
         timerLabel = new JLabel("10"); // 초기값은 10초
         timerLabel.setFont(new Font("Arial", Font.BOLD, 48));
         timerLabel.setForeground(Color.WHITE); // 텍스트 색상을 흰색으로 설정
@@ -160,11 +167,18 @@ public class Quiz_1 extends JPanel implements Quiz{
             startTimer(); // 다음 퀴즈를 보여주기 전에 타이머 재시작
             currentQuizIndex++;
         } else {
-            JOptionPane.showMessageDialog(this, "게임 종료!");
+            if(cnt >= 3) {
+                JOptionPane.showMessageDialog(this, "퀴즈 통과!");
+                MainPanel.ending = 1;
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "퀴즈 실패!");
+                MainPanel.ending = 0;
+            }
             SwingUtilities.invokeLater(() -> {
-                EndingPanel endingPanel = new EndingPanel(mainPanel);
-                mainPanel.switchPanel(endingPanel);
-                endingPanel.setVisible(true);
+            EndingPanel endingPanel = new EndingPanel(mainPanel);
+            mainPanel.switchPanel(endingPanel);
+            endingPanel.setVisible(true);
             });
         }
     }
@@ -201,8 +215,8 @@ public class Quiz_1 extends JPanel implements Quiz{
         String correctAnswer = quizItem.getAnswer();
 
         if (userAnswer.equalsIgnoreCase(correctAnswer)) {
-            ending = 1;
             oPopup.setVisible(true);
+            cnt +=1;
             Timer timer = new Timer(2000, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -212,13 +226,10 @@ public class Quiz_1 extends JPanel implements Quiz{
             timer.start();
 
         } else {
-            //System.out.println("오답 처리 시작"); // 로그 출력
-            ending = -1;
             xPopup.setVisible(true);
             Timer timer = new Timer(2000, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    //System.out.println("xPopup 숨김 처리"); // 숨김 처리 로그
                     xPopup.setVisible(false);
                 }
             });

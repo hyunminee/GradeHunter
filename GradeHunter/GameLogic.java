@@ -183,7 +183,7 @@ public class GameLogic {
 
         // 새 스테이지가 시작될 때 게이지 바 최대값 및 현재 값 업데이트
         if (newStageStarted) {
-            maxGaugeValue = currentStage*GAUGE_PER_STAGE;
+            maxGaugeValue = (currentStage-7)*GAUGE_PER_STAGE;
             gamePlayPanel.setMaxGaugeValue(maxGaugeValue);
             gamePlayPanel.updateGaugeBar(0);
         }
@@ -194,10 +194,15 @@ public class GameLogic {
 
         // 스테이지 종료 조건 확인 및 다음 스테이지로 이동
         if (!timerLabel.isRunning() && gaugeValue != maxGaugeValue) {
-            gameOver();
+
+            GameOver gameOver = new GameOver(mainPanel);
+            mainPanel.switchPanel(gameOver);
         }
         if (currentStage == MAX_STAGE && gaugeValue >= maxGaugeValue) {
-            gameClear();
+
+            ClearPanel clearPanel = new ClearPanel(mainPanel); // GamePlayPanel의 새 인스턴스를 생성
+            mainPanel.switchPanel(clearPanel);
+
         } else if (gaugeValue >= maxGaugeValue) {
             currentStage++;
             gaugeValue = 0; // 게이지 초기화
@@ -290,30 +295,28 @@ public class GameLogic {
         }
     }
     /** 게임 오버 메소드 */
-    private void gameOver() {
-        System.out.println("gameover 패널로 전환");
-//        GameOver gameOver = new GameOver(mainPanel);
-//        mainPanel.switchPanel(gameOver);
-
-        JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(gamePlayPanel);
+    //private void gameOver() {
+        /*GameOver gameOver = new GameOver(mainPanel);
+        mainPanel.switchPanel(gameOver);
+*/
+/*        JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(gamePlayPanel);
         topFrame.getContentPane().removeAll();
         topFrame.setContentPane(new GameOver(mainPanel));
         topFrame.revalidate();
-        topFrame.repaint();
-    }
+        topFrame.repaint();*/
+   // }
     /** 게임 클리어 메소드 */
-    private void gameClear() {
-        System.out.println("gameclear 패널로 전환");
-//        ClearPanel clearPanel = new ClearPanel(mainPanel); // GamePlayPanel의 새 인스턴스를 생성
-//        mainPanel.switchPanel(clearPanel);
+    //private void gameClear() {
+        //ClearPanel clearPanel = new ClearPanel(mainPanel); // GamePlayPanel의 새 인스턴스를 생성
+        //mainPanel.switchPanel(clearPanel);
 
-        JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(gamePlayPanel);
+/*        JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(gamePlayPanel);
         topFrame.getContentPane().removeAll();
         topFrame.setContentPane(new ClearPanel(mainPanel));
         topFrame.getContentPane().revalidate();
-        topFrame.getContentPane().repaint();
+        topFrame.getContentPane().repaint();*/
 
-    }
+   // }
 //    private void gameClear() {
 //        System.out.println("gameclear 패널로 전환");
 ////        QuizSelectPanel quizSelectPanel = new QuizSelectPanel(mainPanel);
