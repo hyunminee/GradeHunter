@@ -243,12 +243,11 @@ public class GameLogic {
     // 총 클리어 시간을 계산하는 메소드
     private String calculateTotalTime() {
         long totalTimeMillis = gameEndTime - gameStartTime;
-        long totalSeconds = totalTimeMillis / 1000;
-        long hours = totalSeconds / 3600;
-        long minutes = (totalSeconds % 3600) / 60;
-        long seconds = totalSeconds % 60;
+        long minutes = (totalTimeMillis / (1000 * 60)) % 60;
+        long seconds = (totalTimeMillis  / 1000) % 60;
+        long millis = totalTimeMillis  % 1000;
 
-        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        return String.format("%02d:%02d:%02d", minutes, seconds, millis/10);
     }
 
     private void goToNextStage(int currentStage) {

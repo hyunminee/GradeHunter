@@ -102,6 +102,10 @@ public class Quiz_4 extends JPanel implements Quiz{
                 if (c != '1' && c != '2' && c != '3') {
                     e.consume(); // 1, 2, 3 이외의 입력은 무시
                 }
+                // 현재 입력된 텍스트의 길이가 1을 넘어가면 입력 무시
+                if (answerField.getText().length() >= 1) {
+                    e.consume();
+                }
             }
             @Override
             public void keyPressed(KeyEvent e) {
@@ -161,14 +165,15 @@ public class Quiz_4 extends JPanel implements Quiz{
             QuizItem quiz = quizzes.get(currentQuizIndex);
             timer.stop();
             displayImage(quiz.getImagePath());
+            answerField.setEnabled(true); // 텍스트 필드 활성화
+            answerField.setText(""); // 텍스트 필드 비우기
+            answerField.requestFocusInWindow(); // 텍스트 필드에 포커스 주기
             startTimer(); // 다음 퀴즈를 보여주기 전에 타이머 재시작
             currentQuizIndex++;
         } else {
             if(cnt >= 3) {
                 JOptionPane.showMessageDialog(this, "퀴즈 통과!");
                 MainPanel.ending = 1;
-                MainPanel.subject = 4;
-                System.out.println(MainPanel.subject);
                 DataSaver dataSaver = new DataSaver();
                 dataSaver.saveGameResult(MainPanel.savedText, MainPanel.subject, GameLogic.totalTime);
 
@@ -188,7 +193,7 @@ public class Quiz_4 extends JPanel implements Quiz{
     public void checkAnswerAndShowNextQuiz() {
         timer.stop();
         checkAnswer(answerField.getText());
-        answerField.setText(""); // 텍스트 필드 비우기
+        answerField.setEnabled(false);; // 텍스트 필드 비활성화
 
         // 다음 문제로 넘어가기 전 팝업창에 맞춰 2초간 딜레이
         Timer delayTimer = new Timer(2000, new ActionListener() {
