@@ -14,16 +14,25 @@ public class Player {
     private BufferedImage image; // character 이미지
     private boolean movingLeft = false; // 캐릭터의 현재 이동 방향 상태
     private boolean movingRight = false; // 캐릭터의 현재 이동 방향 상태
-    private final int SPEED = 5; // 캐릭터의 이동 속도
-    private final int width = 120; // 캐릭터의 너비
-    private final int height = 120; // 캐릭터의 높이
+    private final int SPEED = 8; // 캐릭터의 이동 속도
+    private final int width_m = 76; // 캐릭터의 너비
+    private final int height_m = 116; // 캐릭터의 높이
+    private final int width_f = 78; // 캐릭터의 너비
+    private final int height_f = 119; // 캐릭터의 높이
     public int screenWidth = 1080; // 화면의 너비
     public int screenHeight= 720; // 화면의 높이
 
     /** 캐릭터 생성자(위치를 지정하여 생성) */
     public Player(int x, int y) {
-        this.x = screenWidth/2 - this.width/2;
-        this.y = screenHeight - (this.height+15);
+
+        if (MainPanel.gen == 0) {
+            this.x = screenWidth/2 - this.width_m/2;
+            this.y = screenHeight - (this.height_m+15);
+        } else if (MainPanel.gen == 1) {
+            this.x = screenWidth/2 - this.width_f/2;
+            this.y = screenHeight - (this.height_f+15);
+        }
+
         loadImage();
     }
 
@@ -50,7 +59,13 @@ public class Player {
         }
         // 화면 바운더리 체크를 여기서 수행할 수 있음
         x = Math.max(0, x); // 화면 왼쪽 경계를 넘지 않도록
-        x = Math.min(screenWidth - width, x); // 화면 오른쪽 경계를 넘지 않도록
+        if (MainPanel.gen == 0) {
+            x = Math.min(screenWidth - (width_m+13), x); // 화면 오른쪽 경계를 넘지 않도록
+        } else if (MainPanel.gen == 1) {
+            x = Math.min(screenWidth - (width_f+12), x); // 화면 오른쪽 경계를 넘지 않도록
+        }
+
+
     }
     // 캐릭터 이미지를 로드
     private void loadImage() {
@@ -78,14 +93,20 @@ public class Player {
         // 캐릭터와 아이템 사이의 거리를 계산
         int deltaX = Math.abs(x - item.getX());
         int deltaY = Math.abs(y - item.getY());
-
-        int collisionWidth = (3*width)/4;
-        int collisionHeight = (3*height)/4;
+        int collisionWidth=0;
+        int collisionHeight=0;
+        if (MainPanel.gen == 0) {
+            collisionWidth = width_m;
+            collisionHeight = height_m;
+        } else if (MainPanel.gen == 1) {
+            collisionWidth = width_f;
+            collisionHeight = height_f;
+        }
 
         // 캐릭터와 아이템이 충분히 가까울 때만 충돌 검사 수행
         if (deltaX < collisionWidth && deltaY < collisionHeight) {
             Rectangle characterBounds = new Rectangle(x, y, collisionWidth, collisionHeight);
-            Rectangle itemBounds = new Rectangle(item.getX(), item.getY(), collisionWidth, collisionHeight);
+            Rectangle itemBounds = new Rectangle(item.getX(), item.getY(), item.getWidth(), item.getHeight());
             return characterBounds.intersects(itemBounds);
         }
         return false;
