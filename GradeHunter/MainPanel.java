@@ -69,7 +69,7 @@ public class MainPanel extends JFrame{
 
     public String genToString(int gen){
         if(gen == 0){
-           return "남자";
+            return "남자";
         } else if (gen == 1) {
             return "여자";
         }

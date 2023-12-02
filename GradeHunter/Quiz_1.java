@@ -170,15 +170,20 @@ public class Quiz_1 extends JPanel implements Quiz{
             if(cnt >= 3) {
                 JOptionPane.showMessageDialog(this, "퀴즈 통과!");
                 MainPanel.ending = 1;
+                MainPanel.subject = 1;
+                System.out.println(MainPanel.subject);
+                DataSaver dataSaver = new DataSaver();
+                dataSaver.saveGameResult(MainPanel.savedText, MainPanel.subject, GameLogic.totalTime);
+
             }
             else {
                 JOptionPane.showMessageDialog(this, "퀴즈 실패!");
                 MainPanel.ending = 0;
             }
             SwingUtilities.invokeLater(() -> {
-            EndingPanel endingPanel = new EndingPanel(mainPanel);
-            mainPanel.switchPanel(endingPanel);
-            endingPanel.setVisible(true);
+                EndingPanel endingPanel = new EndingPanel(mainPanel);
+                mainPanel.switchPanel(endingPanel);
+                endingPanel.setVisible(true);
             });
         }
     }
@@ -237,4 +242,3 @@ public class Quiz_1 extends JPanel implements Quiz{
         }
     }
 }
-

@@ -168,6 +168,11 @@ public class Quiz_2 extends JPanel implements Quiz{
             if(cnt >= 3) {
                 JOptionPane.showMessageDialog(this, "퀴즈 통과!");
                 MainPanel.ending = 1;
+                MainPanel.subject = 2;
+                System.out.println(MainPanel.subject);
+                DataSaver dataSaver = new DataSaver();
+                dataSaver.saveGameResult(MainPanel.savedText, MainPanel.subject, GameLogic.totalTime);
+
             }
             else {
                 JOptionPane.showMessageDialog(this, "퀴즈 실패!");
