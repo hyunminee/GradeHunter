@@ -9,7 +9,7 @@ public class GameLogic {
     private List<Item> items; // 게임 아이템 리스트
     private Player character; // 게임 플레이어 캐릭터
     private TimerNum timerLabel; // 타이머 라벨
-    public static int currentStage = 8; // 현재 게임의 스테이지 번호
+    public static int currentStage = 1; // 현재 게임의 스테이지 번호
     private final int MAX_STAGE; // 최대 스테이지 번호
     public static int gaugeValue = 0; // 현재 게이지 값
     private static final int GAUGE_PER_STAGE = 50; // 스테이지 당 필요한 게이지 증가량
@@ -189,7 +189,7 @@ public class GameLogic {
 
         // 새 스테이지가 시작될 때 게이지 바 최대값 및 현재 값 업데이트
         if (newStageStarted) {
-            maxGaugeValue = (currentStage-7)*GAUGE_PER_STAGE;
+            maxGaugeValue = currentStage*GAUGE_PER_STAGE;
             gamePlayPanel.setMaxGaugeValue(maxGaugeValue);
             gamePlayPanel.updateGaugeBar(0);
         }
