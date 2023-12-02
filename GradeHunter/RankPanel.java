@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+
 /**
  * 게임 랭킹 전체를 담당하는 클래스입니다.
  */
@@ -18,6 +19,7 @@ public class RankPanel extends JPanel {
 
     private Image backgroundImage;
     private MainPanel mainPanel;
+    private Font customFont; // 사용자 정의 폰트 변수 추가
 
     public RankPanel(MainPanel mainPanel) {
         this.mainPanel = mainPanel;
@@ -27,6 +29,18 @@ public class RankPanel extends JPanel {
         Toolkit kit = Toolkit.getDefaultToolkit();
         Image img = kit.getImage("GradeHunter/images/Gradcap.png");
         mainPanel.setIconImage(img);
+
+        // 폰트 로드
+        try {
+            customFont = Font.createFont(Font.TRUETYPE_FONT, new File("GradeHunter/보경이추천3.ttf"))
+                    .deriveFont(28f); // BOLD 스타일과 30 픽셀 크기로 설정
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(customFont);
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+            customFont = new Font("Malgun Gothic", Font.BOLD, 30); // 로드 실패 시 대체 폰트 사용
+        }
+
 
         // 배경 이미지 로드
         backgroundImage = new ImageIcon("GradeHunter/images/bg_rank.png").getImage();
@@ -73,15 +87,47 @@ public class RankPanel extends JPanel {
         List<Record> records = fileReader.readFileAndSort("GradeHunter/data.txt");
 
         // 랭킹 데이터 표시
-        int yPosition = 60; // 랭킹 시작 위치 조정
+        // 랭킹 데이터 화면에 표시
+        int yPosition = 203; // 첫 번째 랭킹 레이블의 시작 y 좌표
+        int xPositionId = 168; // 학번 레이블의 시작 x 좌표
+        int xPositionTime = xPositionId + 265; // 클리어 시간 레이블의 시작 x 좌표
+        int xPositionSubject = xPositionTime + 110; // 과목명 레이블의 시작 x 좌표
+        int labelHeight = 100; // 레이블의 높이
+        int labelWidthId = 200; // 학번 레이블의 너비
+        int labelWidthTime = 200; // 클리어 시간 레이블의 너비
+        int labelWidthSubject = 300; // 과목명 레이블의 너비
+
         for (int i = 0; i < Math.min(records.size(), 10); i++) {
-            JLabel rankingLabel = new JLabel("            " + records.get(i).toString(), SwingConstants.LEFT);
-            rankingLabel.setForeground(Color.WHITE);
-            rankingLabel.setFont(new Font("Malgun Gothic", Font.BOLD, 23));
-            rankingLabel.setBounds(130, yPosition, 1000, 378); // y
+            Record record = records.get(i);
+
+            // 학번 레이블
+            JLabel idLabel = new JLabel(record.id, SwingConstants.CENTER); // 가운데 정렬로 변경
+            idLabel.setForeground(Color.WHITE);
+            idLabel.setFont(customFont); // 폰트 설정을 customFont로 변경
+            idLabel.setBounds(xPositionId, yPosition, labelWidthId, labelHeight);
+            add(idLabel);
+
+            // 클리어 시간을 표시하는 레이블 설정
+            //String spacedTime = record.time.replaceAll(":", " : "); // 콜론 사이에 공백 추가
+            //JLabel timeLabel = new JLabel(spacedTime, SwingConstants.CENTER);
+            JLabel timeLabel = new JLabel(record.time, SwingConstants.CENTER);
+            timeLabel.setForeground(Color.WHITE);
+            timeLabel.setFont(customFont);
+            timeLabel.setBounds(xPositionTime, yPosition, labelWidthTime, labelHeight);
+            add(timeLabel);
+
+
+            // 과목명 레이블
+            JLabel subjectLabel = new JLabel(record.subject, SwingConstants.RIGHT);
+            subjectLabel.setForeground(Color.WHITE);
+            subjectLabel.setFont(customFont); // 폰트 설정을 customFont로 변경
+            subjectLabel.setBounds(xPositionSubject, yPosition, labelWidthSubject, labelHeight);
+            add(subjectLabel);
+
             yPosition += 34; // 다음 레코드의 y 위치 증가
-            add(rankingLabel);
         }
+
+
     }
 
     @Override
@@ -101,10 +147,6 @@ public class RankPanel extends JPanel {
             this.subject = subject;
         }
 
-        @Override
-        public String toString() {
-            return id + "                       " + time + "                           " + subject;
-        }
     }
 
     private class SortedDataFileReader {
@@ -117,7 +159,7 @@ public class RankPanel extends JPanel {
                 String line;
 
                 while ((line = reader.readLine()) != null) {
-                    String[] parts = line.split(" "); // 공백을 기준으로 데이터를 분리
+                    String[] parts = line.split(" "); // 공백을 기준으로 데이터 분리
                     if (parts.length >= 3) {
                         String id = parts[0];
                         String time = parts[1];
@@ -126,7 +168,11 @@ public class RankPanel extends JPanel {
                     }
                 }
 
-                Collections.sort(records, Comparator.comparing(r -> r.time)); // 시간을 기준으로 정렬
+                // 시간을 기준으로 레코드 정렬
+                Collections.sort(records, Comparator.comparing(r -> r.time));
+
+                // 변경된 데이터를 파일에 다시 쓰기
+                saveSortedDataToFile(records, filePath);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -141,6 +187,29 @@ public class RankPanel extends JPanel {
             }
             return records;
         }
+
+        // 정렬된 데이터를 파일에 저장하는 메서드
+        private void saveSortedDataToFile(List<Record> records, String filePath) {
+            BufferedWriter writer = null;
+            try {
+                writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath), StandardCharsets.UTF_8));
+                for (Record record : records) {
+                    writer.write(record.id + " " + record.time + " " + record.subject);
+                    writer.newLine();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (writer != null) {
+                        writer.close();
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
     }
+
 
 }
