@@ -247,6 +247,7 @@ public class GameLogic {
             totalTime = calculateTotalTime(); // 총 클리어 시간 계산
 
             // 스테이지8 종료후 ClearPanel로 전환
+            currentStage = 1;
             ClearPanel clearPanel = new ClearPanel(mainPanel);
             mainPanel.switchPanel(clearPanel);
 
