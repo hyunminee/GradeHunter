@@ -9,7 +9,7 @@ public class DataSaver {
         String subjectName = convertSubjectToString(subject);
         String record = studentID + " " + totalTime + " " + subjectName;
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("GradeHunter/data.txt", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("data.txt", true))) {
             writer.write(record);
             writer.newLine();
         } catch (IOException e) {

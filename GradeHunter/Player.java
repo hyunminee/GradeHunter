@@ -74,9 +74,9 @@ public class Player {
     private void loadImage() {
         try {
             if (MainPanel.gen == 0) {
-                image = ImageIO.read(new File("GradeHunter/images/player_m.png"));
+                image = ImageIO.read(new File("images/player_m.png"));
             } else if (MainPanel.gen == 1) {
-                image = ImageIO.read(new File("GradeHunter/images/player_f.png"));// 이미지 파일 경로
+                image = ImageIO.read(new File("images/player_f.png"));// 이미지 파일 경로
             }
         } catch (IOException e) {
             e.printStackTrace();

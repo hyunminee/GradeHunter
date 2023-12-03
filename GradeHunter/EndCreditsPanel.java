@@ -21,7 +21,7 @@ public class EndCreditsPanel extends JPanel{
 
     public EndCreditsPanel(MainPanel mainPanel) {
         setLayout(null); // 널 레이아웃 사용
-        backgroundImage = new ImageIcon("GradeHunter/images/ecp.png").getImage();
+        backgroundImage = new ImageIcon("images/ecp.png").getImage();
 
         addMouseListener(new MouseAdapter() {
             @Override

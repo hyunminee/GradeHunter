@@ -14,7 +14,7 @@ import java.awt.event.MouseEvent;
 public class RealEnding extends JPanel {
 
     private Image backgroundImage;
-    private ImageIcon rightEnteredIcon = new ImageIcon("GradeHunter/images/key_right_entered.png");
+    private ImageIcon rightEnteredIcon = new ImageIcon("images/key_right_entered.png");
 
     /**
      * RealEnding의 생성자 함수 : UI배치와 버튼에 대한 상호작용 (+ gen 변수에 따른 처리)
@@ -27,10 +27,10 @@ public class RealEnding extends JPanel {
 
         System.out.print(MainPanel.ending);
 
-        if(MainPanel.gen == 0) backgroundImage = new ImageIcon("GradeHunter/images/end_m.png").getImage();
-        else backgroundImage = new ImageIcon("GradeHunter/images/end_f.png").getImage();
+        if(MainPanel.gen == 0) backgroundImage = new ImageIcon("images/end_m.png").getImage();
+        else backgroundImage = new ImageIcon("images/end_f.png").getImage();
 
-        ImageIcon rightIcon = new ImageIcon("GradeHunter/images/key_right.png");
+        ImageIcon rightIcon = new ImageIcon("images/key_right.png");
         JButton rightButton = new JButton(rightIcon);
         rightButton.setBounds(955, 550, rightIcon.getIconWidth(), rightIcon.getIconHeight());
         rightButton.setContentAreaFilled(false);

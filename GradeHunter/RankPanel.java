@@ -25,12 +25,12 @@ public class RankPanel extends JPanel {
         setBackground(Color.BLACK); // 배경색 설정
 
         Toolkit kit = Toolkit.getDefaultToolkit();
-        Image img = kit.getImage("GradeHunter/images/Gradcap.png");
+        Image img = kit.getImage("images/Gradcap.png");
         mainPanel.setIconImage(img);
 
         // 폰트 로드
         try {
-            customFont = Font.createFont(Font.TRUETYPE_FONT, new File("GradeHunter/THE_Syabeteu.ttf"))
+            customFont = Font.createFont(Font.TRUETYPE_FONT, new File("THE_Syabeteu.ttf"))
                     .deriveFont(28f); // BOLD 스타일과 30 픽셀 크기로 설정
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(customFont);
@@ -41,10 +41,10 @@ public class RankPanel extends JPanel {
 
 
         // 배경 이미지 로드
-        backgroundImage = new ImageIcon("GradeHunter/images/bg_rank.png").getImage();
+        backgroundImage = new ImageIcon("images/bg_rank.png").getImage();
         setBounds(0, 0, mainPanel.getWidth(), mainPanel.getHeight());
 
-        ImageIcon imgIcon = new ImageIcon("GradeHunter/images/bt_home.png");
+        ImageIcon imgIcon = new ImageIcon("images/bt_home.png");
         JButton button = new JButton(imgIcon);
         button.setBounds(40, 35, imgIcon.getIconWidth(), imgIcon.getIconHeight());
         add(button);
@@ -53,7 +53,7 @@ public class RankPanel extends JPanel {
 
 
 
-        ImageIcon imgIconEntered = new ImageIcon("GradeHunter/images/bt_home_entered.png");
+        ImageIcon imgIconEntered = new ImageIcon("images/bt_home_entered.png");
 
         // 버튼 위에 마우스가 올라갔을 때 커서를 손가락 모양으로 변경
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -82,7 +82,7 @@ public class RankPanel extends JPanel {
 
 
         SortedDataFileReader fileReader = new SortedDataFileReader();
-        List<SortedDataFileReader.Record> records = fileReader.readFileAndSort("GradeHunter/data.txt");
+        List<SortedDataFileReader.Record> records = fileReader.readFileAndSort("data.txt");
 
         // 랭킹 데이터 표시
         // 랭킹 데이터 화면에 표시

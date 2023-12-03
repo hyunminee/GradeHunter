@@ -12,7 +12,7 @@ import java.awt.event.MouseEvent;
 
 public class ClearPanel extends JPanel {
     private Image backgroundImage;
-    private ImageIcon rightEnteredIcon = new ImageIcon("GradeHunter/images/key_right_entered.png");
+    private ImageIcon rightEnteredIcon = new ImageIcon("images/key_right_entered.png");
 
     /**
      * ClearPanel의 생성자 함수 : UI배치와 버튼에 대한 상호작용
@@ -21,9 +21,9 @@ public class ClearPanel extends JPanel {
 
     public ClearPanel(MainPanel mainPanel) {
         setLayout(null); // 널 레이아웃 사용
-        backgroundImage = new ImageIcon("GradeHunter/images/pf_c.png").getImage(); // 교수님과의 대화장면
+        backgroundImage = new ImageIcon("images/pf_c.png").getImage(); // 교수님과의 대화장면
 
-        ImageIcon rightIcon = new ImageIcon("GradeHunter/images/key_right.png");
+        ImageIcon rightIcon = new ImageIcon("images/key_right.png");
         JButton rightButton = new JButton(rightIcon);
         rightButton.setBounds(955, 550, rightIcon.getIconWidth(), rightIcon.getIconHeight());
         rightButton.setContentAreaFilled(false);

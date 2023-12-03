@@ -12,12 +12,12 @@ public class GuidePanel3 extends JPanel {
 
     public GuidePanel3(MainPanel mainPanel) {
         setLayout(null); // 널 레이아웃 사용
-        backgroundImage = new ImageIcon("GradeHunter/images/bg_gp_3.png").getImage();
+        backgroundImage = new ImageIcon("images/bg_gp_3.png").getImage();
 
         // 시작 버튼의 기본 아이콘
-        startIcon = new ImageIcon("GradeHunter/images/bt_start.png");
+        startIcon = new ImageIcon("images/bt_start.png");
         // 마우스가 버튼 위에 있을 때의 아이콘
-        startIconEntered = new ImageIcon("GradeHunter/images/bt_start_entered.png");
+        startIconEntered = new ImageIcon("images/bt_start_entered.png");
 
         JButton startButton = new JButton(startIcon);
         startButton.setBounds(860, 390, startIcon.getIconWidth(), startIcon.getIconHeight());
