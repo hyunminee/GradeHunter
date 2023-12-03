@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -46,6 +45,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
     public GamePlayPanel(MainPanel mainPanel) {
 
         GameLogic.totalTimeMillis = 0;
+        GameLogic.currentStage = 1;
         this.mainPanel = mainPanel;
 
         setLayout(null); // 레이아웃 관리자 비활성화

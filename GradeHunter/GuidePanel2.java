@@ -17,8 +17,6 @@ public class GuidePanel2 extends JPanel {
     private ImageIcon rightEnteredIcon = new ImageIcon("images/key_right_entered.png");
     private ImageIcon leftIcon = new ImageIcon("images/key_left.png");
     private ImageIcon rightIcon = new ImageIcon("images/key_right.png");
-    private JButton leftButton = new JButton(leftIcon);
-    private JButton rightButton = new JButton(rightIcon);
 
     /**
      * GuidePanel2의 생성자 - 배경 이미지를 설정하고, 버튼을 초기화하며, 이벤트 리스너를 설정

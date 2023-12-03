@@ -246,7 +246,7 @@ public class GameLogic {
             totalTime = calculateTotalTime(); // 랭킹에 문자열로 저장
 
             // 스테이지8 종료후 ClearPanel로 전환
-            currentStage = 1;
+            //currentStage = 1;
             ClearPanel clearPanel = new ClearPanel(mainPanel);
             mainPanel.switchPanel(clearPanel);
 
@@ -267,7 +267,6 @@ public class GameLogic {
     }
     // 총 클리어 시간을 계산하는 메소드
     private String calculateTotalTime() {
-        System.out.println(totalTimeMillis);
         long minutes = (totalTimeMillis / (1000 * 60)) % 60;
         long seconds = (totalTimeMillis  / 1000) % 60;
         long millis = totalTimeMillis  % 1000;

@@ -277,6 +277,7 @@ public class Quiz_5 extends JPanel implements Quiz{
                     oPopup.setVisible(false);  // 딜레이 시간 후, 비활성화
                 }
             });
+            timer.setRepeats(false);
             timer.start();
 
         } else {  // 틀린 경우
@@ -287,6 +288,7 @@ public class Quiz_5 extends JPanel implements Quiz{
                     xPopup.setVisible(false);  // 딜레이 시간 후, 비활성화
                 }
             });
+            timer.setRepeats(false);
             timer.start();
         }
     }

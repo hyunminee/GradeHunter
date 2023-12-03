@@ -15,24 +15,24 @@ import java.awt.event.MouseEvent;
 public class GameOver extends JPanel{
 
     // 이미지 아이콘 로드
-    public ImageIcon stage1Image = new ImageIcon(GameOver.class.getResource("images/stage/s_1.png"));
-    public ImageIcon stage2Image = new ImageIcon(GameOver.class.getResource("images/stage/s_2.png"));
-    public ImageIcon stage3Image = new ImageIcon(GameOver.class.getResource("images/stage/s_3.png"));
-    public ImageIcon stage4Image = new ImageIcon(GameOver.class.getResource("images/stage/s_4.png"));
-    public ImageIcon stage5Image = new ImageIcon(GameOver.class.getResource("images/stage/s_5.png"));
-    public ImageIcon stage6Image = new ImageIcon(GameOver.class.getResource("images/stage/s_6.png"));
-    public ImageIcon stage7Image = new ImageIcon(GameOver.class.getResource("images/stage/s_7.png"));
-    public ImageIcon stage8Image = new ImageIcon(GameOver.class.getResource("images/stage/s_8.png"));
-    public ImageIcon gradeAImage = new ImageIcon(GameOver.class.getResource("images/grade/g_a.png"));
-    public ImageIcon gradeBImage = new ImageIcon(GameOver.class.getResource("images/grade/g_b.png"));
-    public ImageIcon gradeCImage = new ImageIcon(GameOver.class.getResource("images/grade/g_c.png"));
-    public ImageIcon gradeDImage = new ImageIcon(GameOver.class.getResource("images/grade/g_d.png"));
-    public ImageIcon gradeFImage = new ImageIcon(GameOver.class.getResource("images/grade/g_f.png"));
-    public ImageIcon gameoverImage = new ImageIcon(GameOver.class.getResource("images/gameover.png"));
-    public ImageIcon mainButtonImage = new ImageIcon(GameOver.class.getResource("images/bt_main.png"));
-    public ImageIcon restartButtonImage = new ImageIcon(GameOver.class.getResource("images/bt_restart.png"));
-    public ImageIcon mainButtonEnteredImage = new ImageIcon(GameOver.class.getResource("images/bt_main_entered.png"));
-    public ImageIcon restartButtonEnteredImage = new ImageIcon(GameOver.class.getResource("images/bt_restart_entered.png"));
+    public ImageIcon stage1Image = new ImageIcon("images/stage/s_1.png");
+    public ImageIcon stage2Image = new ImageIcon("images/stage/s_2.png");
+    public ImageIcon stage3Image = new ImageIcon("images/stage/s_3.png");
+    public ImageIcon stage4Image = new ImageIcon("images/stage/s_4.png");
+    public ImageIcon stage5Image = new ImageIcon("images/stage/s_5.png");
+    public ImageIcon stage6Image = new ImageIcon("images/stage/s_6.png");
+    public ImageIcon stage7Image = new ImageIcon("images/stage/s_7.png");
+    public ImageIcon stage8Image = new ImageIcon("images/stage/s_8.png");
+    public ImageIcon gradeAImage = new ImageIcon("images/grade/g_a.png");
+    public ImageIcon gradeBImage = new ImageIcon("images/grade/g_b.png");
+    public ImageIcon gradeCImage = new ImageIcon("images/grade/g_c.png");
+    public ImageIcon gradeDImage = new ImageIcon("images/grade/g_d.png");
+    public ImageIcon gradeFImage = new ImageIcon("images/grade/g_f.png");
+    public ImageIcon gameoverImage = new ImageIcon("images/gameover.png");
+    public ImageIcon mainButtonImage = new ImageIcon("images/bt_main.png");
+    public ImageIcon restartButtonImage = new ImageIcon("images/bt_restart.png");
+    public ImageIcon mainButtonEnteredImage = new ImageIcon("images/bt_main_entered.png");
+    public ImageIcon restartButtonEnteredImage = new ImageIcon("images/bt_restart_entered.png");
     public ImageIcon stageImage;
     public ImageIcon gradeImage;
 
@@ -112,9 +112,9 @@ public class GameOver extends JPanel{
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-                GameLogic.currentStage = 1;
-                GameLogic.gaugeValue = 0; // 게이지 값을 초기화합니다.
-                GameLogic.maxGaugeValue = GameLogic.currentStage * GameLogic.GAUGE_PER_STAGE;
+                // GameLogic.currentStage = 1;
+                //GameLogic.gaugeValue = 0; // 게이지 값을 초기화합니다.
+                //GameLogic.maxGaugeValue = GameLogic.currentStage * GameLogic.GAUGE_PER_STAGE;
                 GamePlayPanel gameplayPanel = new GamePlayPanel(mainPanel); // GamePlayPanel의 새 인스턴스를 생성
                 mainPanel.switchPanel(gameplayPanel);
             }
@@ -157,7 +157,6 @@ public class GameOver extends JPanel{
      */
     public void checkGrade() {
         int gradeScore = (GameLogic.gaugeValue * 100) / GameLogic.maxGaugeValue;
-        System.out.println("GradeScore = " + gradeScore);
         if (gradeScore >= 80)
             gradeImage = gradeAImage;
         else if (gradeScore >= 60)

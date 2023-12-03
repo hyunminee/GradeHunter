@@ -253,8 +253,10 @@ public class Quiz_1 extends JPanel implements Quiz{
         Timer delayTimer = new Timer(2000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showNextQuiz();
-                answerField.requestFocusInWindow();
+                SwingUtilities.invokeLater(() -> {
+                    showNextQuiz();
+                    answerField.requestFocusInWindow();
+                });
             }
         });
         delayTimer.setRepeats(false); // 타이머가 한 번만 실행되도록 설정
@@ -273,25 +275,31 @@ public class Quiz_1 extends JPanel implements Quiz{
         String correctAnswer = quizItem.getAnswer();
 
         if (userAnswer.equalsIgnoreCase(correctAnswer)) { // user입력값과 quiz이미지에 저장된 값이 같은 경우 (맞은 경우)
-            oPopup.setVisible(true);  // o 팝업 눈에 보이게 활성화
-            cnt +=1;  // 정답 개수 카운팅
-            Timer timer = new Timer(2000, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    oPopup.setVisible(false); // 딜레이 시간 후, 비활성화
-                }
+            SwingUtilities.invokeLater(() -> {
+                oPopup.setVisible(true);
+                cnt += 1;
+                Timer timer = new Timer(2000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        oPopup.setVisible(false);
+                    }
+                });
+                timer.setRepeats(false);
+                timer.start();
             });
-            timer.start();
 
         } else { // 틀린 경우
-            xPopup.setVisible(true); // x 팝업 눈에 보이게 활성화
-            Timer timer = new Timer(2000, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    xPopup.setVisible(false); // 딜레이 시간 후, 비활성화
-                }
+            SwingUtilities.invokeLater(() -> {
+                xPopup.setVisible(true);
+                Timer timer = new Timer(2000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        xPopup.setVisible(false);
+                    }
+                });
+                timer.setRepeats(false);
+                timer.start();
             });
-            timer.start();
         }
     }
 }

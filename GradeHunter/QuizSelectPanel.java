@@ -63,10 +63,6 @@ public class QuizSelectPanel extends JPanel {
         btn6.setBorderPainted(false);
 
         btn1.addActionListener(e -> {
-/*            JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(QuizSelectPanel.this);
-            topFrame.setContentPane(new Quiz_1(mainPanel));
-            topFrame.revalidate();
-            topFrame.repaint();*/
             MainPanel.subject = 1;
             Quiz_1 quiz_1 = new Quiz_1(mainPanel);
             mainPanel.switchPanel(quiz_1); // Quiz_1 생성
