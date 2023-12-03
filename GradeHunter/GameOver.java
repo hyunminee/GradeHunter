@@ -36,16 +36,18 @@ public class GameOver extends JPanel{
     public ImageIcon stageImage;
     public ImageIcon gradeImage;
 
+    /**
+     * GameOver 생성자 함수 : 스테이지와 등급에 맞는 이미지 출력
+     * <p>
+     *     GameLogic 클래스에서 currentStage와 guageValue, maxGaugeValue를 받아와 게임오버된 스테이지와 등급에 맞는 이미지를 출력한다.
+     *     처음으로, 다시하기 버튼로 사용자의 입력을 받아 그에 맞는 패널로 전환한다.
+     * </p>
+     * @param mainPanel switchPanel()을 사용하기 위한 parameter
+     */
+
+
     public GameOver(MainPanel mainPanel){
 
-        /**
-         * GameOver 생성자 함수 : 스테이지와 등급에 맞는 이미지 출력
-         * <p>
-         *     GameLogic 클래스에서 currentStage와 guageValue, maxGaugeValue를 받아와 게임오버된 스테이지와 등급에 맞는 이미지를 출력한다.
-         *     처음으로, 다시하기 버튼로 사용자의 입력을 받아 그에 맞는 패널로 전환한다.
-         * </p>
-         * @param mainPanel switchPanel()을 사용하기 위한 parameter
-         */
 
         setLayout(null);    // 레이아웃 관리자를 사용하지 않음
         setBackground(Color.BLACK);
@@ -158,11 +160,11 @@ public class GameOver extends JPanel{
         System.out.println("GradeScore = " + gradeScore);
         if (gradeScore >= 80)
             gradeImage = gradeAImage;
-        else if (gradeScore >= 60 && gradeScore < 80)
+        else if (gradeScore >= 60)
             gradeImage = gradeBImage;
-        else if (gradeScore >= 40 && gradeScore < 60)
+        else if (gradeScore >= 40)
             gradeImage = gradeCImage;
-        else if (gradeScore >= 20 && gradeScore < 40)
+        else if (gradeScore >= 20)
             gradeImage = gradeDImage;
         else
             gradeImage = gradeFImage;

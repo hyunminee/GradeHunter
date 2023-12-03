@@ -24,17 +24,11 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
     private BufferedImage backgroundImage;
     public static Timer gameUpdateTimer;
     private final int DELAY = 16; // 약 60 FPS에 해당하는 간격
-    private Random rand; // 랜덤 아이템 생성에 사용될 객체
-    private ImageIcon[] stagePopups; // 스테이지 팝업 이미지
     private boolean isPopupActive; // 팝업이 활성화되어 있는지 여부
     private int currentStage = GameLogic.currentStage; // 현재 스테이지
     private JProgressBar gaugeBar;
     public ImageIcon stageImage;
 
-    private int stage; // 현재 게임의 스테이지 번호
-    private int gaugeValue = 0; // 현재 게이지 값
-    private final int MAX_STAGE = 8; // 최대 스테이지 번호
-    private final int maxGaugeValue = 100; // 최대 게이지 값
     public ImageIcon stage1Popup = new ImageIcon(("images/popup/popup_1.png"));
     public ImageIcon stage2Popup = new ImageIcon(("images/popup/popup_2.png"));
     public ImageIcon stage3Popup = new ImageIcon(("images/popup/popup_3.png"));
@@ -43,13 +37,6 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
     public ImageIcon stage6Popup = new ImageIcon(("images/popup/popup_6.png"));
     public ImageIcon stage7Popup = new ImageIcon(("images/popup/popup_7.png"));
     public ImageIcon stage8Popup = new ImageIcon(("images/popup/popup_8.png"));
-
-    private KeyAdapter keyBlocker = new KeyAdapter() {
-        @Override
-        public void keyPressed(KeyEvent e) {
-            e.consume();    // 키 이벤트 무시
-        }
-    };
 
     /**
      * GamePlayPanel의 생성자
@@ -98,10 +85,10 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         gameLogic = new GameLogic(character, items, this, 60, 1080, 50, this, mainPanel); // 60초로 초기화
 
         // 주기적인 게임 업데이트 처리
-        Timer gameUpdateTimer = new Timer(DELAY, e -> { // 60 FPS에 해당하는 간격 (약 16ms)
+        /*Timer gameUpdateTimer = new Timer(DELAY, e -> { // 60 FPS에 해당하는 간격 (약 16ms)
             gameLogic.updateGame();
             repaint(); // 화면 다시 그리기
-        });
+        });*/
 
         // JProgressBar 초기화
         gaugeBar = new JProgressBar();
@@ -213,8 +200,6 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         timer.setRepeats(false);
         timer.start();
 
-
-        //blackOverlay.setVisible(true);      // 검은색 오버레이 패널 활성화하여 팝업과 함께 표시
     }
     // 팝업 상태를 확인하는 메소드
     public boolean isPopupActive() {
