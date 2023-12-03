@@ -7,15 +7,15 @@ import java.awt.event.MouseEvent;
 
 
 /**
- * 제한 시간 내에 게이지바를 채우지 못했을 시 나타나는 GameOver 패널을 담당하는 클래스입니다.
+ * 제한 시간 내에 게이지바를 채우지 못했을 시 나타나는 GameOver 클래스입니다.
  * @author 정서윤
  */
 
 
 public class GameOver extends JPanel{
 
-    //테스트중
-    public ImageIcon stage1Image = new ImageIcon(GameOver.class.getResource("images/stage/s_1.png")); // 이미지 아이콘 로드
+    // 이미지 아이콘 로드
+    public ImageIcon stage1Image = new ImageIcon(GameOver.class.getResource("images/stage/s_1.png"));
     public ImageIcon stage2Image = new ImageIcon(GameOver.class.getResource("images/stage/s_2.png"));
     public ImageIcon stage3Image = new ImageIcon(GameOver.class.getResource("images/stage/s_3.png"));
     public ImageIcon stage4Image = new ImageIcon(GameOver.class.getResource("images/stage/s_4.png"));
@@ -39,19 +39,29 @@ public class GameOver extends JPanel{
     public GameOver(MainPanel mainPanel){
 
         /**
-         * GameOver 클래스에 대한 기본 생성자입니다.
+         * GameOver 생성자 함수 : 스테이지와 등급에 맞는 이미지 출력
+         * <p>
+         *     GameLogic 클래스에서 currentStage와 guageValue, maxGaugeValue를 받아와 게임오버된 스테이지와 등급에 맞는 이미지를 출력한다.
+         *     처음으로, 다시하기 버튼로 사용자의 입력을 받아 그에 맞는 패널로 전환한다.
+         * </p>
+         * @param mainPanel switchPanel()을 사용하기 위한 parameter
          */
 
-        setLayout(null);    //레이아웃 관리자를 사용하지 않음
+        setLayout(null);    // 레이아웃 관리자를 사용하지 않음
         setBackground(Color.BLACK);
 
+        // 값에 맞는 stageImage와 gradeImage 지정
         checkStage();
         checkGrade();
 
+        //gameoverimage 출력
         JLabel gameoverimage = new JLabel(gameoverImage);
         gameoverimage.setBounds(50, 460, gameoverImage.getIconWidth(), gameoverImage.getIconHeight()); // x, y 위치와 너비, 높이 설정
         add(gameoverimage);
 
+
+// =============================================================================================================
+        // 처음으로 선택 버튼
         JButton mainbutton = new JButton(mainButtonImage);
         mainbutton.setContentAreaFilled(false); // 배경을 투명하게 설정
         mainbutton.setBorderPainted(false); // 테두리를 그리지 않도록 설정
@@ -79,13 +89,15 @@ public class GameOver extends JPanel{
         });
         add(mainbutton);
 
-
+// =============================================================================================================
+        // 다시하기 선택 버튼
         JButton restartbutton = new JButton(restartButtonImage);
         restartbutton.setContentAreaFilled(false); // 배경을 투명하게 설정
         restartbutton.setBorderPainted(false); // 테두리를 그리지 않도록 설정
         restartbutton.setFocusPainted(false); // 포커스 테두리를 그리지 않도록 설정
         restartbutton.setBounds(640, 550, restartButtonImage.getIconWidth(), restartButtonImage.getIconHeight()); // x, y 위치와 너비, 높이 설정
         restartbutton.addMouseListener(new MouseAdapter() {
+
             @Override
             public void mouseEntered(MouseEvent e) {
                 restartbutton.setIcon(restartButtonEnteredImage);
@@ -98,22 +110,17 @@ public class GameOver extends JPanel{
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-
                 GamePlayPanel gameplayPanel = new GamePlayPanel(mainPanel); // GamePlayPanel의 새 인스턴스를 생성
                 mainPanel.switchPanel(gameplayPanel);
-
-//                // "처음으로" 버튼 클릭시 GamePlay 패널로 전환
-//                JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(GameOver.this);
-//                topFrame.setContentPane(new GamePlayPanel(mainPanel));
-//                topFrame.revalidate();
-//                topFrame.repaint();
-
             }
         });
         add(restartbutton);
-
     }
 
+
+    /**
+     * GameLogic의 currentStage 값을 받아와 그에 맞는 stageImage를 지정하는 메소드
+     */
     public void checkStage() {
         if (GameLogic.currentStage == 1)
             stageImage = stage1Image;
@@ -139,6 +146,10 @@ public class GameOver extends JPanel{
         add(stageimage);
     }
 
+
+    /**
+     * GameLogic의 guageValue와 maxGaugeValue를 받아와 등급을 산출한 뒤 그에 맞는 gradeImage를 지정하는 메소드
+     */
     public void checkGrade() {
         int gradeScore = (GameLogic.gaugeValue * 100) / GameLogic.maxGaugeValue;
         System.out.println("GradeScore = " + gradeScore);
