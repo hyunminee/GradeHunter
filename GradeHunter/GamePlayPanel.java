@@ -122,7 +122,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
      * 게임의 초기 상태를 설정하는 메소드
      * <p>캐릭터 위치, 아이템 리스트 초기화, 게임 로직 설정, 게임 타이머 설정 등 게임 시작 전 필요사항을 준비한다.</p>
      */
-    private void initGame() {
+    public void initGame() {
         character = new Player(540,500); // 캐릭터 위치 설정 초기화
         items = new ArrayList<>();
         gameLogic = new GameLogic(character, items, this, 60, 1080, 50, this, mainPanel);
@@ -249,7 +249,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
      * 게임 상태를 화면에 그리는 메소드
      * <p>배경, 캐릭터, 아이템 등 게임에 필요한 요소를 그린다.</p>
      * @param g Graphics 객체*/
-    private void drawGameStatus(Graphics g) {
+    public void drawGameStatus(Graphics g) {
         // 부모 클래스의 paintComponent() 호출로 기본 패널 그리기를 수행
 //        super.paintComponent(g);
         // 배경 이미지 그리기
@@ -284,7 +284,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
      * @param millis 밀리초 단위의 시간
      * @return formatting된 시간 문자열
      * */
-    private String formatTime(long millis) {
+    public String formatTime(long millis) {
         long seconds = millis / 1000;
         return String.format("%02d", seconds);
     }

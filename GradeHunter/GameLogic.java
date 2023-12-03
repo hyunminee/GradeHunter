@@ -111,7 +111,7 @@ public class GameLogic {
     /**
      * 아이템을 생성하고 관리하는 메소드
      */
-    private void manageItems() {
+    public void manageItems() {
         if (!gamePlayPanel.isPopupActive()) {
             if (timerLabel.getMilliSeconds()>0 && items.size()<MAX_ITEMS) {
                 // 아이템 생성 로직
@@ -132,7 +132,7 @@ public class GameLogic {
     /**
      * 랜덤 아이템을 생성하는 메소드
      */
-    private void createRandomItem() {
+    public void createRandomItem() {
         ItemType[] types = ItemType.values();
         List<ItemType> weightedList = new ArrayList<>(); // 가중치 리스트 생성
         List<ItemType> allowedTypes;
@@ -181,7 +181,7 @@ public class GameLogic {
      * @param x 검사할 아이템의 x 좌표
      * @return 위치가 겹치면 true, 아니면 false
      */
-    private boolean checkPositionOverlap(int x) {
+    public boolean checkPositionOverlap(int x) {
         for (Item existingItem : items) {
             if (Math.abs(existingItem.getX()-x)<ITEM_WIDTH) {
                 return true; // 겹치는 경우
@@ -196,7 +196,7 @@ public class GameLogic {
      * <p>아이템에 따라 게이지 조정, 타이머 조정 등의 효과를 적용합니다.</p>
      * @param item 처리할 아이템
      */
-    private void processItemEffect(Item item) {
+    public void processItemEffect(Item item) {
         // 아이템의 효과를 적용하는 로직
         // TARDY 아이템의 경우 시간 감소, 그 외에는 게이지 증가/감소
         if (item.getType() == ItemType.TARDY) {
@@ -215,7 +215,7 @@ public class GameLogic {
      * 게임의 스테이지를 관리하는 메소드
      * <p>스테이지 종료 조건을 확인하고 다음 스테이지로 이동한다.</p>
      */
-    private void manageStages() {
+    public void manageStages() {
         // 예: 스테이지 종료 조건 확인 및 다음 스테이지로 이동
         boolean newStageStarted = currentStage != lastStage;
 
@@ -266,7 +266,7 @@ public class GameLogic {
         //======================================================================================================
     }
     // 총 클리어 시간을 계산하는 메소드
-    private String calculateTotalTime() {
+    public String calculateTotalTime() {
         long minutes = (totalTimeMillis / (1000 * 60)) % 60;
         long seconds = (totalTimeMillis  / 1000) % 60;
         long millis = totalTimeMillis  % 1000;
@@ -277,7 +277,7 @@ public class GameLogic {
      * 다음 스테이지로 이동하는 메소드
      * @param currentStage 이동할 스테이지 번호
      */
-    private void goToNextStage(int currentStage) {
+    public void goToNextStage(int currentStage) {
         switch (currentStage) {
             case 1:
             case 2:
