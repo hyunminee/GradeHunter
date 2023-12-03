@@ -7,19 +7,19 @@ import java.awt.event.MouseEvent;
 
 public class GuidePanel1 extends JPanel {
     private Image backgroundImage;
-    private ImageIcon leftEnteredIcon = new ImageIcon("GradeHunter/images/key_left_entered.png");
-    private ImageIcon rightEnteredIcon = new ImageIcon("GradeHunter/images/key_right_entered.png");
-    private ImageIcon leftIcon = new ImageIcon("GradeHunter/images/key_left.png");
-    private ImageIcon rightIcon = new ImageIcon("GradeHunter/images/key_right.png");
+    private ImageIcon leftEnteredIcon = new ImageIcon("images/key_left_entered.png");
+    private ImageIcon rightEnteredIcon = new ImageIcon("images/key_right_entered.png");
+    private ImageIcon leftIcon = new ImageIcon("images/key_left.png");
+    private ImageIcon rightIcon = new ImageIcon("images/key_right.png");
     private JButton leftButton = new JButton(leftIcon);
     private JButton rightButton = new JButton(rightIcon);
 
     public GuidePanel1(MainPanel mainPanel) {
         setLayout(null); // 널 레이아웃 사용
-        backgroundImage = new ImageIcon("GradeHunter/images/bg_gp_1.png").getImage();
+        backgroundImage = new ImageIcon("images/bg_gp_1.png").getImage();
 
-        ImageIcon leftIcon = new ImageIcon("GradeHunter/images/key_left.png");
-        ImageIcon rightIcon = new ImageIcon("GradeHunter/images/key_right.png");
+        ImageIcon leftIcon = new ImageIcon("images/key_left.png");
+        ImageIcon rightIcon = new ImageIcon("images/key_right.png");
         JButton leftButton = new JButton(leftIcon);
         JButton rightButton = new JButton(rightIcon);
 

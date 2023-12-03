@@ -26,7 +26,7 @@ public class QuizSelectPanel extends JPanel {
 
     public QuizSelectPanel(MainPanel mainPanel) {
         setLayout(null); // 널 레이아웃 사용
-        backgroundImage = new ImageIcon("GradeHunter/images/bg_qs.png").getImage();
+        backgroundImage = new ImageIcon("images/bg_qs.png").getImage();
 
         ImageIcon quiz_1Icon = new ImageIcon("images/bt_q1.png");
         ImageIcon quiz_2Icon = new ImageIcon("images/bt_q2.png");

@@ -35,14 +35,14 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
     private int gaugeValue = 0; // 현재 게이지 값
     private final int MAX_STAGE = 8; // 최대 스테이지 번호
     private final int maxGaugeValue = 100; // 최대 게이지 값
-    public ImageIcon stage1Popup = new ImageIcon(("GradeHunter/images/popup/popup_1.png"));
-    public ImageIcon stage2Popup = new ImageIcon(("GradeHunter/images/popup/popup_2.png"));
-    public ImageIcon stage3Popup = new ImageIcon(("GradeHunter/images/popup/popup_3.png"));
-    public ImageIcon stage4Popup = new ImageIcon(("GradeHunter/images/popup/popup_4.png"));
-    public ImageIcon stage5Popup = new ImageIcon(("GradeHunter/images/popup/popup_5.png"));
-    public ImageIcon stage6Popup = new ImageIcon(("GradeHunter/images/popup/popup_6.png"));
-    public ImageIcon stage7Popup = new ImageIcon(("GradeHunter/images/popup/popup_7.png"));
-    public ImageIcon stage8Popup = new ImageIcon(("GradeHunter/images/popup/popup_8.png"));
+    public ImageIcon stage1Popup = new ImageIcon(("images/popup/popup_1.png"));
+    public ImageIcon stage2Popup = new ImageIcon(("images/popup/popup_2.png"));
+    public ImageIcon stage3Popup = new ImageIcon(("images/popup/popup_3.png"));
+    public ImageIcon stage4Popup = new ImageIcon(("images/popup/popup_4.png"));
+    public ImageIcon stage5Popup = new ImageIcon(("images/popup/popup_5.png"));
+    public ImageIcon stage6Popup = new ImageIcon(("images/popup/popup_6.png"));
+    public ImageIcon stage7Popup = new ImageIcon(("images/popup/popup_7.png"));
+    public ImageIcon stage8Popup = new ImageIcon(("images/popup/popup_8.png"));
 
     private JPanel blackOverlay;
     private KeyAdapter keyBlocker = new KeyAdapter() {
@@ -61,7 +61,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
 
         // 배경 이미지 로드
         try {
-            backgroundImage = ImageIO.read(new File("GradeHunter/images/bg_playing.png")); // 이미지 파일 경로 지정
+            backgroundImage = ImageIO.read(new File("images/bg_playing.png")); // 이미지 파일 경로 지정
         } catch (IOException e) {
             e.printStackTrace();
             backgroundImage = null;
@@ -242,10 +242,10 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         try {
             BufferedImage characterImage;
             if (MainPanel.gen == 0) {
-                characterImage = ImageIO.read(new File("GradeHunter/images/status_p_m.png"));
+                characterImage = ImageIO.read(new File("images/status_p_m.png"));
                 g.drawImage(characterImage, 5, 3,120, 120, this);
             } else if (MainPanel.gen == 1){
-                characterImage = ImageIO.read(new File("GradeHunter/images/status_p_f.png"));
+                characterImage = ImageIO.read(new File("images/status_p_f.png"));
                 g.drawImage(characterImage, 5, 3,120, 120, this);
             }
         } catch (IOException e) {
