@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * 게임의 주요 로직을 관리하는 클래스
  * <p>아이템 생성 및 관리, 플레이어와 아이템의 상호작용, 게임 타이머 및 스테이지 관리 등을 담당한다.</p>
- * @author 박현민
+ * @author 박현민, 정서윤
  */
 public class GameLogic {
     private List<Item> items; // 게임 아이템 리스트
@@ -231,21 +231,28 @@ public class GameLogic {
         if (gaugeValue >= maxGaugeValue) {
             timerLabel.stopTimer();
         }
-
-        // 스테이지 종료 조건 확인 및 다음 스테이지로 이동
+        // 스테이지 종료 조건 미달시 GameOver로 전환
         if (!timerLabel.isRunning() && gaugeValue != maxGaugeValue) {
 
             GamePlayPanel.gameUpdateTimer.stop();
             GameOver gameOver = new GameOver(mainPanel);
             mainPanel.switchPanel(gameOver);
         }
+        // 스테이지8 종료 조건
         if (currentStage == MAX_STAGE && gaugeValue >= maxGaugeValue) {
-
             GamePlayPanel.gameUpdateTimer.stop();
-            ClearPanel clearPanel = new ClearPanel(mainPanel); // GamePlayPanel의 새 인스턴스를 생성
+
+            gameEndTime = System.currentTimeMillis(); // 게임 종료 시간 기록
+            GamePlayPanel.gameUpdateTimer.stop();
+            totalTime = calculateTotalTime(); // 총 클리어 시간 계산
+
+            // 스테이지8 종료후 ClearPanel로 전환
+            ClearPanel clearPanel = new ClearPanel(mainPanel);
             mainPanel.switchPanel(clearPanel);
 
-        } else if (gaugeValue >= maxGaugeValue) {
+        }
+        // 스테이지 종료 조건 확인 후 다음 스테이지 이동
+        else if (gaugeValue >= maxGaugeValue) {
             currentStage++;
             gaugeValue = 0; // 게이지 초기화
             gamePlayPanel.showStagePopup();
@@ -253,22 +260,6 @@ public class GameLogic {
         }
 
 
-
-
-
-        //======================================================================================================
-        //======================================================================================================
-        //======================================================================================================
-
-        if (currentStage == MAX_STAGE && gaugeValue >= maxGaugeValue) {
-            gameEndTime = System.currentTimeMillis(); // 게임 종료 시간 기록
-            GamePlayPanel.gameUpdateTimer.stop();
-
-            totalTime = calculateTotalTime(); // 총 클리어 시간 계산
-
-            ClearPanel clearPanel = new ClearPanel(mainPanel);
-            mainPanel.switchPanel(clearPanel);
-        }
 
         //======================================================================================================
         //======================================================================================================
@@ -397,36 +388,5 @@ public class GameLogic {
             return milliseconds;
         }
     }
-    /** 게임 오버 메소드 */
-    //private void gameOver() {
-        /*GameOver gameOver = new GameOver(mainPanel);
-        mainPanel.switchPanel(gameOver);
-*/
-/*        JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(gamePlayPanel);
-        topFrame.getContentPane().removeAll();
-        topFrame.setContentPane(new GameOver(mainPanel));
-        topFrame.revalidate();
-        topFrame.repaint();*/
-    // }
-    /** 게임 클리어 메소드 */
-    //private void gameClear() {
-    //ClearPanel clearPanel = new ClearPanel(mainPanel); // GamePlayPanel의 새 인스턴스를 생성
-    //mainPanel.switchPanel(clearPanel);
 
-/*        JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(gamePlayPanel);
-        topFrame.getContentPane().removeAll();
-        topFrame.setContentPane(new ClearPanel(mainPanel));
-        topFrame.getContentPane().revalidate();
-        topFrame.getContentPane().repaint();*/
-
-    // }
-//    private void gameClear() {
-//        System.out.println("gameclear 패널로 전환");
-////        QuizSelectPanel quizSelectPanel = new QuizSelectPanel(mainPanel);
-////        mainPanel.switchPanel(clearPanel);
-//        JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(gamePlayPanel); // QuizSelectPanel 사용
-//        topFrame.setContentPane(new ClearPanel(mainPanel));
-//        topFrame.revalidate();
-//        topFrame.repaint();
-//    }
 }

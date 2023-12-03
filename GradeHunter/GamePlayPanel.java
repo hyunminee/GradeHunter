@@ -44,7 +44,6 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
     public ImageIcon stage7Popup = new ImageIcon(("images/popup/popup_7.png"));
     public ImageIcon stage8Popup = new ImageIcon(("images/popup/popup_8.png"));
 
-    private JPanel blackOverlay;
     private KeyAdapter keyBlocker = new KeyAdapter() {
         @Override
         public void keyPressed(KeyEvent e) {
@@ -171,7 +170,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         // GameLogic의 현재 스테이지 값 다시 할당 (currentStage++이 일어났으므로)
         currentStage = GameLogic.currentStage;
 
-        // 팝업이 활성화될 때 아이템 목록 초기화
+        // currentStage 값에 맞는 stageImage 지정
         if (currentStage == 1)
             stageImage = stage1Popup;
         else if(currentStage == 2)
@@ -191,24 +190,16 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         else
             return;
 
-        //add(blackOverlay);
+        // 스테이지 팝업
         JLabel stagePopup = new JLabel(stageImage);
         stagePopup.setBounds(290, 160, stageImage.getIconWidth(), stageImage.getIconHeight()); // x, y 위치와 너비, 높이 설정
         add(stagePopup);
-
-        //!!!여기부터 오버레이
-        JPanel blackOverlay = new JPanel();
-        blackOverlay.setBackground(new Color(0, 0, 0, 10));    // 검정색 오버레이창 투명도 설정
-        blackOverlay.setBounds(0, 0, 1080, 720);
-        //blackOverlay.setVisible(false);
-        //add(blackOverlay);
 
 
 
         //Timer를 설정하여 지정된 시간 후에 레이블을 패널에서 제거
         Timer timer = new Timer(3000, e-> {
             remove(stagePopup);
-            remove(blackOverlay);
             revalidate();
             repaint();
 
