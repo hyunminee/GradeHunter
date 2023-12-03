@@ -11,7 +11,8 @@ import java.util.List;
 
 
 /**
- * 게임 랭킹 전체를 담당하는 클래스입니다.
+ * 게임 랭킹 전체를 담당하는 클래스
+ * @author 김봄
  */
 public class RankPanel extends JPanel {
 
@@ -106,8 +107,6 @@ public class RankPanel extends JPanel {
             add(idLabel);
 
             // 클리어 시간을 표시하는 레이블 설정
-            //String spacedTime = record.time.replaceAll(":", " : "); // 콜론 사이에 공백 추가
-            //JLabel timeLabel = new JLabel(spacedTime, SwingConstants.CENTER);
             JLabel timeLabel = new JLabel(record.time, SwingConstants.CENTER);
             timeLabel.setForeground(Color.WHITE);
             timeLabel.setFont(customFont);

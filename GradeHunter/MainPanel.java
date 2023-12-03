@@ -16,7 +16,6 @@ import javax.swing.text.PlainDocument;
 
 public class MainPanel extends JFrame{
     public JPanel mainpanel;
-    RankPanel rankPanel = new RankPanel(this); // MainPanel 인스턴스를 RankPanel에 전달
 
     // 각 버튼 이미지아이콘 변수 생성
     public ImageIcon startButtonImage = new ImageIcon("images/bt_guide.png");

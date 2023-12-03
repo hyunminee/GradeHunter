@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 
 
 /**
- * 제한 시간 내에 게이지바를 채우지 못했을 시 나타나는 GameOver 클래스입니다.
+ * 제한 시간 내에 게이지바를 채우지 못했을 시 나타나는 GameOver 클래스
  * @author 정서윤
  */
 

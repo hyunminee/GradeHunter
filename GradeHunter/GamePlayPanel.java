@@ -58,6 +58,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
      * */
     public GamePlayPanel(MainPanel mainPanel) {
 
+        GameLogic.totalTimeMillis = 0;
         this.mainPanel = mainPanel;
 
         setLayout(null); // 레이아웃 관리자 비활성화
@@ -207,6 +208,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
 
             // GameLogic의 타이머를 시작하는 로직
             gameLogic.startGameTimer();
+            GameLogic.gameStartTime = System.currentTimeMillis();
         });
         timer.setRepeats(false);
         timer.start();
@@ -314,7 +316,6 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         repaint();
     }
 
-    /** KeyListener 메소드들 */
     // 키가 타이핑될 때 호출. 여기서는 사용하지 않으므로 비워둠
     @Override
     public void keyTyped(KeyEvent e) {

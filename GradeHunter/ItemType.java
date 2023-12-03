@@ -5,6 +5,7 @@ package GradeHunter;
 /** 각 아이템 타입과 이에 해당하는 이미지 경로 및 효과 값을 정의
  * @author 박현민
  * */
+
 public enum ItemType {
     BLUE("images/hw_b.png", 10),
     GREEN("images/hw_g.png", 5),

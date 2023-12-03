@@ -26,9 +26,10 @@ public class GameLogic {
     private GamePlayPanel gamePlayPanel; // GamePlayPanel 참조
     private int lastStage = 0; // 이전 스테이지 번호를 추적하기 위한 변수
     private MainPanel mainPanel;
-    private long gameStartTime;
-    private long gameEndTime;
+    public static long gameStartTime;
+    public static long gameEndTime;
     public static String totalTime;
+    public static long totalTimeMillis = 0;
 
     /**
      * GameLogic 객체를 생성하는 생성자
@@ -60,9 +61,7 @@ public class GameLogic {
      */
     public void startGameTimer() {
         if (timerLabel != null){
-            //=============================================================================================================
-            gameStartTime = System.currentTimeMillis(); // 게임 시작 시간 기록
-            //=============================================================================================================
+            //gameStartTime = System.currentTimeMillis(); // 게임 시작 시간 기록
             timerLabel.resetAndStart(60 * 1000); // 60초를 밀리초로 변환
         }
     }
@@ -230,6 +229,9 @@ public class GameLogic {
         // 게이지 값이 최대치에 도달했을 경우 타이머 멈춤
         if (gaugeValue >= maxGaugeValue) {
             timerLabel.stopTimer();
+            gameEndTime = System.currentTimeMillis(); // 게임 종료 시간 기록
+            totalTimeMillis += (gameEndTime - gameStartTime);
+
         }
         // 스테이지 종료 조건 미달시 GameOver로 전환
         if (!timerLabel.isRunning() && gaugeValue != maxGaugeValue) {
@@ -242,9 +244,7 @@ public class GameLogic {
         if (currentStage == MAX_STAGE && gaugeValue >= maxGaugeValue) {
             GamePlayPanel.gameUpdateTimer.stop();
 
-            gameEndTime = System.currentTimeMillis(); // 게임 종료 시간 기록
-            GamePlayPanel.gameUpdateTimer.stop();
-            totalTime = calculateTotalTime(); // 총 클리어 시간 계산
+            totalTime = calculateTotalTime(); // 랭킹에 문자열로 저장
 
             // 스테이지8 종료후 ClearPanel로 전환
             currentStage = 1;
@@ -268,7 +268,7 @@ public class GameLogic {
     }
     // 총 클리어 시간을 계산하는 메소드
     private String calculateTotalTime() {
-        long totalTimeMillis = gameEndTime - gameStartTime;
+        System.out.println(totalTimeMillis);
         long minutes = (totalTimeMillis / (1000 * 60)) % 60;
         long seconds = (totalTimeMillis  / 1000) % 60;
         long millis = totalTimeMillis  % 1000;

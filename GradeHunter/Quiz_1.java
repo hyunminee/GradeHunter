@@ -12,7 +12,7 @@ import java.util.List;
 import javax.swing.Timer;
 
 /**
- * 퀴즈 분야 - 국어 를 담당하는 클래스입니다.
+ * 퀴즈 분야 - 국어 를 담당하는 클래스
  * @author 서보경, 정서윤
  */
 
