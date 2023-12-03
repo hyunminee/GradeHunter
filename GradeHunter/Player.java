@@ -22,7 +22,11 @@ public class Player {
     public int screenWidth = 1080; // 화면의 너비
     public int screenHeight= 720; // 화면의 높이
 
-    /** 캐릭터 생성자(위치를 지정하여 생성) */
+    /** 캐릭터 생성자
+     * <p>캐릭터의 초기 위치는 화면 크기에 따라 결정된다.</p>
+     * @param x 캐릭터의 초기 x 좌표
+     * @param y 캐릭터의 초기 y 좌표
+     * */
     public Player(int x, int y) {
 
         if (MainPanel.gen == 0) {
@@ -36,20 +40,16 @@ public class Player {
         loadImage();
     }
 
-    // 캐릭터를 왼쪽으로 이동
-    public void moveLeft() {
-        x -= 5;
-    }
-    // 캐릭터를 오른쪽으로 이동
-    public void moveRight() {
-        x += 5;
-    }
-    // 화면 너비 설정
+    /**
+     * 화면의 너비를 설정하는 메소드
+     * * @param width 설정할 화면의 너비
+     */
     public void setScreenWidth(int width) {
         this.screenWidth = width;
     }
 
-    /** 캐릭터의 상태를 업데이트하는 메소드 */
+    /** 캐릭터의 상태를 업데이트하는 메소드
+     * <p>이동 상태에 따라 위치를 변경하고 화면 경계를 체크한다.</p>*/
     public void update() {
         if (movingLeft) {
             x -= SPEED;
@@ -67,7 +67,10 @@ public class Player {
 
 
     }
-    // 캐릭터 이미지를 로드
+    /**
+     * 캐릭터 이미지를 로드하는 메소드
+     * <p>이미지 경로는 성별에 따라 달라진다.</p>
+     */
     private void loadImage() {
         try {
             if (MainPanel.gen == 0) {
@@ -81,14 +84,20 @@ public class Player {
         }
     }
 
-    /** 캐릭터를 화면에 그리는 메소드 */
+    /** 캐릭터를 화면에 그리는 메소드
+     * @param g Graphics 객체
+     * */
     public void draw(Graphics g) {
         if (image != null) {
             g.drawImage(image, x, y, null); // 이미지 그리기
         }
     }
 
-    /** 캐릭터와 아이템의 충돌 여부를 판단하는 메소드 */
+    /** 캐릭터와 아이템의 충돌 여부를 판단하는 메소드
+     * <p>캐릭터와 아이템이 충분히 가까울 때만 충돌 검사 수행한다.</p>
+     * @param item 충돌을 판단할 아이템 객체
+     * @return 충돌했으면 true, 아니면 false
+     * */
     public boolean collidesWith(Item item) {
         // 캐릭터와 아이템 사이의 거리를 계산
         int deltaX = Math.abs(x - item.getX());
@@ -116,18 +125,29 @@ public class Player {
 
 
 
-    /** 키 입력에 따른 캐릭터 이동 상태 변경 메소드 */
+    /**
+     * 캐릭터의 왼쪽 이동 상태를 설정하는 메소드
+     * @param movingLeft 왼쪽으로 이동 중이면 true, 아니면 false
+     * */
     public void setMovingLeft(boolean movingLeft) {
         this.movingLeft = movingLeft;
     }
+    /**
+     * 캐릭터의 오른쪽 이동 상태를 설정하는 메소드
+     * @param movingRight 오른쪽으로 이동 중이면 true, 아니면 false
+     * */
     public void setMovingRight(boolean movingRight) {
         this.movingRight = movingRight;
     }
 
-    // Getters and setters
-
+    /**
+     * 캐릭터의 x 좌표 반환하는 메소드
+     * @return 캐릭터의 x 좌표
+     * */
     public int getX() { return x; } // 캐릭터의 x 좌표 반환
-    public int getY() { return y; } // 캐릭터의 y 좌표 반환
+    /**
+     * 캐릭터의 x 좌표 설정하는 메소드
+     * @param x 캐릭터의 x 좌표
+     * */
     public void setX(int x) { this.x = x; } // 캐릭터의 x 좌표 설정
-    public void setY(int y) { this.y = y; } // 캐릭터의 x 좌표 설정
 }

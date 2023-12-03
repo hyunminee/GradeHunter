@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * 게임 플레이 클래스 - 게임 이벤트 및 애니메이션 제어
+ * 게임 플레이 화면을 관리하는 클래스
  * @author 박현민, 정서윤
  * */
 public class GamePlayPanel extends JPanel implements ActionListener, KeyListener {
@@ -52,6 +52,11 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         }
     };
 
+    /**
+     * GamePlayPanel의 생성자
+     * <p>패널의 레이아웃 설정, 배경 이미지 로드, 포커스 리스너 추가, 게임 로직 및 캐릭터 초기화 등이 있다.</p>
+     * @param mainPanel 메인 패널에 대한 참조
+     * */
     public GamePlayPanel(MainPanel mainPanel) {
 
         this.mainPanel = mainPanel;
@@ -118,7 +123,10 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
 
     }
 
-    // 컴포넌트가 화면에 추가된 후에 호출될 메서드
+    /**
+     * 컴포넌트가 화면에 추가된 후에 호출될 메서드
+     * <p>캐릭터의 실제 위치를 화면 크기에 맞게 설정하고 게임을 초기화한다.</p>
+     * */
     @Override
     public void addNotify() {
         super.addNotify();
@@ -129,9 +137,11 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         requestFocusInWindow();
     }
 
-
+    /***
+     * 게임의 초기 상태를 설정하는 메소드
+     * <p>캐릭터 위치, 아이템 리스트 초기화, 게임 로직 설정, 게임 타이머 설정 등 게임 시작 전 필요사항을 준비한다.</p>
+     */
     private void initGame() {
-//        stage=1;
         character = new Player(540,500); // 캐릭터 위치 설정 초기화
         items = new ArrayList<>();
         gameLogic = new GameLogic(character, items, this, 60, 1080, 50, this, mainPanel);
@@ -147,7 +157,10 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
 
     }
 
-    // 스테이지 정보를 보여주는 팝업창을 표시하는 메소드
+    /**
+     * 스테이지 정보를 보여주는 팝업창을 표시하는 메소드
+     * <p>현재 스테이지에 맞는 팝업 이미지를 화면에 표시하고 일정 시간 후에 제거한다.</p>
+     * */
     public void showStagePopup() {
         isPopupActive = true; // 팝업 활성화됨
         // items 리스트가 초기화되었는지 확인하고 초기화된 경우에만 clear() 호출
@@ -260,6 +273,10 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         g.drawString(timeLeftFormatted, getWidth() - 107, 105); // 위치 지정
     }
 
+    /**
+     * 게임 상태를 화면에 그리는 메소드
+     * <p>배경, 캐릭터, 아이템 등 게임에 필요한 요소를 그린다.</p>
+     * @param g Graphics 객체*/
     private void drawGameStatus(Graphics g) {
         // 부모 클래스의 paintComponent() 호출로 기본 패널 그리기를 수행
 //        super.paintComponent(g);
@@ -275,19 +292,28 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         }
 
     }
-    // 게이지 값을 업데이트하는 메소드
+    /**
+     * 게이지 값을 업데이트하는 메소드
+     * @param value 업데이트할 게이지 값*/
     public void updateGaugeBar(int value)
     {
         gaugeBar.setValue(value);
     }
-    // 최대 게이지 값을 설정하는 메소드
+    /**
+     * 최대 게이지 값을 설정하는 메소드
+     * @param maxGaugeValue 설정할 최대 게이지 값*/
     public void setMaxGaugeValue(int maxGaugeValue)
     {
         gaugeBar.setMaximum(maxGaugeValue);
     }
+    /**
+     * 밀리초 단위의 시간을 포맷팅하여 문자열로 반환하는 메소드
+     * <p>타이머에 표시될 시간 문자열을 생성한다.</p>
+     * @param millis 밀리초 단위의 시간
+     * @return formatting된 시간 문자열
+     * */
     private String formatTime(long millis) {
         long seconds = millis / 1000;
-        long remainingMillis = (millis % 1000)/10;
         return String.format("%02d", seconds);
     }
 
