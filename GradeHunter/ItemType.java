@@ -11,7 +11,7 @@ public enum ItemType {
     GREEN("images/hw_g.png", 5),
     YELLOW("images/hw_y.png", -3),
     RED("images/hw_r.png", -5),
-    TARDY("images/timer.png", -3), // 시간 감소 효과
+    TARDY("images/timer.png", -5), // 시간 감소 효과
     PRESENTATION("images/ppt.png", 15);
 
     private final String imagePath; // 아이템 이미지 경로

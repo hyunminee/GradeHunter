@@ -83,7 +83,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         items = new ArrayList<>(); // 아이템 리스트 초기화
 
         // GameLogic 인스턴스 생성
-        gameLogic = new GameLogic(character, items, this, 60, 1080, 50, this, mainPanel); // 60초로 초기화
+        gameLogic = new GameLogic(character, items, this, 30, 1080, 50, this, mainPanel); // 30초로 초기화
 
         // JProgressBar 초기화
         gaugeBar = new JProgressBar();
@@ -126,7 +126,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
     public void initGame() {
         character = new Player(540,500); // 캐릭터 위치 설정 초기화
         items = new ArrayList<>();
-        gameLogic = new GameLogic(character, items, this, 60, 1080, 50, this, mainPanel);
+        gameLogic = new GameLogic(character, items, this, 30, 1080, 50, this, mainPanel);
         // 게이지 값을 0으로 초기화
         GameLogic.gaugeValue = 0;
         updateGaugeBar(0); // GamePlayPanel의 게이지 바 업데이트 메서드 호출

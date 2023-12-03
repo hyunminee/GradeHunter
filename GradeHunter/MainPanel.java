@@ -16,9 +16,10 @@ import javax.swing.text.PlainDocument;
  *     0.1.2 -> 클리어 시간 기록 오류 수정  by 보경
  *     0.2.2 -> 퀴즈 전환 부분 동일하게 진행되게 로직 수정  by 보경
  *     0.2.3 -> 어려운 난이도 생성 by 보경
+ *     0.2.4 -> 난이도 설정 (스테이지 당 시간 단축, 타이머 아이템 시간 증가) by 보경
  * </p>
  * @author 서보경
- * @version 0.2.3
+ * @version 0.2.4
  */
 
 public class MainPanel extends JFrame{

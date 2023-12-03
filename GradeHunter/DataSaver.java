@@ -39,7 +39,7 @@ public class DataSaver {
      * @return 각 퀴즈 숫자에 따른 과목명 반환
      */
 
-    private String convertSubjectToString(int subject) {
+    public String convertSubjectToString(int subject) {
         return switch (subject) {
             case 1 -> "국어";
             case 2 -> "수학";

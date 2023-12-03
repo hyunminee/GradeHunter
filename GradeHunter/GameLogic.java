@@ -63,7 +63,7 @@ public class GameLogic {
     public void startGameTimer() {
         if (timerLabel != null){
             //gameStartTime = System.currentTimeMillis(); // 게임 시작 시간 기록
-            timerLabel.resetAndStart(60 * 1000); // 60초를 밀리초로 변환
+            timerLabel.resetAndStart(30 * 1000); // 30초를 밀리초로 변환
         }
     }
 
