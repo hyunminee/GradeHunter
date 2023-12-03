@@ -5,11 +5,22 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+
+/**
+ * GradeHunter 게임의 세 번째 안내 패널 클래스
+ * <p>이 클래스는 사용자에게 게임 시작 전 마지막 정보를 제공합니다.</p>
+ */
+
+
 public class GuidePanel3 extends JPanel {
     private Image backgroundImage;
     private ImageIcon startIcon;
     private ImageIcon startIconEntered;
 
+    /**
+     * GuidePanel3의 생성자 - 배경 이미지를 설정하고, 버튼을 초기화하며, 이벤트 리스너를 설정
+     * @param mainPanel switchPanel()을 사용하기 위한 parameter
+     */
     public GuidePanel3(MainPanel mainPanel) {
         setLayout(null); // 널 레이아웃 사용
         backgroundImage = new ImageIcon("images/bg_gp_3.png").getImage();

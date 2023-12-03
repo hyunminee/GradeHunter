@@ -5,6 +5,12 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * GradeHunter 게임의 두 번째 안내 패널 클래스
+ * @author 김봄
+ */
+
+
 public class GuidePanel2 extends JPanel {
     private Image backgroundImage;
     private ImageIcon leftEnteredIcon = new ImageIcon("images/key_left_entered.png");
@@ -13,6 +19,11 @@ public class GuidePanel2 extends JPanel {
     private ImageIcon rightIcon = new ImageIcon("images/key_right.png");
     private JButton leftButton = new JButton(leftIcon);
     private JButton rightButton = new JButton(rightIcon);
+
+    /**
+     * GuidePanel2의 생성자 - 배경 이미지를 설정하고, 버튼을 초기화하며, 이벤트 리스너를 설정
+     * @param mainPanel switchPanel()을 사용하기 위한 parameter
+     */
 
     public GuidePanel2(MainPanel mainPanel) {
         setLayout(null); // 널 레이아웃 사용

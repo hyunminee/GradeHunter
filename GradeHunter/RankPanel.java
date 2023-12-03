@@ -11,7 +11,8 @@ import java.util.List;
 
 
 /**
- * 게임 랭킹 전체를 담당하는 클래스
+ * GradeHunter 게임에서 게임 랭킹을 표시하는 클래스
+ *  <p> JPanel을 확장하며, 플레이어들의 점수 및 기타 기준에 따라 상위 기록을 보여준다.</p>
  * @author 김봄
  */
 public class RankPanel extends JPanel {
@@ -19,6 +20,11 @@ public class RankPanel extends JPanel {
     private Image backgroundImage;
     private MainPanel mainPanel;
     private Font customFont; // 사용자 정의 폰트 변수 추가
+
+    /**
+     * RankPanel의 생성자 함수 : UI 설정 및 버튼 상호작용, 랭킹 정렬 및 기재
+     * @param mainPanel switchPanel()을 사용하기 위한 parameter
+     */
 
     public RankPanel(MainPanel mainPanel) {
         this.mainPanel = mainPanel;
@@ -80,7 +86,7 @@ public class RankPanel extends JPanel {
             this.mainPanel.switchPanel(this.mainPanel.getMainContentPanel());
         });
 
-
+// =============================================================================================================
 
         SortedDataFileReader fileReader = new SortedDataFileReader();
         List<SortedDataFileReader.Record> records = fileReader.readFileAndSort("data.txt");
@@ -113,7 +119,6 @@ public class RankPanel extends JPanel {
             timeLabel.setBounds(xPositionTime, yPosition, labelWidthTime, labelHeight);
             add(timeLabel);
 
-
             // 과목명 레이블
             JLabel subjectLabel = new JLabel(record.subject, SwingConstants.RIGHT);
             subjectLabel.setForeground(Color.WHITE);
@@ -133,26 +138,17 @@ public class RankPanel extends JPanel {
         g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
     }
 
-    private class Record implements Comparable<Record> {
-        String id;
-        String time;
-        String subject;
-
-        public Record(String id, String time, String subject) {
-            this.id = id;
-            this.time = time;
-            this.subject = subject;
-        }
-
-        @Override
-        public int compareTo(Record other) {
-            return this.time.compareTo(other.time);
-        }
-
-
-    }
+    /**
+     * RankPanel의 innerclass : SortedDataFileReader - 텍스트 파일을 읽어와서 데이터를 정렬해서, 정렬된 데이터를 다시 저장한다.
+     */
 
     private class SortedDataFileReader {
+
+        /**
+         * 텍스트 파일을 읽어와서 데이터를 정렬한 후, 최소 클리어 시간 순으로 정렬된 데이터를 반환하는 메소드
+         * @param filePath 텍스트 파일 경로
+         * @return 정렬된 기록을 텍스트 파일로 반환
+         */
         public List<Record> readFileAndSort(String filePath) {
             Map<String, Record> fastestRecords = new HashMap<>();
             BufferedReader reader = null;
@@ -193,7 +189,11 @@ public class RankPanel extends JPanel {
             return sortedRecords;
         }
 
-        // 정렬된 데이터를 파일에 저장하는 메서드
+        /**
+         * 정렬된 데이터를 텍스트 파일에 재기록하는 메소드
+         * @param records 학번, 클리어시간, 과목 기록 한 행
+         * @param filePath 텍스트 파일 경로
+         */
         private void saveSortedDataToFile(List<Record> records, String filePath) {
             BufferedWriter writer = null;
             try {
@@ -214,6 +214,10 @@ public class RankPanel extends JPanel {
                 }
             }
         }
+
+        /**
+         * 학번, 클리어 시간, 과목을 다루는 클래스
+         */
 
         private class Record implements Comparable<Record> {
             String id;

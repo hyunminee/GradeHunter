@@ -41,7 +41,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
     /**
      * GamePlayPanel의 생성자
      * <p>패널의 레이아웃 설정, 배경 이미지 로드, 포커스 리스너 추가, 게임 로직 및 캐릭터 초기화 등이 있다.</p>
-     * @param mainPanel 메인 패널에 대한 참조
+     * @param mainPanel switchPanel()을 사용하기 위한 parameter
      * */
     public GamePlayPanel(MainPanel mainPanel) {
 
@@ -83,12 +83,6 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
 
         // GameLogic 인스턴스 생성
         gameLogic = new GameLogic(character, items, this, 60, 1080, 50, this, mainPanel); // 60초로 초기화
-
-        // 주기적인 게임 업데이트 처리
-        /*Timer gameUpdateTimer = new Timer(DELAY, e -> { // 60 FPS에 해당하는 간격 (약 16ms)
-            gameLogic.updateGame();
-            repaint(); // 화면 다시 그리기
-        });*/
 
         // JProgressBar 초기화
         gaugeBar = new JProgressBar();
