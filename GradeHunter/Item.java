@@ -14,7 +14,15 @@ public class Item {
     private int effectValue; // 아이템의 효과 값 (게이지 증가/감소, 시간 조절 등)
     private final ItemType type; // 아이템의 타입 (BLUE, GREEN 등)
 
-    /** 아이템 객체 생성자 */
+    /**
+     * 아이템 객체를 생성하는 생성자
+     * <p>아이템의 이미지, 위치, 타입, 이동 속도를 초기화한다.</p>
+     * @param imagePath 아이템의 이미지 경로
+     * @param x 아이템의 초기 x 좌표
+     * @param y 아이템의 초기 y 좌표
+     * @param type 아이템의 타입
+     * @param speed 아이템의 이동 속도
+     */
     public Item(String imagePath, int x, int y, ItemType type, double speed) {
         this.x = x;
         this.y = y;
@@ -24,7 +32,10 @@ public class Item {
         loadImage(imagePath); // 이미지 로딩
     }
 
-    /** 이미지 로드 메소드 */
+    /**
+     * 아이템의 이미지를 로드하는 메소드
+     * @param imagePath 로드할 이미지의 경로
+     * */
     private void loadImage(String imagePath) {
         URL imageUrl = getClass().getResource(imagePath);
         if (imageUrl != null) {
@@ -40,7 +51,10 @@ public class Item {
         image = ii.getImage(); // 이미지 로드하고 저장
     }
 
-    /** 아이템의 이동 로직*/
+    /**
+     * 아이템의 위치를 업데이트하는 메소드
+     * <p>아이템을 지정된 속도로 하강시킨다.</p>
+     */
     public void move() {
         y += deltaY; // 아이템을 하강시킴
         // 화면 밖으로 나가는 처리는 actionPerformed에서 수행
@@ -49,31 +63,50 @@ public class Item {
     public void draw(Graphics g) {
         g.drawImage(image, x, y, null);
     }
-
+    /**
+     * 아이템의 x 좌표를 반환하는 메소드
+     * @return 아이템의 x 좌표
+     */
     public int getX() {
         return x;
     }
-
+    /**
+     * 아이템의 y 좌표를 반환하는 메소드
+     * @return 아이템의 y 좌표
+     */
     public int getY() {
         return y;
     }
-
+    /**
+     * 아이템의 효과 값을 반환하는 메소드
+     * @return 아이템의 효과 값
+     */
     public int getEffectValue() {
         return effectValue;
     }
 
-    /** 아이템의 타입을 반환하는 메소드 */
+    /**
+     * 아이템의 타입을 반환하는 메소드
+     * @return 아이템의 타입
+     */
     public ItemType getType() {
         return type;
     }
 
-    /**아이템이 화면 내에 있는지 확인하는 메소드*/
+    /**
+     * 아이템이 화면 내에 있는지 확인하는 메소드
+     * @return 아이템이 화면 내에 있으면 true, 아니면 false
+     */
     public boolean isOnScreen() {
         final int screenHeight = 720; // 화면 높이
         return y >= 0 && y < screenHeight; // 아이템이 화면 안에 있는지 확인
 
     }
-
+    /**
+     * 아이템의 너비를 반환하는 메소드
+     * <p>아이템 타입에 따라 너비가 달라진다.</p>
+     * @return 아이템의 너비
+     */
     public int getWidth() {
         if (getType() == GradeHunter.ItemType.BLUE ||
                 getType() == GradeHunter.ItemType.GREEN ||
@@ -87,7 +120,11 @@ public class Item {
         }
         return 0;
     }
-
+    /**
+     * 아이템의 높이를 반환하는 메소드
+     * <p>아이템 타입에 따라 높이가 달라진다.</p>
+     * @return 아이템의 높이
+     */
     public int getHeight() {
         if (getType() == GradeHunter.ItemType.BLUE ||
                 getType() == GradeHunter.ItemType.GREEN ||
