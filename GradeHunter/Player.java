@@ -71,7 +71,7 @@ public class Player {
      * 캐릭터 이미지를 로드하는 메소드
      * <p>이미지 경로는 성별에 따라 달라진다.</p>
      */
-    private void loadImage() {
+    public void loadImage() {
         try {
             if (MainPanel.gen == 0) {
                 image = ImageIO.read(new File("images/player_m.png"));

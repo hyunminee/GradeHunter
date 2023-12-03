@@ -36,7 +36,7 @@ public class Item {
      * 아이템의 이미지를 로드하는 메소드
      * @param imagePath 로드할 이미지의 경로
      * */
-    private void loadImage(String imagePath) {
+    public void loadImage(String imagePath) {
         URL imageUrl = getClass().getResource(imagePath);
         if (imageUrl != null) {
             ImageIcon ii = new ImageIcon(imageUrl);
