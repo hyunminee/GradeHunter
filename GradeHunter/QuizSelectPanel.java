@@ -12,12 +12,12 @@ import java.awt.event.MouseEvent;
 
 public class QuizSelectPanel extends JPanel {
     private Image backgroundImage;
-    private ImageIcon quiz_1eIcon = new ImageIcon("GradeHunter/images/bt_q1_e.png");
-    private ImageIcon quiz_2eIcon = new ImageIcon("GradeHunter/images/bt_q2_e.png");
-    private ImageIcon quiz_3eIcon = new ImageIcon("GradeHunter/images/bt_q3_e.png");
-    private ImageIcon quiz_4eIcon = new ImageIcon("GradeHunter/images/bt_q4_e.png");
-    private ImageIcon quiz_5eIcon = new ImageIcon("GradeHunter/images/bt_q5_e.png");
-    private ImageIcon quiz_6eIcon = new ImageIcon("GradeHunter/images/bt_q6_e.png");
+    private ImageIcon quiz_1eIcon = new ImageIcon("images/bt_q1_e.png");
+    private ImageIcon quiz_2eIcon = new ImageIcon("images/bt_q2_e.png");
+    private ImageIcon quiz_3eIcon = new ImageIcon("images/bt_q3_e.png");
+    private ImageIcon quiz_4eIcon = new ImageIcon("images/bt_q4_e.png");
+    private ImageIcon quiz_5eIcon = new ImageIcon("images/bt_q5_e.png");
+    private ImageIcon quiz_6eIcon = new ImageIcon("images/bt_q6_e.png");
 
     /**
      * QuizSelectPanel의 생성자 함수 : UI배치와 버튼에 대한 상호작용 (+ subject 변수 처리)
@@ -28,12 +28,12 @@ public class QuizSelectPanel extends JPanel {
         setLayout(null); // 널 레이아웃 사용
         backgroundImage = new ImageIcon("GradeHunter/images/bg_qs.png").getImage();
 
-        ImageIcon quiz_1Icon = new ImageIcon("GradeHunter/images/bt_q1.png");
-        ImageIcon quiz_2Icon = new ImageIcon("GradeHunter/images/bt_q2.png");
-        ImageIcon quiz_3Icon = new ImageIcon("GradeHunter/images/bt_q3.png");
-        ImageIcon quiz_4Icon = new ImageIcon("GradeHunter/images/bt_q4.png");
-        ImageIcon quiz_5Icon = new ImageIcon("GradeHunter/images/bt_q5.png");
-        ImageIcon quiz_6Icon = new ImageIcon("GradeHunter/images/bt_q6.png");
+        ImageIcon quiz_1Icon = new ImageIcon("images/bt_q1.png");
+        ImageIcon quiz_2Icon = new ImageIcon("images/bt_q2.png");
+        ImageIcon quiz_3Icon = new ImageIcon("images/bt_q3.png");
+        ImageIcon quiz_4Icon = new ImageIcon("images/bt_q4.png");
+        ImageIcon quiz_5Icon = new ImageIcon("images/bt_q5.png");
+        ImageIcon quiz_6Icon = new ImageIcon("images/bt_q6.png");
 
         JButton btn1 = new JButton(quiz_1Icon);
         JButton btn2 = new JButton(quiz_2Icon);

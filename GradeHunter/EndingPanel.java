@@ -13,7 +13,7 @@ import java.awt.event.MouseEvent;
 public class EndingPanel extends JPanel {
 
     private Image backgroundImage;
-    private ImageIcon rightEnteredIcon = new ImageIcon("GradeHunter/images/key_right_entered.png");
+    private ImageIcon rightEnteredIcon = new ImageIcon("images/key_right_entered.png");
 
     /**
      * EndingPanel의 생성자 함수 : UI배치와 버튼에 대한 상호작용 (+ ending 변수에 따른 처리)
@@ -27,10 +27,10 @@ public class EndingPanel extends JPanel {
         System.out.print(MainPanel.ending);
 
         // 1이면 교수님께서 좋은 말씀을, 아니면 졸업을 못시켜주겠다는 말씀을 함
-        if(MainPanel.ending == 1) backgroundImage = new ImageIcon("GradeHunter/images/pf_re.png").getImage();
-        else backgroundImage = new ImageIcon("GradeHunter/images/pf_be.png").getImage();
+        if(MainPanel.ending == 1) backgroundImage = new ImageIcon("images/pf_re.png").getImage();
+        else backgroundImage = new ImageIcon("images/pf_be.png").getImage();
 
-        ImageIcon rightIcon = new ImageIcon("GradeHunter/images/key_right.png");
+        ImageIcon rightIcon = new ImageIcon("images/key_right.png");
         JButton rightButton = new JButton(rightIcon);
         rightButton.setBounds(955, 550, rightIcon.getIconWidth(), rightIcon.getIconHeight());
         rightButton.setContentAreaFilled(false);

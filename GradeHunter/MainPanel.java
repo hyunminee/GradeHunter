@@ -19,14 +19,14 @@ public class MainPanel extends JFrame{
     RankPanel rankPanel = new RankPanel(this); // MainPanel 인스턴스를 RankPanel에 전달
 
     // 각 버튼 이미지아이콘 변수 생성
-    public ImageIcon startButtonImage = new ImageIcon(Main.class.getResource("images/bt_guide.png"));
-    public ImageIcon startButtonEnteredImage = new ImageIcon(Main.class.getResource("images/bt_guide_entered.png"));
-    public ImageIcon rankButtonImage = new ImageIcon(Main.class.getResource("images/bt_rank.png"));
-    public ImageIcon rankButtonEnteredImage = new ImageIcon(Main.class.getResource("images/bt_rank_entered.png"));
-    public ImageIcon mCheckImage = new ImageIcon("GradeHunter/images/check_m.png");
-    public ImageIcon fCheckImage = new ImageIcon("GradeHunter/images/check_f.png");
-    public ImageIcon mCheckEnteredImage = new ImageIcon("GradeHunter/images/check_entered_m.png");
-    public ImageIcon fCheckEnteredImage = new ImageIcon("GradeHunter/images/check_entered_f.png");
+    public ImageIcon startButtonImage = new ImageIcon("images/bt_guide.png");
+    public ImageIcon startButtonEnteredImage = new ImageIcon("images/bt_guide_entered.png");
+    public ImageIcon rankButtonImage = new ImageIcon("images/bt_rank.png");
+    public ImageIcon rankButtonEnteredImage = new ImageIcon("images/bt_rank_entered.png");
+    public ImageIcon mCheckImage = new ImageIcon("images/check_m.png");
+    public ImageIcon fCheckImage = new ImageIcon("images/check_f.png");
+    public ImageIcon mCheckEnteredImage = new ImageIcon("images/check_entered_m.png");
+    public ImageIcon fCheckEnteredImage = new ImageIcon("images/check_entered_f.png");
 
     // 각 버튼 JButton 변수 생성
     public JButton startButton = new JButton(startButtonImage);
@@ -39,7 +39,7 @@ public class MainPanel extends JFrame{
     public static final int SCREEN_HEIGHT = 720;
 
     // MainPanel 배경 이미지
-    public static Image background = new ImageIcon(Main.class.getResource("images/bg_main.png")).getImage();
+    public static Image background = new ImageIcon("images/bg_main.png").getImage();
 
     public Container cPane;
     public JTextField studentID;  // 학번을 입력받는 텍스트 필드
@@ -124,7 +124,7 @@ public class MainPanel extends JFrame{
         setLayout(new BorderLayout());
         Toolkit kit = Toolkit.getDefaultToolkit();
 
-        Image img = kit.getImage(Main.class.getResource("images/Gradcap.png"));
+        Image img = kit.getImage("images/Gradcap.png");
         setIconImage(img);
 
 // =============================================================================================================

@@ -32,8 +32,8 @@ public class Quiz_5 extends JPanel implements Quiz{
     private int cnt = 0;
 
     // o/x 판단 팝업
-    public ImageIcon oImage = new ImageIcon("GradeHunter/images/o.png");
-    public ImageIcon xImage = new ImageIcon("GradeHunter/images/x.png");
+    public ImageIcon oImage = new ImageIcon("images/o.png");
+    public ImageIcon xImage = new ImageIcon("images/x.png");
     public JLabel oPopup = new JLabel(oImage);
     public JLabel xPopup = new JLabel(xImage);
 
@@ -100,7 +100,7 @@ public class Quiz_5 extends JPanel implements Quiz{
         imagePanel.setLayout(new BorderLayout());
         imageLabel = new JLabel();
         QuizItem firstQuiz = quizzes.get(0);
-        imageLabel.setIcon(new ImageIcon(Main.class.getResource(firstQuiz.getImagePath())));
+        imageLabel.setIcon(new ImageIcon(firstQuiz.getImagePath()));
         imageLabel.setHorizontalAlignment(JLabel.CENTER);
         add(imagePanel, BorderLayout.NORTH);
         imagePanel.add(imageLabel, BorderLayout.NORTH);
@@ -198,7 +198,7 @@ public class Quiz_5 extends JPanel implements Quiz{
      */
     @Override
     public void displayImage(String imagePath) {
-        ImageIcon imageIcon = new ImageIcon(Main.class.getResource(imagePath));
+        ImageIcon imageIcon = new ImageIcon(imagePath);
         Image image = imageIcon.getImage();
         imageLabel.setIcon(new ImageIcon(image));
     }
