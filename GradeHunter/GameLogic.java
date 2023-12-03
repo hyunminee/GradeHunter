@@ -16,7 +16,7 @@ public class GameLogic {
     public static int currentStage = 1; // 현재 게임의 스테이지 번호
     private final int MAX_STAGE; // 최대 스테이지 번호
     public static int gaugeValue = 0; // 현재 게이지 값
-    private static final int GAUGE_PER_STAGE = 50; // 스테이지 당 필요한 게이지 증가량
+    protected static final int GAUGE_PER_STAGE = 50; // 스테이지 당 필요한 게이지 증가량
     public static int maxGaugeValue = currentStage * GAUGE_PER_STAGE; // 최대 게이지 값 (스테이지에 따라 변함)
     private double itemFallSpeed = 1; // 아이템 하강 속도
     private final int PANEL_WIDTH; // 게임 패널의 너비

@@ -110,6 +110,9 @@ public class GameOver extends JPanel{
             }
             @Override
             public void mouseClicked(MouseEvent e) {
+                GameLogic.currentStage = 1;
+                GameLogic.gaugeValue = 0; // 게이지 값을 초기화합니다.
+                GameLogic.maxGaugeValue = GameLogic.currentStage * GameLogic.GAUGE_PER_STAGE;
                 GamePlayPanel gameplayPanel = new GamePlayPanel(mainPanel); // GamePlayPanel의 새 인스턴스를 생성
                 mainPanel.switchPanel(gameplayPanel);
             }
