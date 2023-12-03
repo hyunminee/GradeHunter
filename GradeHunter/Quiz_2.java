@@ -12,7 +12,8 @@ import java.util.List;
 
 /**
  * 퀴즈 분야 - 수학 을 담당하는 클래스
- * @author 서보경, 정서윤
+ * @author 서보경
+ * @author 정서윤
  */
 
 public class Quiz_2 extends JPanel implements Quiz{

@@ -12,7 +12,8 @@ import java.io.IOException;
 
 /**
  * 게임 플레이 화면을 관리하는 클래스
- * @author 박현민, 정서윤
+ * @author 박현민
+ * @author 정서윤
  * */
 public class GamePlayPanel extends JPanel implements ActionListener, KeyListener {
     private GameLogic gameLogic;
@@ -118,7 +119,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
         requestFocusInWindow();
     }
 
-    /***
+    /**
      * 게임의 초기 상태를 설정하는 메소드
      * <p>캐릭터 위치, 아이템 리스트 초기화, 게임 로직 설정, 게임 타이머 설정 등 게임 시작 전 필요사항을 준비한다.</p>
      */
@@ -174,7 +175,7 @@ public class GamePlayPanel extends JPanel implements ActionListener, KeyListener
 
         // 스테이지 팝업
         JLabel stagePopup = new JLabel(stageImage);
-        stagePopup.setBounds(290, 160, stageImage.getIconWidth(), stageImage.getIconHeight()); // x, y 위치와 너비, 높이 설정
+        stagePopup.setBounds(310, 160, stageImage.getIconWidth(), stageImage.getIconHeight()); // x, y 위치와 너비, 높이 설정
         add(stagePopup);
 
 

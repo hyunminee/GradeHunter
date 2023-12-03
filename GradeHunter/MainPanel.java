@@ -10,8 +10,15 @@ import javax.swing.text.PlainDocument;
 
 /**
  * 메인 화면을 담당하는 클래스
+ * <p>
+ *     0.1.0 -> 프로그램 완성
+ *     0.1.1 -> 게이지 바 초기화 오류 수정  by 현민
+ *     0.1.2 -> 클리어 시간 기록 오류 수정  by 보경
+ *     0.2.2 -> 퀴즈 전환 부분 동일하게 진행되게 로직 수정  by 보경
+ *     0.2.3 -> 어려운 난이도 생성 by 보경
+ * </p>
  * @author 서보경
- * @version 0.1.2
+ * @version 0.2.2
  */
 
 public class MainPanel extends JFrame{

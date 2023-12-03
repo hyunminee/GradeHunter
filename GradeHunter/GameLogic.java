@@ -6,7 +6,9 @@ import java.util.List;
 /**
  * 게임의 주요 로직을 관리하는 클래스
  * <p>아이템 생성 및 관리, 플레이어와 아이템의 상호작용, 게임 타이머 및 스테이지 관리 등을 담당한다.</p>
- * @author 박현민, 정서윤
+ * @author 박현민
+ * @author 정서윤
+ * @author 김봄
  */
 public class GameLogic {
     private List<Item> items; // 게임 아이템 리스트
@@ -281,21 +283,21 @@ public class GameLogic {
         switch (currentStage) {
             case 1:
             case 2:
-                itemFallSpeed=1;
+                itemFallSpeed=1.5;  // 1
                 break;
             case 3:
             case 4:
-                itemFallSpeed = 1.5;
+                itemFallSpeed = 1.8;  // 1.5
                 MAX_ITEMS = 13;
                 break;
             case 5:
             case 6:
-                itemFallSpeed = 1.8;
+                itemFallSpeed = 2;  // 1.8
                 MAX_ITEMS = 14;
                 break;
             case 7:
             case 8:
-                itemFallSpeed = 2;
+                itemFallSpeed = 3;  // 2
                 MAX_ITEMS = 14;
                 break;
 

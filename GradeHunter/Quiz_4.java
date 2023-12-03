@@ -12,7 +12,8 @@ import java.util.List;
 
 /**
  * 퀴즈 분야 - 지리 를 담당하는 클래스
- * @author 서보경, 정서윤
+ * @author 서보경
+ * @author 정서윤
  */
 
 public class Quiz_4 extends JPanel implements Quiz{

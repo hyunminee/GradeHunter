@@ -13,7 +13,8 @@ import javax.swing.Timer;
 
 /**
  * 퀴즈 분야 - 국어 를 담당하는 클래스
- * @author 서보경, 정서윤
+ * @author 서보경
+ * @author 정서윤
  */
 
 public class Quiz_1 extends JPanel implements Quiz{
