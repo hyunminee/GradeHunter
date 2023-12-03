@@ -18,7 +18,7 @@ import javax.swing.text.PlainDocument;
  *     0.2.3 -> 어려운 난이도 생성 by 보경
  * </p>
  * @author 서보경
- * @version 0.2.2
+ * @version 0.2.3
  */
 
 public class MainPanel extends JFrame{
