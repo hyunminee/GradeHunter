@@ -1,8 +1,7 @@
 package GradeHunter;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 /**
  * GradeHunter 게임의 게임 결과 데이터를 저장하는 클래스
@@ -24,7 +23,7 @@ public class DataSaver {
         String subjectName = convertSubjectToString(subject);
         String record = studentID + " " + totalTime + " " + subjectName;
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("data.txt", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("data.txt", true), StandardCharsets.UTF_8))) {
             writer.write(record);
             writer.newLine();
         } catch (IOException e) {
