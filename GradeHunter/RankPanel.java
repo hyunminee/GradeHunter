@@ -139,9 +139,7 @@ public class RankPanel extends JPanel {
     }
 
     /**
-     * RankPanel의 inner class: SortedDataFileReader
-     * <p>텍스트 파일을 읽고 데이터를 정렬한 후, 이를 다시 저장하는 클래스  </p>
-     * @author 김봄
+     * RankPanel의 inner class: SortedDataFileReader - 텍스트 파일을 읽고 데이터를 정렬한 후, 이를 다시 저장하는 클래스
      */
 
     private class SortedDataFileReader {
@@ -219,7 +217,6 @@ public class RankPanel extends JPanel {
 
         /**
          * 학번, 클리어 시간, 과목을 다루는 클래스
-         * @author 김봄
          */
 
         private class Record implements Comparable<Record> {
