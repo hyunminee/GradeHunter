@@ -154,7 +154,9 @@ public class GameLogic {
             if (type == ItemType.BLUE || type == ItemType.YELLOW) {
                 weight = 3; // 1~8 stage : BLUE 가중치
             } else if ((currentStage >= 5 && currentStage<= 8) && (type==ItemType.GREEN || type==ItemType.PRESENTATION || type==ItemType.RED)) {
-                weight = 3; // 5~8 stage : GREEN, PRESENTATION 가중치
+                weight = 3; // 5~8 stage : GREEN, RED, PRESENTATION 가중치
+                if((currentStage >= 7) && (type==ItemType.TARDY) )
+                    weight = 2;  // 7~8 stgae : TARDY 가중치
             }
 
             // 가중치에 따라 아이템 목록에 추가
