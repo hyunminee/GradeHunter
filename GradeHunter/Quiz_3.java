@@ -220,15 +220,16 @@ public class Quiz_3 extends JPanel implements Quiz{
             startTimer(); // 다음 퀴즈를 보여주기 전에 타이머 재시작
             currentQuizIndex++;
         } else {
+            String result = String.valueOf(cnt);
             if(cnt >= 3) {  // 정답개수 3개 이상이면, 논문 통과 출력 후, ending 변수 1에 따른 패널 전환, 랭킹 데이터 기록
-                JOptionPane.showMessageDialog(this, "논문 통과!");
+                JOptionPane.showMessageDialog(this, "논문 통과! \n 결과 : " + result + " / 5");
                 MainPanel.ending = 1;
                 DataSaver dataSaver = new DataSaver();// DataSaver클래스 생성
                 dataSaver.saveGameResult(MainPanel.savedText, MainPanel.subject, GameLogic.totalTime);// 학번, 총 클리어시간, 과목 명 저장
 
             }
             else {  // 미만이면 ending 변수 0으로 설정
-                JOptionPane.showMessageDialog(this, "논문 실패!");
+                JOptionPane.showMessageDialog(this, "논문 실패! \n 결과 : " + result + " / 5");
                 MainPanel.ending = 0;
             }
             SwingUtilities.invokeLater(() -> {
