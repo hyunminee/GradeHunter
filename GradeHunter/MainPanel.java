@@ -19,9 +19,10 @@ import javax.swing.text.PlainDocument;
  *     0.2.3 -> 난이도 설정 (스테이지 당 시간 단축, 타이머 아이템 시간 증가) by 보경
  *     0.2.4 -> 난이도 수정 (타이머 가중치 수정) by 보경
  *     0.3.0 -> 퀴즈 정답 개수 출력 기능 추가 by 보경
+ *     0.3.1 -> 기록 코드 삭제 발견 -> 수정 by 보경
  * </p>
  * @author 서보경
- * @version 0.3.0
+ * @version 0.3.1
  */
 
 public class MainPanel extends JFrame{
