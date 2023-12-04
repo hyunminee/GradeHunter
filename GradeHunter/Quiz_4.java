@@ -219,8 +219,8 @@ public class Quiz_4 extends JPanel implements Quiz{
             if(cnt >= 3) {  // 정답개수 3개 이상이면, 논문 통과 출력 후, ending 변수 1에 따른 패널 전환, 랭킹 데이터 기록
                 JOptionPane.showMessageDialog(this, "논문 통과!");
                 MainPanel.ending = 1;
-                DataSaver dataSaver = new DataSaver();
-                dataSaver.saveGameResult(MainPanel.savedText, MainPanel.subject, GameLogic.totalTime);
+                DataSaver dataSaver = new DataSaver();// DataSaver클래스 생성
+                dataSaver.saveGameResult(MainPanel.savedText, MainPanel.subject, GameLogic.totalTime);// 학번, 총 클리어시간, 과목 명 저장
 
             }
             else {  // 미만이면 ending 변수 0으로 설정

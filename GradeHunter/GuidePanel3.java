@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 /**
  * GradeHunter 게임의 세 번째 안내 패널 클래스
  * <p>이 클래스는 사용자에게 게임 시작 전 마지막 정보를 제공합니다.</p>
+ * @author 김봄
  */
 
 
@@ -22,17 +23,17 @@ public class GuidePanel3 extends JPanel {
      * @param mainPanel switchPanel()을 사용하기 위한 parameter
      */
     public GuidePanel3(MainPanel mainPanel) {
-        setLayout(null); // 널 레이아웃 사용
-        backgroundImage = new ImageIcon("images/bg_gp_3.png").getImage();
+        setLayout(null); // 레이아웃을 null로 설정하여 컴포넌트의 위치를 수동으로 조정합니다.
+        backgroundImage = new ImageIcon("images/bg_gp_3.png").getImage(); // 배경 이미지 설정
 
-        // 시작 버튼의 기본 아이콘
-        startIcon = new ImageIcon("images/bt_start.png");
-        // 마우스가 버튼 위에 있을 때의 아이콘
-        startIconEntered = new ImageIcon("images/bt_start_entered.png");
+        // 시작 버튼에 사용될 아이콘 초기화
+        startIcon = new ImageIcon("images/bt_start.png"); // 기본 아이콘
+        startIconEntered = new ImageIcon("images/bt_start_entered.png"); // 마우스 오버 시 아이콘
 
         JButton startButton = new JButton(startIcon);
         startButton.setBounds(860, 390, startIcon.getIconWidth(), startIcon.getIconHeight());
 
+        // 버튼 배경 및 테두리 설정 해제
         startButton.setContentAreaFilled(false);
         startButton.setBorderPainted(false);
 
@@ -55,16 +56,16 @@ public class GuidePanel3 extends JPanel {
 
         // 시작 버튼 이벤트 리스너
         startButton.addActionListener(e -> {
-            GamePlayPanel gameplayPanel = new GamePlayPanel(mainPanel); // GamePlayPanel의 새 인스턴스를 생성
+            GamePlayPanel gameplayPanel = new GamePlayPanel(mainPanel); // 게임 플레이 패널로 전환
             mainPanel.switchPanel(gameplayPanel);
         });
 
-        add(startButton);
+        add(startButton); // 버튼을 패널에 추가
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this); // 배경 이미지 그리기
     }
 }
