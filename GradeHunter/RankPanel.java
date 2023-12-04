@@ -88,10 +88,10 @@ public class RankPanel extends JPanel {
 
 // =============================================================================================================
 
+        // 랭킹 데이터 읽기 및 정렬
         SortedDataFileReader fileReader = new SortedDataFileReader();
         List<SortedDataFileReader.Record> records = fileReader.readFileAndSort("data.txt");
 
-        // 랭킹 데이터 표시
         // 랭킹 데이터 화면에 표시
         int yPosition = 203; // 첫 번째 랭킹 레이블의 시작 y 좌표
         int xPositionId = 168; // 학번 레이블의 시작 x 좌표
@@ -139,7 +139,9 @@ public class RankPanel extends JPanel {
     }
 
     /**
-     * RankPanel의 innerclass : SortedDataFileReader - 텍스트 파일을 읽어와서 데이터를 정렬해서, 정렬된 데이터를 다시 저장한다.
+     * RankPanel의 inner class: SortedDataFileReader
+     * <p>텍스트 파일을 읽고 데이터를 정렬한 후, 이를 다시 저장하는 클래스  </p>
+     * @author 김봄
      */
 
     private class SortedDataFileReader {
@@ -217,6 +219,7 @@ public class RankPanel extends JPanel {
 
         /**
          * 학번, 클리어 시간, 과목을 다루는 클래스
+         * @author 김봄
          */
 
         private class Record implements Comparable<Record> {
